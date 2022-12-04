@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ClothesWebNET.Models.Type>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .img-bg{
+        width:120px;
+        height:80px;
+    }
+    .table{
+        text-align:left;
+    }
+</style>
+
+<div id="content" class="">
+    <div class="content-main p-4">
+        <h1>Tất cả bài viết</h1>
+        <div class="table-responsive-sm">
+            <table id="table-product" class="table table-sm" style="width: 100%">
+                <thead>
+                    <tr>
+
+                        <th>Hình ảnh</th>   
+                        <th>Tiêu đề</th>
+                        <th>Chủ đề</th>
+                        <th>Chức năng</th>
+     
+
+                    </tr>
+                </thead>
+                <tbody id="renderData">
+                 
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+@Scripts.Render("~/bundles/admin/jquery")
+<script>
+    $('.d-post').addClass('active');
+
+    const renderData = document.querySelector("#renderData")
+
+    fetch('https://62fa6eb8ffd7197707ec7dd8.mockapi.io/api/e-app/posts')
+        .then(res => res.json())
+        .then(data => {
+
+            let html =` `
+
+            data.forEach(item => {
+                html += `
+                        <tr>
+                        <td><img class="img-bg" src="${item.urlImg}" alt="Hình ảnh" /></td>
+                        <td>${item.postName}</td>
+                        <td>${item.postType}</td>
+                        <td>
+                            <div class="flex-button">
+                                <a href="/admin/post/edit/?id=${item.id}">Sửa|</a>
+                                <a href="/admin/post/add">Thêm|</a>
+                                <a href="/admin/post/delete/?id=${item.id}">Xóa</a>
+                            </div>
+
+                        </td>
+                         </tr>`
+            }) 
+
+          
+            renderData.innerHTML = html;
+
+
+        })
+</script>

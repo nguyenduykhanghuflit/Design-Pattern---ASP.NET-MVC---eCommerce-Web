@@ -1,0 +1,199 @@
+﻿﻿@model ClothesWebNET.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content" class="">
+
+    <div class="content-main p-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Sản phẩm</li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Thêm sản phẩm
+                </li>
+            </ol>
+        </nav>
+
+        <div class="cus-form-add">
+            <form method="post" action="/Admin/Products/create" enctype="multipart/form-data" class="row g-3">
+                @Html.AntiForgeryToken()
+                <!-- ID -->
+                @*<div class="col-md-12">
+            <label for="validationDefault01" class="form-label">ID</label>
+            <input type="text"
+                   name="idProduct"
+                   class="form-control"
+                   id="validationDefault01"
+                   required />
+        </div>*@
+                <!-- nameProduct -->
+                <div class="col-md-12">
+                    <label for="validationDefault01" class="form-label">Tên sản phẩm</label>
+                    <input type="text"
+                           name="nameProduct"
+                           class="form-control"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <!-- type -->
+                <div class="col-md-12">
+                    <label for="validationDefault04" class="form-label">Danh mục</label>
+                    <select class="form-select" id="renderSelect" name="idType" required>
+                    </select>
+                </div>
+                <div class="col-md-4 ">
+                    <label for="validationDefault01" class="form-label">Size38</label>
+                    <input type="number"
+                           name="size38"
+                           min="1"
+                           class="form-control pm"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <div class="col-md-4 ">
+                    <label for="validationDefault01" class="form-label">Size39</label>
+                    <input type="number"
+                           name="size39"
+                           min="1"
+                           class="form-control pm"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <div class="col-md-4 ">
+                    <label for="validationDefault01" class="form-label">Size40</label>
+                    <input type="number"
+                           name="size40"
+                           min="1"
+                           class="form-control pm"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <div class="col-md-4 ">
+                    <label for="validationDefault01" class="form-label">Size41</label>
+                    <input type="number"
+                           name="size41"
+                           min="1"
+                           class="form-control pm"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <div class="col-md-4 ">
+                    <label for="validationDefault01" class="form-label">Size42</label>
+                    <input type="number"
+                           name="size42"
+                           min="1"
+                           class="form-control pm"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <!-- sizeM -->
+                <div class="col-md-4 d-none">
+                    <label for="validationDefault01" class="form-label">SizeM</label>
+                    <input type="number"
+                           name="sizeM"
+                           min="1"
+                           value="10"
+                           class="form-control pm"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <!-- sizeL -->
+                <div class="col-md-4 d-none">
+                    <label for="validationDefault01" class="form-label">SizeL</label>
+                    <input type="number"
+                           name="sizeL"
+                           value="10"
+                           min="1"
+                           class="form-control pl"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <!-- sizeXl -->
+                <div class="col-md-4 d-none">
+                    <label for="validationDefault01" class="form-label">SizeXL</label>
+                    <input type="number"
+                           name="sizeXL"
+                           value="10"
+                           min="1"
+                           class="form-control pxl"
+                           id="validationDefault01"/>
+
+                </div>
+                <!-- price -->
+                <div class="col-md-12">
+                    <label for="validationDefault01" class="form-label">Giá bán</label>
+                    <input type="number"
+                           name="price"
+                           min="1"
+                           max="900"
+                           class="form-control"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <!-- hình ảnh 1 -->
+                <div class="col-md-6">
+                    <label for="validationDefault01" class="form-label">Hình ảnh 1</label>
+                    <input type="file"
+                           name="img1"
+                           class="form-control URLimg1"
+                           accept="image/png, image/gif, image/jpeg"
+                           id="validationDefault01"
+                           required />
+                </div>
+                <div class="col-md-6">
+                    <label for="validationDefault01" class="form-label">Hình ảnh 2</label>
+                    <input type="file"
+                           name="img2"
+                           class="form-control URLimg2"
+                           id="validationDefault01"
+                           accept="image/png, image/gif, image/jpeg"
+                           required />
+                </div>
+                <!-- description -->
+                <div class="col-md-12">
+                    <label for="validationDefault01" class="form-label">Mô tả</label>
+                    <textarea type="text"
+                              name="description"
+                              class="form-control"
+                              id="validationDefault01"
+                              required></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button class="btn btn-primary" type="submit">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/admin/jquery")
+
+<script>
+    $('.sp ul').addClass('show');
+    $('.addsp').addClass('active');
+</script>
+<script>
+
+    fetch('/collections/GetCategory')
+        .then((response) => response.json())
+        .then((data) => {
+
+            let category = $('#renderSelect');
+            let cate = `<option selected disabled value="">Chọn</option>`
+                         
+            data.forEach(item => {
+                cate += ` <option value="${item.idType}">${item.nameType}</option>`
+                             
+
+            })
+
+            category.html(cate);
+
+        });
+
+</script>

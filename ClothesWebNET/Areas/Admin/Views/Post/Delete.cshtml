@@ -1,0 +1,119 @@
+﻿@model IEnumerable<ClothesWebNET.Models.Type>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+</style>
+
+<div id="content" class="">
+    <div class="content-main p-4">
+        <h1>Chỉnh sửa bài viết</h1>
+        <form method="post" class="row g-3">
+
+            <!-- Tên bài viết -->
+            <div class="col-md-6">
+                <label for="validationDefault01" class="form-label">Tên bài viết</label>
+                <input type="text"
+                       name="postName"
+                       readonly
+                       class="form-control postName"
+                       id="validationDefault01"
+                       required />
+            </div>
+            <!-- loại -->
+            <div class="col-md-6">
+                <label for="validationDefault01" class="form-label">Loại bài viết</label>
+                <input type="text"
+                       readonly
+                       name="postType"
+                       class="form-control postType"
+                       id="validationDefault01"
+                       required />
+            </div>
+            @*nội dụng*@
+            <div class="col-md-12">
+                <label for="validationDefault01" class="form-label">Nội dung</label>
+                <textarea rows="5" cols="10" name="content" readonly class="form-control content"
+                          id="validationDefault01"
+                          required> </textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="validationDefault01" class="form-label">Link hình ảnh</label>
+                <input type="text"
+                       readonly
+                       name="urlImg"
+                       accept="image/png, image/gif, image/jpeg"
+                       class="form-control urlImg"
+                       enctype="multipart/form-data"
+                       id="validationDefault01"
+                       required />
+
+
+            </div>
+
+            <!-- Trạng thái -->
+            <div class="col-md-6">
+                <label for="validationDefault01" class="form-label">Trạng thái</label>
+                <select class="form-select status" readonly name="status" id="validationDefault04" required>
+
+                    <option value=true>Xuất bản</option>
+                    <option value=false>Chưa xuất bản</option>
+                </select>
+            </div>
+
+
+            <div class="col-12">
+                <button class="btn btn-primary editData" type="button">Xóa</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+@Scripts.Render("~/bundles/admin/jquery")
+<script>
+    $('.d-post').addClass('active');
+    function getParam() {
+        let params = (new URL(document.location)).searchParams;
+        let id = params.get("id");
+        return id;
+    }
+
+    if (getParam()) {
+        const id = getParam();
+        fetch(`https://62fa6eb8ffd7197707ec7dd8.mockapi.io/api/e-app/posts/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+
+                console.log(data);
+                $(".status").val(data.status);
+                $(".postName").val(data.postName);
+                $(".postType").val(data.postType);
+                $(".content").val(data.content);
+@**@                $(".urlImg").val(data.urlImg);
+
+
+                $('.editData').click(e => {
+                
+                    fetch(`https://62fa6eb8ffd7197707ec7dd8.mockapi.io/api/e-app/posts/${id}`, {
+                        method: 'DELETE', // or 'PUT'
+                       
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            window.location.href = '/Admin/post'
+                        })
+                        .catch((error) => {
+                            alert("Một lỗi bất ngờ đã xảy ra, vui lòng thử lại sau")
+                        });
+                })
+            })
+            .catch(err => console.log(err))
+
+    }
+    else {
+        window.location.href ='/Admin/post'
+    }
+
+</script>

@@ -1,0 +1,280 @@
+﻿@model IEnumerable<ClothesWebNET.Models.Product>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@Styles.Render("~/Content/main")
+@Styles.Render("~/Content/product")
+<style>
+    .slider {
+        position: relative;
+        overflow: hidden;
+    }
+
+    #slider ul {
+        position: relative;
+        margin: 0;
+        padding: 0;
+   
+        list-style: none;
+    }
+
+        #slider ul li {
+            position: relative;
+        
+            float: left;
+            margin: 0;
+            padding: 0;
+       
+            background: #ccc;
+            text-align: center;
+       
+        }
+
+    a.control_prev, a.control_next {
+        position: absolute;
+        top: 35%;
+        z-index: 999;
+        display: block;
+        padding: 4% 3%;
+        width: auto;
+        height: auto;
+        font-size:90px;
+        color: #808080;
+        text-decoration: none;
+        font-weight: 600;
+    
+        cursor: pointer;
+    }
+
+        a.control_prev:hover, a.control_next:hover {
+            opacity: 1;
+            color: #161414;
+            -webkit-transition: all 0.2s ease;
+        }
+
+    a.control_prev {
+        border-radius: 0 2px 2px 0;
+    }
+
+    a.control_next {
+        right: 0;
+        border-radius: 2px 0 0 2px;
+    }
+
+    .slider_option {
+        position: relative;
+        margin: 10px auto;
+        width: 160px;
+        font-size: 18px;
+    }
+</style>
+<!-- ----------Slider---------- -->
+<div class="slider" id="slider">
+    @*   <a href="/" class="">
+            <img src="https://bizweb.dktcdn.net/100/140/774/themes/827866/assets/slider_3.jpg?1667638348041"
+                 alt="" />
+        </a>*@
+
+    <a href="#" class="control_next">></a>
+    <a href="#" class="control_prev"><</a>
+    <ul>
+        <li>
+            <img src="https://bizweb.dktcdn.net/100/140/774/themes/827866/assets/slider_3.jpg?1667638348041"
+                 alt="" />
+        </li>
+        <li>
+            <img src="https://bizweb.dktcdn.net/100/041/044/themes/645059/assets/slider_3.png?1658224893716"
+                 alt="" />
+        </li>
+        <li>
+            <img src="https://bizweb.dktcdn.net/100/405/024/collections/slider-2.jpg?v=1602998957487"
+                 alt="" />
+        </li>
+        <li>
+            <img src="https://bizweb.dktcdn.net/100/041/044/themes/645059/assets/slider_3.png?1658224893716"
+                 alt="" />
+        </li>
+    </ul>
+</div>
+<!-- ----------Slider---------- -->
+<!-- ----------Banner---------- -->
+<div class="banner">
+    <div class="banner-item">
+        <img src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_706,c_limit/3dcd862e-9bb4-466a-af53-897001cf82dd/jordan.jpg"
+             alt="" />
+    </div>
+    <div class="banner-item">
+        <img src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_706,c_limit/b208f842-84d5-4e41-ab9c-626149b388b4/jordan.jpg"
+             alt="" />
+    </div>
+    <div class="banner-item ">
+        <img src="https://www.glab.vn/storage/uploads/advert/5e942fa301e70.png"
+             alt="" />
+    </div>
+</div>
+
+<!-- ----------Banner---------- -->
+
+@{
+    int ctop = 0;
+    int cbot = 0;
+}
+<!-- Product -->
+<div class="products">
+    <div class="product-headingg">SẢN PHẨM MỚI - NEW PRODUCTS</div>
+    <div class="grid">
+        <div class="grid__row">
+
+
+
+            @foreach (var item in Model)
+            {
+                cbot++;
+                if (cbot > 7)
+                {
+                    <div class="grid__col-3">
+                        <div class="product">
+                            <h1 style="display:none" id="idProduct">@item.idProduct</h1>
+                            <img src="@item.ImageProduct.FirstOrDefault().URLImage"
+                                 alt=""
+                                 class="product-img product-show" />
+                            <img src="@item.ImageProduct.LastOrDefault().URLImage"
+                                 alt=""
+                                 class="product-img product-img-hover" />
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">
+                                @item.nameProduct
+                            </div>
+                            <div class="product-price">@item.price,000₫</div>
+                        </div>
+                    </div>
+                }
+
+
+                if (cbot == 15)
+                { break; }
+
+            }
+
+        </div>
+
+    </div>
+</div>
+<!-- Product -->
+<!-- ----------Banner---------- -->
+<div style="margin-top:30px" class="banner">
+    <div class="banner-item">
+        <img src="https://file.hstatic.net/200000536779/file/12311312_40f488ab295f4d498f7b9ac88e4e190f.jpg"
+             alt="" />
+    </div>
+    <div class="banner-item">
+        <img src="https://file.hstatic.net/200000536779/file/img_49991_f32c81a733c140ef8d14cd2106de3508.jpg"
+             alt="" />
+    </div>
+    <div class="banner-item ">
+        <img src="https://file.hstatic.net/200000536779/file/img_53471_171bf5f9ae444d7fbc5194bf99053561.jpg"
+             alt="" />
+    </div>
+</div>
+<!-- ----------Banner---------- -->
+<!-- Product -->
+
+
+<div class="products">
+    <div style="text-transform:uppercase" class="product-headingg">sản phẩm tiêu biểu - typical products 2022</div>
+    <div class="grid">
+        <div class="grid__row">
+
+
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    ctop++;
+                    <div class="grid__col-3">
+                        <div class="product">
+                            <h1 style="display:none" id="idProduct">@item.idProduct</h1>
+                            <img src="@item.ImageProduct.FirstOrDefault().URLImage"
+                                 alt=""
+                                 class="product-img product-show" />
+                            <img src="@item.ImageProduct.LastOrDefault().URLImage"
+                                 alt=""
+                                 class="product-img product-img-hover" />
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">
+                                @item.nameProduct
+                            </div>
+                            <div class="product-price">@item.price,000₫</div>
+                        </div>
+                    </div>
+
+                    if (ctop == 8)
+                    {
+                        break;
+                    }
+                }
+            }
+
+
+        </div>
+
+    </div>
+</div>
+<!-- Product -->
+@Scripts.Render("~/bundles/product")
+@Scripts.Render("~/bundles/admin/jquery")
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+
+   
+            setInterval(function () {
+                moveRight();
+            }, 3000);
+        
+
+        var slideCount = $('#slider ul li').length;
+        var slideWidth = $('#slider ul li').width();
+        var slideHeight = $('#slider ul li').height();
+        var sliderUlWidth = slideCount * slideWidth;
+
+        $('#slider').css({ width: slideWidth, height: slideHeight });
+
+        $('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+
+        $('#slider ul li:last-child').prependTo('#slider ul');
+
+        function moveLeft() {
+            $('#slider ul').animate({
+                left: + slideWidth
+            }, 200, function () {
+                $('#slider ul li:last-child').prependTo('#slider ul');
+                $('#slider ul').css('left', '');
+            });
+        };
+
+        function moveRight() {
+            $('#slider ul').animate({
+                left: - slideWidth
+            }, 200, function () {
+                $('#slider ul li:first-child').appendTo('#slider ul');
+                $('#slider ul').css('left', '');
+            });
+        };
+
+        $('a.control_prev').click(function () {
+            moveLeft();
+        });
+
+        $('a.control_next').click(function () {
+            moveRight();
+        });
+
+    });
+
+</script>
+
+

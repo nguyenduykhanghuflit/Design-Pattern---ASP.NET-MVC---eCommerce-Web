@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/main")
+@Styles.Render("~/Content/product")
+
+<style>
+
+    .post{
+        display:flex;
+        padding:20px 50px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .main-post{
+        flex:8;
+    }
+    .list-post{
+        flex:2;
+    }
+    .img-bg{
+        margin:10px 0;
+        width:90%;
+        height:auto;
+    }
+    .post-text {
+        width:90%;
+        font-size: 25px;
+        height: auto;
+    }
+    item-title .text-b{
+        font-size:14px;
+    }
+    .text-b {
+        font-weight: bolder;
+    }
+    .post-content {
+        width: 90%;
+        height:auto;
+        font-size:20px;
+    }
+    .createAt{
+        margin:10px 0;
+        font-size:14px;
+    }
+    .lht{
+        line-height:1.2;
+    }
+    .post-text-item {
+        width: 90%;
+        font-size: 18px;
+        height: auto;
+    }
+    .post-content-item {
+        height:180px;
+        width: 180px;
+        text-overflow: ellipsis;
+        font-size:14px;
+    }
+    .post-item{
+        cursor:pointer;
+        padding:10px;
+    }
+    .footer{
+        display:none;
+    }
+ 
+
+</style>
+
+
+<div class="container">
+    <div class="breadcrumb">
+        <div class="grid">
+            <a href="/posts">Bài viết / </a>
+            <a class="br-main" href="/posts">Tất cả bài viết </a>
+        </div>
+    </div>
+
+    <div class="post">
+        <div class="main-post">
+        </div>
+        <div class="list-post">
+            <ul id="renderPost" class="post-list">           
+            </ul>
+        </div>
+
+
+
+    </div>
+</div>
+<script>
+
+    function renderMainPost(data) {
+        let mainPost = document.querySelector('.main-post');
+        const mainHtml = `
+         <div data="${data.id}" id="dataMain" class="post-text">
+                <span class="text-b"> ${data.postType}: </span> <span class="text-n">${data.postName}</span>
+              
+            </div>
+
+            <img class="img-bg" src=" ${data.urlImg}" alt="bg" />
+            <div class="post-content">
+                <p class="lht">
+                    ${data.content}
+                   </p>
+            </div>`
+
+        mainPost.innerHTML = mainHtml;
+    }
+
+    function renderListPost(data,id) {
+        let renderPost = document.getElementById("renderPost");
+        let listDt = data.filter(item => {
+            return (item.id != id&& item.status)
+        })
+
+        let listHtml = ``;
+        listDt.forEach(item => {
+            listHtml += `
+                   <li data="${item.id}" class="post-item">
+                    <div class="item">
+                        <div class="post-text-item">
+                            <span class="text-b">${item.postType}:</span> <span class="text-n">${item.postName}</span>
+                          
+                        </div>
+                   <img class="img-bg" src="${item.urlImg}"/>
+                    </div>
+
+                </li>
+`
+        })
+        renderPost.innerHTML = listHtml;
+    }
+
+    function getParam() {
+        let params = (new URL(document.location)).searchParams;
+        let id = params.get("id");
+        return id;
+    }
+
+   
+
+    if (getParam()) {
+
+        const id = getParam();
+
+       
+
+        fetch(`https://62fa6eb8ffd7197707ec7dd8.mockapi.io/api/e-app/posts/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+              
+                renderMainPost(data);
+            })
+            .catch(err => console.log(err))
+
+
+        fetch('https://62fa6eb8ffd7197707ec7dd8.mockapi.io/api/e-app/posts')
+            .then((response) => response.json())
+            .then((data) => {
+                renderListPost(data, id);
+                const dataItem = document.querySelectorAll('.post-item');
+
+                if (dataItem) {
+                    dataItem.forEach(item => {
+                        const id = item.getAttribute("data")
+                        item.addEventListener('click', e => {
+                            window.location.href = `?id=${id}`
+
+                        })
+
+                    })
+                }
+
+            })
+
+
+      
+
+    }
+    else {
+        fetch('https://62fa6eb8ffd7197707ec7dd8.mockapi.io/api/e-app/posts')
+            .then((response) => response.json())
+            .then((data) => {
+
+                console.log(data)
+
+                for (let i = data.length - 1; i > 0; i--) {
+                    if (data[i].status) {
+                        renderMainPost(data[i])
+                        break;
+                    }
+                }
+
+              
+
+
+
+                let idMain = document.querySelector('#dataMain');
+                if (idMain) {
+                    idMain = idMain.getAttribute("data");
+                }
+
+                renderListPost(data, idMain);
+
+                const dataItem = document.querySelectorAll('.post-item');
+            
+                if (dataItem) {
+                    dataItem.forEach(item => {
+                        const id = item.getAttribute("data")
+                        item.addEventListener('click', e => {
+                            window.location.href = `?id=${id}`
+
+                        })
+
+                    })
+                }
+            })
+    }
+
+  
+
+
+
+</script>

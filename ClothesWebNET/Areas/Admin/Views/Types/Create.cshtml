@@ -1,0 +1,51 @@
+﻿@model ClothesWebNET.Models.Types
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content" class="">
+    <div class="content-main p-4">
+        <h2>Tạo danh mục</h2>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+            
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-10 d-none">
+                    <input type="text" value="idnone" name="idType" />
+                </div>
+            </div>
+
+                <div class="form-group">
+                   <label class="control-label col-md-2">Tên danh mục</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.nameType, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nameType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 mt-2 col-md-10">
+                        <input type="submit" value="Tạo danh mục" class="btn btn-primary" />
+                    </div>
+                    <div class="p-2 pl-3">
+                        @Html.ActionLink("Quay về", "Index")
+                    </div>
+                </div>
+            </div>
+        }
+
+      
+    </div>
+</div>
+@Scripts.Render("~/bundles/admin/jquery")
+<script>
+    $('.d-types').addClass('active');
+</script>
