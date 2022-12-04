@@ -58,45 +58,36 @@
         font-weight:bolder;
     }
 </style>
-
-
 <div class="container">
     <div class="my-bill">
         <h1 class="bill-title">DANH SÁCH ĐƠN HÀNG</h1>
 
-
         <div class="list-bill">
 
-
-
-      
-
-        @foreach (var item in Model)
-        {
-            <div class="bill-item">
-                @foreach (var i in item.DetailBIll)
-                {
-                    <div class="item">
-                        <div class="img-product">
-                            <img src="@i.Products.ImageProduct.FirstOrDefault().URLImage" alt="" />
+            @foreach (var item in Model)
+            {
+                <div class="bill-item">
+                    @foreach (var i in item.DetailBIll)
+                    {
+                        <div class="item">
+                            <div class="img-product">
+                                <img src="@i.Products.ImageProduct.FirstOrDefault().URLImage" alt="" />
+                            </div>
+                            <div class="info">
+                                <div class="info-name"><span>Tên sản phẩm:  </span>@i.Products.nameProduct</div>
+                                <div class="info-price"><span>Giá: </span>@i.Products.price,000đ</div>
+                                <div class="info-qty"><span>Số lượng: </span> @i.qty</div>
+                                <div class="info-total"><span>Tổng: </span> @i.qty,000đ</div>
+                            </div>
                         </div>
-                        <div class="info">
-                            <div class="info-name"><span>Tên sản phẩm:  </span>@i.Products.nameProduct</div>
-                            <div class="info-price"><span>Giá: </span>@i.Products.price,000đ</div>
-                            <div class="info-qty"><span>Số lượng: </span> @i.qty</div>
-                            <div class="info-total"><span>Tổng: </span> @i.qty,000đ</div>
-                        </div>
-                    </div>
 
-                }
-                <div class="total-money"><span>Tổng cộng:</span> @item.totalMoney.,000đ</div>
-            </div>
-        }
-   </div>
-   
-       
-
- </div>
+                    }
+                    <div class="total-money"><span>Tổng cộng:</span> @item.totalMoney.,000đ</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
   
 
 

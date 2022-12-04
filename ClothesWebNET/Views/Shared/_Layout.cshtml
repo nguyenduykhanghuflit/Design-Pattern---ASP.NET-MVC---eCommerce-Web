@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-   
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon"
@@ -35,46 +35,59 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
         .main-cus {
             flex: 1;
         }
+
         .header-box.search-box {
             margin: 20px auto;
         }
 
         .footer {
-        
             bottom: 0;
             width: 100%;
         }
-        .item-icon-cart{
-            
+
+        .item-icon-cart {
         }
-        .cart-count{
-            position:absolute;
-            width:20px;
-            height:20px;
-            border-radius:50%;
-            background-color:#ff6a00;
-            color:white;
-            text-align:center;
-            display:flex;
-            align-items:center;
-            justify-content:center; 
-            line-height:initial;
-            top:29%;
-            font-weight:bolder;
-            left:50%;
-            
+
+        .cart-count {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ff6a00;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: initial;
+            top: 29%;
+            font-weight: bolder;
+            left: 50%;
         }
+
         #renderCategory {
             overflow-y: scroll;
-            height:300px !important;
+            min-height: 300px !important;
+            max-height: 500px !important;
         }
+
             #renderCategory::-webkit-scrollbar {
-                width: 12px;
-                background-color: #F5F5F5;
+                width: 3px;
             }
+
+            #renderCategory::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                border: 1px solid #a8aeb3;
+                background-color: #a8aeb3;
+            }
+
+                #renderCategory::-webkit-scrollbar-thumb:hover {
+                    background: rgb(187, 177, 177);
+                }
     </style>
 
 </head>
@@ -106,7 +119,7 @@
 
                             <!-- search nav start -->
                             <li class="header-top-action-item item-icon-search">
-                                
+
                                 <span href="" class="header-top-link">
                                     <i class="bx bx-search"></i>
                                 </span>
@@ -133,8 +146,6 @@
 
                             </li>
                             <!-- search nav end-->
-
-
                             <!-- giỏ hàng start -->
                             <li class="header-top-action-item item-icon-cart">
                                 <span href="" class="header-top-link">
@@ -148,7 +159,7 @@
                                         </svg>
                                     </span>
                                     <div class="box-heading">giỏ hàng</div>
-        
+
                                     <div class="box-item-cart">
 
 
@@ -171,8 +182,6 @@
                                 </div>
                             </li>
                             <!-- giỏ hàng end -->
-
-
                             <!-- Login Start -->
                             <li class="header-top-action-item item-icon-user">
 
@@ -193,8 +202,6 @@
                                         <div class="heading-login-with"></div>
                                         <div class="info-box">
                                             <p class="info-name"></p>
-
-
                                             <p class="info-logout info-detail"><a href="/home/MyInfo"> Thông tin tài khoản</a></p>
                                             <p class=" info-logout info-detail"><a href="/home/MyBill"> Đơn hàng của tôi</a></p>
                                             @if (Session["SESSION_GROUP_ADMIN"] != null)
@@ -202,29 +209,20 @@
                                                 <p class="info-logout info-detail"><a href="/Admin/Dashboard/Index"> Quản lý cửa hàng</a></p>
                                             }
                                             <p class="info-logout"><a href="/login/SignOut"> Đăng xuất</a></p>
-
                                         </div>
 
-                                                                </div>
-                                            }
-                                            else
-                                            {
-                                            <span class="header-top-link">
-                                                <a style="color: #050505" href="/login"><i class='bx bx-user'></i></a>
-                                            </span>
-                                            }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="header-top-link">
+                                        <a style="color: #050505" href="/login"><i class='bx bx-user'></i></a>
+                                    </span>
+                                }
 
-
-
-
-
-
-
-
-
-</li>
+                            </li>
                             <!-- Login End -->
-                       
+
 
                         </ul>
 
@@ -253,13 +251,13 @@
 
                         </ul>
                     </li>
-                @*    <li class="nav-list-item">
-                        <a href="/posts" class="nav-list-link">Bài viết</a>
-                    </li>*@
+                    @*    <li class="nav-list-item">
+                            <a href="/posts" class="nav-list-link">Bài viết</a>
+                        </li>*@
                     <li class="nav-list-item">
                         <a href="/Home/Address" class="nav-list-link">Địa chỉ cửa hàng</a>
                         <i class="nav-icon-dropdown bx bx-chevron-down"></i>
-                            
+
                         <!-- Submenu -->
 
                         <ul class="nav-subnav">
@@ -273,7 +271,7 @@
                     <li class="nav-list-item">
                         <a href="https://www.facebook.com/ndk25/" target="_blank" class="nav-list-link">Facebook</a>
                     </li>
-                   
+
 
 
                 </ul>
@@ -287,8 +285,6 @@
             @RenderBody()
         </div>
         <!-- Main -->
-
-
         <!--Footer -->
         <footer class="footer">
             <div class="footer-top">
@@ -303,14 +299,14 @@
 
 
 
-@*
-                    <div class="footer-form-news">
-                        <input type="text" placeholder="Nhập email của bạn" class="send-mail">
-                        <button type="submit" class="btn-sendmail">Đăng ký</button>
-                    </div>
-                    <div class="footer-contact">
-                        <i class='footer-top-icon bx bxs-phone'></i>  Hỗ trợ / Mua hàng 0924989342
-                    </div>*@
+                    @*
+                        <div class="footer-form-news">
+                            <input type="text" placeholder="Nhập email của bạn" class="send-mail">
+                            <button type="submit" class="btn-sendmail">Đăng ký</button>
+                        </div>
+                        <div class="footer-contact">
+                            <i class='footer-top-icon bx bxs-phone'></i>  Hỗ trợ / Mua hàng 0924989342
+                        </div>*@
                 </div>
             </div>
             <div class="footer-mid"></div>
@@ -364,32 +360,32 @@
     </div>
 
     @Scripts.Render("~/bundles/admin/jquery")
-  
+
 
 
     @Scripts.RenderFormat("<script src='{0}' type='module'></script>", "~/bundles/index")
     @RenderSection("scripts", required: false)
 
-<script>
+    <script>
 
         fetch('/collections/GetCategory')
             .then((response) => response.json())
             .then((data) => {
-            
+
                 let category = $('#renderCategory');
-                let cate =`<li class="subnav-item">
-                                <a href="/collections" class="nav-list-link nav-list-sublink">
-                                    TẤT CẢ SẢN PHẨM︱ALL
-                                </a>
-                            </li>
-                         `
+                let cate = `<li class="subnav-item">
+                                    <a href="/collections" class="nav-list-link nav-list-sublink">
+                                        TẤT CẢ SẢN PHẨM︱ALL
+                                    </a>
+                                </li>
+                             `
                 data.forEach(item => {
                     cate += `
-                            <li class="subnav-item">
-                                    <a href="/collections/?id=${item.idType}" class="nav-list-link nav-list-sublink">
-                                       ${item.nameType}
-                                    </a>
-                                </li> `
+                                <li class="subnav-item">
+                                        <a href="/collections/?id=${item.idType}" class="nav-list-link nav-list-sublink">
+                                           ${item.nameType}
+                                        </a>
+                                    </li> `
 
                 })
 
@@ -397,6 +393,6 @@
 
             });
 
-</script>
+    </script>
 </body>
 </html>

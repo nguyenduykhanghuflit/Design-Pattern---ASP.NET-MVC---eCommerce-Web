@@ -29,6 +29,8 @@
         }
     </style>
     <div class="container">
+
+        <!-- breadcrumb start-->
         @{
             foreach (var item in Model)
             {
@@ -42,8 +44,11 @@
                 break;
             }
         }
+        <!-- breadcrumb end-->
 
-        <!-- detail -->
+
+
+        <!-- detail start-->
         <div class="detail">
 
             @{
@@ -51,32 +56,22 @@
                 {
                     <div class="grid">
                         <div class="row">
-                            <div class="col">
-
+                            <div class="grid__col-8">
                                 <div class="slider-detail">
-                                                <div class="product-detail">
-                                                    <img src="@item.ImageProduct.FirstOrDefault().URLImage"
-                                                         alt=""
-                                                         onclick="clickme(this)" />
-                                                    <img src="@item.ImageProduct.LastOrDefault().URLImage"
-                                                         alt=""
-                                                         onclick="clickme(this)" />
-                                                    <!-- cái hình này khó chịu quá -->
-                                                    <!--<img class="img-detail"
-         src="https://product.hstatic.net/200000321771/product/269829084_354055683202680_6749155750206382252_n_9c2f4d6b48824a00ae29f456d9f05570_compact.jpg"
-         alt=""
-         onclick="clickme(this)" />
-    <img class="img-detail"
-         src="https://product.hstatic.net/200000321771/product/271493062_398113702111615_5709360159503487208_n_c086fdbf71204097bda383dd63239d95_compact.jpg"
-         alt=""
-         onclick="clickme(this)" />-->
-                                                </div>
+                                    <div class="product-detail">
+                                        <img src="@item.ImageProduct.FirstOrDefault().URLImage"
+                                             alt=""
+                                             onclick="clickme(this)" />
+                                        <img src="@item.ImageProduct.LastOrDefault().URLImage"
+                                             alt=""
+                                             onclick="clickme(this)" />
+                                    </div>
                                     <div class="preview">
                                         <img src="@item.ImageProduct.FirstOrDefault().URLImage" id="imagebox" alt="" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col col-cus">
+                            <div style=" height: 80vh" class=" grid__col-4">
                                 <div class="content">
                                     <div style="font-size:1.8rem" class="detail-title">@item.nameProduct</div>
                                     <div style="display:none; font-size:1.8rem" class="idFood">@item.idProduct</div>
@@ -157,6 +152,8 @@
 
         </div>
         <!-- detail end -->
+
+
         <!-- mô tả sản phẩm -->
         <div class="product-description">
             <h2 class="des-heading">MÔ TẢ SẢN PHẨM</h2>
@@ -164,11 +161,11 @@
                 <h4 class="des-title">◤mô tả</h4>
                 <ul class="list-des">
                     <li class="list-des-item">
-                        - Sản phẩm giày sneaker phù hợp cho cả nam và nữ từ (18-20) tuổi,là sản phẩm không thể thiếu 
+                        - Sản phẩm giày sneaker phù hợp cho cả nam và nữ từ (18-20) tuổi,là sản phẩm không thể thiếu
                         trong tủ đồ của chúng ta manhg lại cho người mang sự trẻ trung năng động, cá tính riêng.
                     </li>
                     <li class="list-des-item">
-                        - Đế giày được làm từ cao su mang lại cảm giác êm ái khi đeo lên chân và được độn cao 3-3.5cm 
+                        - Đế giày được làm từ cao su mang lại cảm giác êm ái khi đeo lên chân và được độn cao 3-3.5cm
                         Form cứng cáp, vải dày dặn đế êm chân,mang lại cảm giác thoải mái nhất cho người mang.
                     </li>
                     <li class="list-des-item">
@@ -179,7 +176,7 @@
                         Chất liệu: RUBBER 100% SYNTHETIC 46% & LEATHER 27% & LEATHER 27% bền bỉ, thoáng khí và đế cao su mềm chống trơn trượt.
                     </li>
                     <li class="list-des-item">
-                        - Đường may tỉ mỉ, tinh tế tạo cho bạn cảm giác yên tâm về chất lượng. 
+                        - Đường may tỉ mỉ, tinh tế tạo cho bạn cảm giác yên tâm về chất lượng.
                         Sản phẩm có tính ứng dụng cao, mang khi tập luyện thể thao, đi làm hay đi chơi...
                     </li>
                 </ul>
@@ -302,6 +299,9 @@
             </div>
         </div>
         <!-- mô tả sản phẩm -->
+
+
+
         <!-- sản phẩm tương tự -->
         <div class="similar-product">
             <div class="products">
@@ -311,23 +311,23 @@
 
                         @foreach (var item in Lst)
                         {
-                        <div class="grid__col-3">
-                            <div style="display:none" id="idProduct">@item.idProduct</div>
-                            <div class="product">
-                                <img src="@item.ImageProduct.First().URLImage" alt="" class="product-img product-show">
+                            <div class="grid__col-3">
+                                <div style="display:none" id="idProduct">@item.idProduct</div>
+                                <div class="product">
+                                    <img src="@item.ImageProduct.First().URLImage" alt="" class="product-img product-show">
 
-                                <img src="@item.ImageProduct.Last().URLImage" alt="" class="product-img product-img-hover">
+                                    <img src="@item.ImageProduct.Last().URLImage" alt="" class="product-img product-img-hover">
 
-                            </div>
-                            <div class="product-info">
-                                <div class="product-title">
-                                    @item.nameProduct
                                 </div>
-                                <div class="product-price">
-                                    @item.price,000đ
+                                <div class="product-info">
+                                    <div class="product-title">
+                                        @item.nameProduct
+                                    </div>
+                                    <div class="product-price">
+                                        @item.price,000đ
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         }
                     </div>
                 </div>

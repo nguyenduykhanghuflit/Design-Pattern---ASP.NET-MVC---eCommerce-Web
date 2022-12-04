@@ -168,7 +168,7 @@
 
 
     //get api
-    $.ajax('/Admin/Bills/GetDetailBill', {
+    $.ajax('/Admin/Bill/GetDetailBill', {
         data: {
             idBill: id,
         },
@@ -237,8 +237,9 @@
             CheckRequire($('#fullname')) &&
             CheckRequire($('#phone')) &&
             CheckRequire($('#address'))
-            ) {
-            axios.post('/Admin/Bills/UpdateBill', { ibBill, nameBook, phone, address, status: status.toLowerCase() == 'true' ? true : false })
+        ) {
+
+            axios.post('/Admin/Bill/UpdateBill', { ibBill, nameBook, phone, address, status: status.toLowerCase() == 'true' ? true : false })
                 .then(function (response) {
                     console.log(response);
                     if (response.data == "success") {
