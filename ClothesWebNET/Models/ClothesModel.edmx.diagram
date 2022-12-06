@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="283a05a6cc9e4b57ac3f3f2224d0c5de" Name="Diagram1">
+      <Diagram DiagramId="283a05a6cc9e4b57ac3f3f2224d0c5de" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="CLOTHESModel.Bill" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.DetailBIll" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.DetailBIll" Width="1.5" PointX="10.125" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CLOTHESModel.ImageProduct" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CLOTHESModel.OrderStatus" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CLOTHESModel.Permission" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
@@ -23,6 +23,11 @@
         <AssociationConnector Association="CLOTHESModel.FK__ImageProd__idPro__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="CLOTHESModel.FK__User__idPermissi__59063A47" ManuallyRouted="false" />
         <AssociationConnector Association="CLOTHESModel.FK_Product_Types" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CLOTHESModel.AttributeDetail" Width="1.5" PointX="9.75" PointY="17.875" />
+        <EntityTypeShape EntityType="CLOTHESModel.Attributes" Width="1.5" PointX="7.5" PointY="17.875" />
+        <EntityTypeShape EntityType="CLOTHESModel.Atrributes" Width="1.5" PointX="8.375" PointY="6.75" />
+        <AssociationConnector Association="CLOTHESModel.FK_AttributeDetail_Attributes" />
+        <AssociationConnector Association="CLOTHESModel.FK_Attributes_Products" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

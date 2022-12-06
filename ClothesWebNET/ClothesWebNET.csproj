@@ -143,8 +143,12 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Controllers\BillController.cs" />
+    <Compile Include="ChainOfResposibility\OrderHandlers\CreateBillHandler.cs" />
+    <Compile Include="ChainOfResposibility\OrderHandlers\InventoryHandler.cs" />
+    <Compile Include="ChainOfResposibility\OrderHandlers\ProductValidHandler.cs" />
+    <Compile Include="ChainOfResposibility\OrderHandlers\Handler.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CollectionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -154,6 +158,15 @@
     <Compile Include="DTO\DTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Atrributes.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AttributeDetail.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Attributes.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bill.cs">
       <DependentUpon>ClothesModel.tt</DependentUpon>
@@ -316,18 +329,17 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Collections\Details.cshtml" />
     <Content Include="Views\Collections\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Bill\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Home\MyInfo.cshtml" />
     <Content Include="Views\Home\MyBill.cshtml" />
     <Content Include="Views\Home\Address.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

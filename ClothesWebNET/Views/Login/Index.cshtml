@@ -9,12 +9,17 @@
 
 @Styles.Render("~/Content/login")
 <div class="container">
-    <form action="~/Login/kiemtradangnhap" method="post" class="form-login form-login-cus">
+    <form action="~/Login/index" method="post" class="form-login form-login-cus">
         @Html.AntiForgeryToken()
         <div class="login-box-cus">
             <p class="heading">đăng nhập tài khoản</p>
             <div class="heading-login-with">Nhập tên đăng nhập và mật khẩu của bạn</div>
             <div class="header-box login-box">
+                @if (ViewBag.ErrLogin != null)
+                {
+                    <span class="text-danger">@ViewBag.ErrLogin</span>
+
+                }
                 <div class="form-control err">
                     <input type="text"
                            value=""
@@ -42,7 +47,7 @@
                     <a class="recapcha-link" href="">Privacy Policy</a> and
                     <a class="recapcha-link" href="">Terms of Service</a> apply.
                 </div>
-              @*  <input type="checkbox" name="ghinho" /> Ghi nhớ tài khoản <br />*@
+                @*  <input type="checkbox" name="ghinho" /> Ghi nhớ tài khoản <br />*@
                 <button type="submit" class="button-login  button-hover">
                     ĐĂNG NHẬP
                 </button>

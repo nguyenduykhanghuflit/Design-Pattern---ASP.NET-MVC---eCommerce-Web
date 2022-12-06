@@ -33,7 +33,7 @@ const removeComma = (money) => {
 
 
 //Thêm/bớt sản phẩm (cart.html & detail.html)
-for (let i = 0; i < prices.length; i++) {
+/*for (let i = 0; i < prices.length; i++) {
     let money = removeComma(prices[i].textContent.trim());
     let amount = parseInt(amounts[i].value);
 
@@ -56,8 +56,5 @@ for (let i = 0; i < prices.length; i++) {
     btnAdd[i].addEventListener('click', (e) => {
         amount++;
         amounts[i].value = amount;
-
-
-  
     });
-}
+}*/

@@ -26,7 +26,6 @@ namespace ClothesWebNET.Areas.Admin.Controllers
 
                 var bills = db.Bills.Include(b => b.Users);
                 var listProduct = from p in bills
-
                                   select new BillData()
                                   {
                                       idBill = p.idBill,
@@ -78,14 +77,16 @@ namespace ClothesWebNET.Areas.Admin.Controllers
                                         phone = bill.phone,
                                         address = bill.address,
                                         idBill = idBill,
-                                        Total = bills.subTotal,
-
+                                        Total = bills.totalMoney + bills.Shipping,
+                                        shipping=bill.Shipping,
+                                        subTotal=bill.totalMoney,
                                         idDetailBill = detail.idDetailBill,
                                         nameProduct = product.nameProduct,
                                         idProduct = detail.idProduct,
                                         qty = detail.qty,
                                         price = product.price,
-                                        intoMoney = detail.price,
+                                        statusId=bill.OrderStatus.orderStatusID,
+                                        intoMoney = (int)product.price * (int) detail.qty,
 
 
                                     });

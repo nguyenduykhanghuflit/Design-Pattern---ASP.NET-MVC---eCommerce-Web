@@ -41,9 +41,6 @@
 
 
                 </div>
-
-
-
                 <div class="cart-info-product">
                     <div class="cart-info-title">
                         Thông tin đơn hàng
@@ -267,7 +264,7 @@
     $('.button-payment').click(() => {
         const listCart = JSON.parse(window.localStorage.getItem('cart'));
         if (listCart.length > 0) {
-            window.location = '/bill';
+            window.location = '/checkout';
         }
     })
 </script>

@@ -57,22 +57,16 @@ import validation from './validation.js';
 //submit form
 const listCart = JSON.parse(window.localStorage.getItem('cart'));
 if (!listCart || listCart.length==0) {
-
     window.location.href='/'
 }
+// Get the modal
+var modal = document.getElementById("myModal");
 
-function uuidv4() {
-   
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-}
-function GenerateId() {
-    const d = new Date();
-    let ms =d.getTime();
-    return ms
-}
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
 
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
 $('#save_btn').click(() => {
     let checkEmpty = validation.checkRequired([fullname, email, phone, address]);
@@ -87,48 +81,33 @@ $('#save_btn').click(() => {
         !checkAddressInvalid
     ) {
         var dsChiTietDH = []
-        const idBill = "DH" +GenerateId();
-        let total = 0;
-        let totalQty = 0;
         listCart.forEach((el) => {
-            let idDetail = uuidv4();
             let converNumberAmount = Number(el.amount);
-            let intoMoney = el.price * converNumberAmount;
-            totalQty += Number(el.amount);
-            total += intoMoney
-            var ctdh = {
-                idDetailBill: idDetail, idProduct: el.idFood, idBill: idBill, qty: converNumberAmount, intoMoney: intoMoney
+            var productItem = {
+                idProduct: el.idFood,
+                qty: converNumberAmount,
+                price: el.price,
+                nameProduct: el.title,
+                attributes: el.size,
+                imageProduct: el.img,
+                attributeId: el.attributeId,
+                attributeValueId: el.attributeValueId,
             }
-            dsChiTietDH.push(ctdh);
+            dsChiTietDH.push(productItem);
         })
 
-        const idUser = null;
-        const customData = {
-            idBill: idBill,
-            idUser: idUser !== null ? idUser : null,
-            Shipping: 50,
-            Total: total,
-            PTTT: "Tien Mat",
-            status: 0,
-            detailBill: dsChiTietDH
-        }
+     
 
         let thanhpho = $("#province option:selected").text()
         let quan = $("#village option:selected").text()
         let phuong = $("#district option:selected").text()
         let diachi = address.value + ', ' + quan + ', ' + phuong + ', ' + thanhpho
         let dienthoai = Number(phone.value)
-        /* $.post('/Bill/PostBill',"hello", function (res) {
-             alert(res);
-         })*/
+       
 
-        $.ajax('/Bill/PostBill', {
+        $.ajax('/checkout/HandleOrder', {
             data: {
-                idBill: idBill,
-                idUser: idUser !== null ? idUser : null,
-                Shipping: 50,
-                Total: total,
-                totalQty: totalQty,
+               
                 customerName: fullname.value,
                 email: email.value,
                 phone: dienthoai,
@@ -136,35 +115,45 @@ $('#save_btn').click(() => {
                 province: thanhpho,
                 district: phuong,
                 ward: quan,
-                PTTT: "Tien Mat",
-                detailBill: dsChiTietDH,
-                status: false,
+                listProduct: dsChiTietDH,
             },
             dataType: 'json',
             method: 'Post',
             success: function (res) {
-                console.log(res);
-                console.log( {
-                    idBill: idBill,
-                    idUser: idUser !== null ? idUser : null,
-                    Shipping: 50,
-                    Total: total,
-                    totalQty: totalQty,
-                    customerName: fullname.value,
-                    email: email.value,
-                    phone: dienthoai,
-                    address: diachi,
-                    province: thanhpho,
-                    district: phuong,
-                    ward: quan,
-                    PTTT: "Tien Mat",
-                    detailBill: dsChiTietDH,
-                    status: false,
-                },)
-              /*  alert(res);
-                window.localStorage.removeItem('cart');
-                window.location.replace('/home')*/
+                if (res.success) {
+                    modal.style.display = "block";
+                    $('#showDataModal').html("Ðặt hàng thành công, đơn hàng của bạn sẽ sớm được giao")
+                /*    window.localStorage.removeItem('cart');
+                    window.location.replace('/home') */
+                }
+                else {
+                    console.log(res.err);
+                    console.log(res.mess);
+                    modal.style.display = "block";
+                    $('#showDataModal').html(res.mess)
+                }
+             
+          
+             
             }
         })
     }
 })
+
+
+
+  
+
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

@@ -4,48 +4,85 @@
 let btnSizes = document.querySelectorAll(".detail-size .size"); //mấy cái nút size
 let btnAddCart = document.querySelector(".detail-button-add-cart");
 
-const removeAllSizeActive = (btnSizes) => {
-  btnSizes.forEach((size) => {
-    if (size.classList.contains("size-active"))
+const btnMinus=$('#btn-minus')
+const btnAdd = $('#btn-add')
+const amountProduct = $('#input-amount')
+
+
+btnMinus.click(e => {
+    let count = Number(amountProduct.val());
+    if (count > 1) {
+        amountProduct.val(count - 1);
+    }
+  
+})
+
+
+btnAdd.click(e => {
+    let count = Number(amountProduct.val());
+        amountProduct.val(count + 1);
+})
+
+
+const removeAllSizeActive = (btnSizes, keyAttri) => {
+    btnSizes.forEach((size) => {
+        if (size.classList.contains("size-active") && size.getAttribute("keyAttri") == keyAttri)
       size.classList.remove("size-active");
   });
 };
 
 for (let i = 0; i < btnSizes.length; i++) {
     btnSizes[i].addEventListener("click", (e) => {
+
+        const keyAttri = btnSizes[i].getAttribute("keyAttri");
+   
         document.querySelector(".input-amout").value = 1;
-      removeAllSizeActive(btnSizes);
+        removeAllSizeActive(btnSizes, keyAttri);
     
     btnSizes[i].classList.add("size-active");
   });
 }
 
-const getSize = () => {
-  let selectSize = null;
+const getAttrID = () => {
+    let data = {}
   btnSizes.forEach((size) => {
-    if (size.classList.contains("size-active"))
-      selectSize = size.textContent.trim();
+      if (size.classList.contains("size-active")) {
+          const attributeId = size.getAttribute("attributeId");
+          const attributeValueId = size.getAttribute("attributeValueId");
+       
+          data={ attributeId, attributeValueId};
+      }
   });
-  return selectSize;
+    return data;
 };
 
-
-
+const getSize = () => {
+    let selectSize = [];
+    btnSizes.forEach((size) => {
+        if (size.classList.contains("size-active")) {
+            const nameAttri = size.getAttribute("name");
+            const strAttr = `${nameAttri}: ${size.textContent.trim()}`
+            selectSize.push(strAttr);
+        }
+    });
+    return selectSize.join(", ");
+};
 let ttttMoney = document.querySelector('.payment-total');
 
 btnAddCart.addEventListener("click", async (e) => {
 
-  let size = getSize();
-  if (size != null) {
+    let size = getSize();
+    if (size.length>0) {
     let img = document.querySelector("#imagebox").src;
     let priceFake = document.querySelector(".total-money").textContent;
     let price = Number(priceFake.slice(0, 3).trim());
     let title = document.querySelector(".detail-title").textContent;
       let amount = document.querySelector(".input-amout").value;
       let idFood = document.querySelector('.idFood').textContent;
-      let id = 0
-      let data = { id, title, price, size, img, amount, idFood};
-
+        let id = 0
+        var attri = getAttrID();
+      let data = { id, title, price, size, img, amount, idFood,...attri};
+        
       var cart = window.localStorage.getItem("cart");
       if (cart === null || cart.length==0) {
       window.localStorage.setItem("cart", JSON.stringify([data]));
@@ -193,3 +230,5 @@ function ShowErr(mess) {
         "hideMethod": "fadeOut"
     }
 }
+
+

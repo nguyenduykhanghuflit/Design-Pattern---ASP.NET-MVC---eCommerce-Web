@@ -2,350 +2,318 @@
 @model IEnumerable<ClothesWebNET.Models.Product>
 @{
     ViewBag.Title = "Detail";
-    Layout = "~/Views/Shared/_Layout.cshtml";   
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
     var Lst = ViewBag.datarelateto as IEnumerable<ClothesWebNET.Models.Product>;
 }
 
-    @Styles.Render("~/Content/main")
-    @Styles.Render("~/Content/detail")
-    @Styles.Render("~/Content/toastr")
+@Styles.Render("~/Content/main")
+@Styles.Render("~/Content/detail")
+@Styles.Render("~/Content/toastr")
 
-    <style>
+<style>
 
-        .detail-size .size-D {
-            width: 40px;
-            height: 40px;
-            background-color: #6c757d;
-            line-height: 40px;
-            text-align: center;
-            border: 1px solid #6c757d;
-            font-size: 12px;
-            font-weight: 500;
-            color: #050505;
-            cursor: not-allowed;
-            transition: all 0.2s ease-in-out;
+    .size-D {
+        width: 40px;
+        height: 40px;
+        background-color: #312e2e;
+        line-height: 40px;
+        text-align: center;
+        border: 1px solid #6c757d;
+        font-size: 12px;
+
+        font-weight: 500;
+        color: #050505;
+        cursor: not-allowed;
+        transition: all 0.2s ease-in-out;
+    }
+</style>
+<div class="container">
+
+    <!-- breadcrumb start-->
+    @{
+        foreach (var item in Model)
+        {
+            <div class="breadcrumb">
+                <div class="grid">
+                    <a href="/">Trang chủ / </a>
+                    <span style="font-size:1.3rem"> @item.Types.nameType / </span>
+                    <span style="font-size:1.2rem" class="br-main"> @item.nameProduct </span>
+                </div>
+            </div>
+            break;
         }
-    </style>
-    <div class="container">
+    }
+    <!-- breadcrumb end-->
+    <!-- detail start-->
+    <div class="detail">
 
-        <!-- breadcrumb start-->
         @{
             foreach (var item in Model)
             {
-                <div class="breadcrumb">
-                    <div class="grid">
-                        <a href="/">Trang chủ / </a>
-                        <span style="font-size:1.3rem"> @item.Types.nameType / </span>
-                        <span style="font-size:1.2rem" class="br-main"> @item.nameProduct </span>
-                    </div>
-                </div>
-                break;
-            }
-        }
-        <!-- breadcrumb end-->
-
-
-
-        <!-- detail start-->
-        <div class="detail">
-
-            @{
-                foreach (var item in Model)
-                {
-                    <div class="grid">
-                        <div class="row">
-                            <div class="grid__col-8">
-                                <div class="slider-detail">
-                                    <div class="product-detail">
-                                        <img src="@item.ImageProduct.FirstOrDefault().URLImage"
-                                             alt=""
-                                             onclick="clickme(this)" />
-                                        <img src="@item.ImageProduct.LastOrDefault().URLImage"
-                                             alt=""
-                                             onclick="clickme(this)" />
-                                    </div>
-                                    <div class="preview">
-                                        <img src="@item.ImageProduct.FirstOrDefault().URLImage" id="imagebox" alt="" />
-                                    </div>
+                <div class="grid">
+                    <div class="row">
+                        <div class="grid__col-8">
+                            <div class="slider-detail">
+                                <div class="product-detail">
+                                    <img src="@item.ImageProduct.FirstOrDefault().URLImage"
+                                         alt=""
+                                         onclick="clickme(this)" />
+                                    <img src="@item.ImageProduct.LastOrDefault().URLImage"
+                                         alt=""
+                                         onclick="clickme(this)" />
                                 </div>
-                            </div>
-                            <div style=" height: 80vh" class=" grid__col-4">
-                                <div class="content">
-                                    <div style="font-size:1.8rem" class="detail-title">@item.nameProduct</div>
-                                    <div style="display:none; font-size:1.8rem" class="idFood">@item.idProduct</div>
-                                    <div class="detail-price info-price total-money">@item.price,000₫</div>
-                                    <div class="detail-size">
-
-                                        @{
-                                            if (@item.size38 != null && @item.size38 > 0)
-                                            {
-                                                <div class="size">38</div>
-                                            }
-                                            else
-                                            {
-                                                <div class="size-D ">38</div>
-                                            }
-
-                                            if (@item.size39 != null && @item.size39 > 0)
-                                            {
-                                                <div class="size">39</div>
-                                            }
-                                            else
-                                            {
-                                                <div class="size-D ">39</div>
-                                            }
-
-                                            if (@item.size40 != null && @item.size40 > 0)
-                                            {
-                                                <div class="size">40</div>
-                                            }
-                                            else
-                                            {
-                                                <div class="size-D ">40</div>
-                                            }
-
-                                            if (@item.size41 != null && @item.size41 > 0)
-                                            {
-                                                <div class="size">41</div>
-                                            }
-                                            else
-                                            {
-                                                <div class="size-D ">41</div>
-                                            }
-                                            if (@item.size42 != null && @item.size42 > 0)
-                                            {
-                                                <div class="size">42</div>
-                                            }
-                                            else
-                                            {
-                                                <div class="size-D ">42</div>
-                                            }
-
-
-                                        }
-
-
-
-
-                                    </div>
-
-                                    <div class="detail-amount">
-                                        <button class="button-amount button-minus">-</button>
-                                        <input type="number" class="input-amout" readonly value="1" />
-                                        <button class="button-amount button-add">+</button>
-                                    </div>
-
-                                    <div class="detail-button-add-cart button-hover" id="add-to-cart">Thêm vào giỏ hàng</div>
+                                <div class="preview">
+                                    <img src="@item.ImageProduct.FirstOrDefault().URLImage" id="imagebox" alt="" />
                                 </div>
                             </div>
                         </div>
+                        <div style=" height: 80vh" class=" grid__col-4">
+                            <div class="content">
+                                <div style="font-size:1.8rem" class="detail-title">@item.nameProduct</div>
+                                <div style="display:none; font-size:1.8rem" class="idFood">@item.idProduct</div>
+                                <div class="detail-price info-price total-money">@item.price,000₫</div>
+
+                                @{
+
+                                    var listAttribute = item.Attributes;
+
+                                    if (listAttribute != null && listAttribute.Count() > 0)
+                                    {
+                                        foreach (var attri in listAttribute)
+                                        {
+                                            <div class="des-title">◤ @attri.attributesName</div>
+                                            <div class="detail-size">
+                                                @{
+                                                    var listValue = attri.AttributeDetail;
+                                                    if (listValue != null && listValue.Count() > 0)
+                                                    {
+                                                        foreach (var val in listValue)
+                                                        {
+                                                            if (@val.stock > 0)
+                                                            {
+                                                                <div attributeId="@attri.attributesID" attributeValueId="@val.id"  keyAttri="@attri.attributesID" name="@attri.attributesName" class="size">@val.value</div>
+                                                            }
+                                                        
+
+                                                    }
+                                                }
+                                                }
+                                            </div>
+                                             break;  
+                                        }
+                                    }
+
+                                }
+                                <div class="detail-amount">
+                                    <button id="btn-minus" class="button-amount button-minus">-</button>
+                                    <input type="number" id="input-amount" class="input-amout" readonly value="1" />
+                                    <button id="btn-add" class="button-amount button-add">+</button>
+                                </div>
+                                <div class="detail-button-add-cart button-hover" id="add-to-cart">Thêm vào giỏ hàng</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
 
-                    break;
-                }
-
+                break;
             }
 
+        }
 
+
+    </div>
+    <!-- detail end -->
+    <!-- mô tả sản phẩm -->
+    <div class="product-description">
+        <h2 class="des-heading">MÔ TẢ SẢN PHẨM</h2>
+        <div class="description">
+            <h4 class="des-title">◤mô tả</h4>
+            <ul class="list-des">
+                <li class="list-des-item">
+                    - Sản phẩm giày sneaker phù hợp cho cả nam và nữ từ (18-20) tuổi,là sản phẩm không thể thiếu
+                    trong tủ đồ của chúng ta manhg lại cho người mang sự trẻ trung năng động, cá tính riêng.
+                </li>
+                <li class="list-des-item">
+                    - Đế giày được làm từ cao su mang lại cảm giác êm ái khi đeo lên chân và được độn cao 3-3.5cm
+                    Form cứng cáp, vải dày dặn đế êm chân,mang lại cảm giác thoải mái nhất cho người mang.
+                </li>
+                <li class="list-des-item">
+                    - Giày có đủ size nam và nữ. Từ size 38 đến size 43.
+                </li>
+                <li class="list-des-item">
+                    - Màu sắc: y ảnh đăng cam đoan hoàn tiền khi phát hiện hàng giả, hàng kém chất lượng.
+                    Chất liệu: RUBBER 100% SYNTHETIC 46% & LEATHER 27% & LEATHER 27% bền bỉ, thoáng khí và đế cao su mềm chống trơn trượt.
+                </li>
+                <li class="list-des-item">
+                    - Đường may tỉ mỉ, tinh tế tạo cho bạn cảm giác yên tâm về chất lượng.
+                    Sản phẩm có tính ứng dụng cao, mang khi tập luyện thể thao, đi làm hay đi chơi...
+                </li>
+            </ul>
         </div>
-        <!-- detail end -->
-
-
-        <!-- mô tả sản phẩm -->
-        <div class="product-description">
-            <h2 class="des-heading">MÔ TẢ SẢN PHẨM</h2>
-            <div class="description">
-                <h4 class="des-title">◤mô tả</h4>
-                <ul class="list-des">
-                    <li class="list-des-item">
-                        - Sản phẩm giày sneaker phù hợp cho cả nam và nữ từ (18-20) tuổi,là sản phẩm không thể thiếu
-                        trong tủ đồ của chúng ta manhg lại cho người mang sự trẻ trung năng động, cá tính riêng.
-                    </li>
-                    <li class="list-des-item">
-                        - Đế giày được làm từ cao su mang lại cảm giác êm ái khi đeo lên chân và được độn cao 3-3.5cm
-                        Form cứng cáp, vải dày dặn đế êm chân,mang lại cảm giác thoải mái nhất cho người mang.
-                    </li>
-                    <li class="list-des-item">
-                        - Giày có đủ size nam và nữ. Từ size 38 đến size 43.
-                    </li>
-                    <li class="list-des-item">
-                        - Màu sắc: y ảnh đăng cam đoan hoàn tiền khi phát hiện hàng giả, hàng kém chất lượng.
-                        Chất liệu: RUBBER 100% SYNTHETIC 46% & LEATHER 27% & LEATHER 27% bền bỉ, thoáng khí và đế cao su mềm chống trơn trượt.
-                    </li>
-                    <li class="list-des-item">
-                        - Đường may tỉ mỉ, tinh tế tạo cho bạn cảm giác yên tâm về chất lượng.
-                        Sản phẩm có tính ứng dụng cao, mang khi tập luyện thể thao, đi làm hay đi chơi...
-                    </li>
-                </ul>
-            </div>
-            <div class="commitment">
-                <h4 class="des-title">◤CAM KẾT CỦA SHOP</h4>
-                <ul class="list-des">
-                    <li class="list-des-item">
-                        - HÌNH THẬT GIỐNG MẪU 100%, TẤT CẢ HÌNH ẢNH ĐỀU DO SHOP TỰ CHỤP.
-                    </li>
-                    <li class="list-des-item">
-                        - Sản phẩm được kiểm tra kỹ càng trước khi giao hàng cho khách .
-                    </li>
-                    <li class="list-des-item">
-                        - Hỗ trợ đổi size nếu khách mặt không vừa, không ưng ý sản phẩm
-                        muốn đổi sang sản phẩm khác.
-                    </li>
-                    <li class="list-des-item">
-                        - Hỗ trợ đổi đối với các lỗi từ nhà sản xuất.
-                    </li>
-                    <li class="list-des-item">
-                        - Hỗ trợ đổi trong vòng 7 ngày kể từ ngày nhận hàng, sản phẩm mới
-                        và còn nguyên tem mác.
-                    </li>
-                </ul>
-            </div>
-            <div class="choose-size">
-                <h4 class="des-title">◤THÔNG SỐ CHỌN SIZE:</h4>
-                <ul class="list-des">
-                    <li class="list-des-item">
-                        - SIZE 38: chiều dài chân(24,1cm).
-                    </li>
-                    <li class="list-des-item">
-                        - SIZE 39: chiều dài chân(25cm).
-                    </li>
-                    <li class="list-des-item">
-                        - SIZE 40: chiều dài chân(25,8cm).
-                    </li>
-                    <li class="list-des-item">
-                        - SIZE 41: chiều dài chân(26,7cm).
-                    </li>
-                    <li class="list-des-item">
-                        - SIZE 42: chiều dài chân(27,5cm).
-                    </li>
-                    <li class="list-des-item">
-                        - SIZE 43: chiều dài chân(28,4cm).
-                    </li>
-                    <li class="list-des-item">
-                        - (Bảng size trên chỉ mang tính chất tham khảo,tốt nhất là hãy đến cửa hàng để được lựa
-                        chọn trực tiếp và thử giày đồng thời bạn có thể nhờ các chuyên viên tư vấn loại giày
-                        chuyên dụng chạy bộ phù hợp với bạn Luôn có rủi ro nhất định nếu chọn mua giày mà không thử trên chân).
-
-                    </li>
-                </ul>
-            </div>
-            <div class="usage">
-                <h4 class="des-title">◤hướng dẫn bảo quản:</h4>
-                <ul class="list-des">
-                    <li class="list-des-item">
-                        - Bảo quản giày thể thao trong hộp đựng giày
-                        Sử dụng hộp đựng giày thể thao chuyên dụng sẽ là một trong những phương pháp hiệu quả giúp cho đôi giày của bạn tránh bám bụi.
-                    </li>
-                    <li class="list-des-item">
-                        - Sử dụng sản phẩm hỗ trợ, bọt làm sạch,xịt khử mùi,xịt nano
-                        để giữ cho đôi giày của bạn luôn sạch và mới, bạn có thể sử dụng các sản phẩm hỗ trợ trong quá trình vệ sinh.
-                    </li>
-                    <li class="list-des-item">
-                        - Không giặt giày thường xuyên và phơi giày dưới ánh nắng sẽ khiến cho vải giày bị khô cứng, bạc màu và biến dạng.
-                    </li>
-                    <li class="list-des-item">
-                        - Hạn chế mang giày trắng khi trời mưa,nước và bùn đất có thể hủy hoại đôi giày trắng của bạn.
-                    </li>
-                    <li class="list-des-item">
-                        -Thay miếng lót khử mùi thường xuyên.
-                    </li>
-                    <li class="list-des-item">
-                        - Đặt giày sneaker nơi thoáng mát, khô ráo,tránh để giày dưới ánh sáng quá nắng gắt, như vậy form giày sẽ bị biến dạng.
-                    </li>
-                </ul>
-            </div>
-            <div class="ship">
-                <h4 class="des-title">◤GIAO HÀNG</h4>
-                <ul class="list-des">
-                    <li class="list-des-item">
-                        - Freeship cho hoá đơn mua hàng trị giá trên 200.000 vnd
-                    </li>
-                    <li class="list-des-item">
-                        - Khách hàng đặt hàng , nhận hàng rồi mới thanh toán
-                    </li>
-                    <li class="list-des-item">
-                        - Khách được kiểm tra hàng trước để đảm bảo giao đúng mẫu trước
-                        khi thanh toán cho shipper
-                    </li>
-                    <li class="list-des-item">
-                        - Thời gian giao hàng: dao động từ 3 - 4 ngày kể từ khi xác nhận
-                        đơn (không tính thứ 7 và CN)
-                    </li>
-                    <li class="list-des-item">
-                        - Không freeship đối với các sản phẩm SALE.
-                    </li>
-                </ul>
-            </div>
-            <div class="note">
-                <h4 class="des-title">lưu ý:</h4>
-                <ul class="list-des">
-                    <li class="list-des-item">
-                        - SHIPER CÓ GỌI ĐỂ XÁC NHẬN ĐƠN, CÁC BẠN ĐỂ Ý GIÙM CHÚNG MÌNH
-                        NHEN!
-                    </li>
-                </ul>
-            </div>
-            <div class="address">
-                <h4 class="des-title">◤HỆ THỐNG CỬA HÀNG TIỆM GIÀY CỦA PHÚC:</h4>
-                <ul class="list-des">
-                    <li class="list-des-item">
-                        - CN 1: 96 Tôn Thất Tùng , P.Bến Thành ,Quận 1,HCM.
-                    </li>
-                    <li class="list-des-item">- Hotline :079 939 1168</li>
-                </ul>
-            </div>
+        <div class="commitment">
+            <h4 class="des-title">◤CAM KẾT CỦA SHOP</h4>
+            <ul class="list-des">
+                <li class="list-des-item">
+                    - HÌNH THẬT GIỐNG MẪU 100%, TẤT CẢ HÌNH ẢNH ĐỀU DO SHOP TỰ CHỤP.
+                </li>
+                <li class="list-des-item">
+                    - Sản phẩm được kiểm tra kỹ càng trước khi giao hàng cho khách .
+                </li>
+                <li class="list-des-item">
+                    - Hỗ trợ đổi size nếu khách mặt không vừa, không ưng ý sản phẩm
+                    muốn đổi sang sản phẩm khác.
+                </li>
+                <li class="list-des-item">
+                    - Hỗ trợ đổi đối với các lỗi từ nhà sản xuất.
+                </li>
+                <li class="list-des-item">
+                    - Hỗ trợ đổi trong vòng 7 ngày kể từ ngày nhận hàng, sản phẩm mới
+                    và còn nguyên tem mác.
+                </li>
+            </ul>
         </div>
-        <!-- mô tả sản phẩm -->
+        <div class="choose-size">
+            <h4 class="des-title">◤THÔNG SỐ CHỌN SIZE:</h4>
+            <ul class="list-des">
+                <li class="list-des-item">
+                    - SIZE 38: chiều dài chân(24,1cm).
+                </li>
+                <li class="list-des-item">
+                    - SIZE 39: chiều dài chân(25cm).
+                </li>
+                <li class="list-des-item">
+                    - SIZE 40: chiều dài chân(25,8cm).
+                </li>
+                <li class="list-des-item">
+                    - SIZE 41: chiều dài chân(26,7cm).
+                </li>
+                <li class="list-des-item">
+                    - SIZE 42: chiều dài chân(27,5cm).
+                </li>
+                <li class="list-des-item">
+                    - SIZE 43: chiều dài chân(28,4cm).
+                </li>
+                <li class="list-des-item">
+                    - (Bảng size trên chỉ mang tính chất tham khảo,tốt nhất là hãy đến cửa hàng để được lựa
+                    chọn trực tiếp và thử giày đồng thời bạn có thể nhờ các chuyên viên tư vấn loại giày
+                    chuyên dụng chạy bộ phù hợp với bạn Luôn có rủi ro nhất định nếu chọn mua giày mà không thử trên chân).
 
+                </li>
+            </ul>
+        </div>
+        <div class="usage">
+            <h4 class="des-title">◤hướng dẫn bảo quản:</h4>
+            <ul class="list-des">
+                <li class="list-des-item">
+                    - Bảo quản giày thể thao trong hộp đựng giày
+                    Sử dụng hộp đựng giày thể thao chuyên dụng sẽ là một trong những phương pháp hiệu quả giúp cho đôi giày của bạn tránh bám bụi.
+                </li>
+                <li class="list-des-item">
+                    - Sử dụng sản phẩm hỗ trợ, bọt làm sạch,xịt khử mùi,xịt nano
+                    để giữ cho đôi giày của bạn luôn sạch và mới, bạn có thể sử dụng các sản phẩm hỗ trợ trong quá trình vệ sinh.
+                </li>
+                <li class="list-des-item">
+                    - Không giặt giày thường xuyên và phơi giày dưới ánh nắng sẽ khiến cho vải giày bị khô cứng, bạc màu và biến dạng.
+                </li>
+                <li class="list-des-item">
+                    - Hạn chế mang giày trắng khi trời mưa,nước và bùn đất có thể hủy hoại đôi giày trắng của bạn.
+                </li>
+                <li class="list-des-item">
+                    -Thay miếng lót khử mùi thường xuyên.
+                </li>
+                <li class="list-des-item">
+                    - Đặt giày sneaker nơi thoáng mát, khô ráo,tránh để giày dưới ánh sáng quá nắng gắt, như vậy form giày sẽ bị biến dạng.
+                </li>
+            </ul>
+        </div>
+        <div class="ship">
+            <h4 class="des-title">◤GIAO HÀNG</h4>
+            <ul class="list-des">
+                <li class="list-des-item">
+                    - Freeship cho hoá đơn mua hàng trị giá trên 200.000 vnd
+                </li>
+                <li class="list-des-item">
+                    - Khách hàng đặt hàng , nhận hàng rồi mới thanh toán
+                </li>
+                <li class="list-des-item">
+                    - Khách được kiểm tra hàng trước để đảm bảo giao đúng mẫu trước
+                    khi thanh toán cho shipper
+                </li>
+                <li class="list-des-item">
+                    - Thời gian giao hàng: dao động từ 3 - 4 ngày kể từ khi xác nhận
+                    đơn (không tính thứ 7 và CN)
+                </li>
+                <li class="list-des-item">
+                    - Không freeship đối với các sản phẩm SALE.
+                </li>
+            </ul>
+        </div>
+        <div class="note">
+            <h4 class="des-title">lưu ý:</h4>
+            <ul class="list-des">
+                <li class="list-des-item">
+                    - SHIPER CÓ GỌI ĐỂ XÁC NHẬN ĐƠN, CÁC BẠN ĐỂ Ý GIÙM CHÚNG MÌNH
+                    NHEN!
+                </li>
+            </ul>
+        </div>
+        <div class="address">
+            <h4 class="des-title">◤HỆ THỐNG CỬA HÀNG TIỆM GIÀY CỦA PHÚC:</h4>
+            <ul class="list-des">
+                <li class="list-des-item">
+                    - CN 1: 96 Tôn Thất Tùng , P.Bến Thành ,Quận 1,HCM.
+                </li>
+                <li class="list-des-item">- Hotline :079 939 1168</li>
+            </ul>
+        </div>
+    </div>
+    <!-- mô tả sản phẩm -->
+    <!-- sản phẩm tương tự -->
+    <div class="similar-product">
+        <div class="products">
+            <div class="product-heading">SẢN PHẨM TƯƠNG TỰ</div>
+            <div class="grid">
+                <div class="grid__row">
 
+                    @foreach (var item in Lst)
+                    {
+                        <div class="grid__col-3">
+                            <div style="display:none" id="idProduct">@item.idProduct</div>
+                            <div class="product">
+                                <img src="@item.ImageProduct.First().URLImage" alt="" class="product-img product-show">
 
-        <!-- sản phẩm tương tự -->
-        <div class="similar-product">
-            <div class="products">
-                <div class="product-heading">SẢN PHẨM TƯƠNG TỰ</div>
-                <div class="grid">
-                    <div class="grid__row">
+                                <img src="@item.ImageProduct.Last().URLImage" alt="" class="product-img product-img-hover">
 
-                        @foreach (var item in Lst)
-                        {
-                            <div class="grid__col-3">
-                                <div style="display:none" id="idProduct">@item.idProduct</div>
-                                <div class="product">
-                                    <img src="@item.ImageProduct.First().URLImage" alt="" class="product-img product-show">
-
-                                    <img src="@item.ImageProduct.Last().URLImage" alt="" class="product-img product-img-hover">
-
+                            </div>
+                            <div class="product-info">
+                                <div class="product-title">
+                                    @item.nameProduct
                                 </div>
-                                <div class="product-info">
-                                    <div class="product-title">
-                                        @item.nameProduct
-                                    </div>
-                                    <div class="product-price">
-                                        @item.price,000đ
-                                    </div>
+                                <div class="product-price">
+                                    @item.price,000đ
                                 </div>
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
-        <!-- sản phẩm tương tự -->
     </div>
+    <!-- sản phẩm tương tự -->
+</div>
 
-    <script>
-        function clickme(smallImg) {
-            var fullImg = document.getElementById('imagebox');
-            fullImg.src = smallImg.src;
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    function clickme(smallImg) {
+        var fullImg = document.getElementById('imagebox');
+        fullImg.src = smallImg.src;
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    @Scripts.Render("~/bundles/product")
-    @Scripts.Render("~/bundles/calculate")
-    @Scripts.Render("~/bundles/detail")
+@Scripts.Render("~/bundles/product")
+@Scripts.Render("~/bundles/detail")
 

@@ -25,8 +25,8 @@ namespace ClothesWebNET.Models
         public string fullName { get; set; }
         public string username { get; set; }
         public string password { get; set; }
-        public bool gender { get; set; }
-        public int identityCard { get; set; }
+        public Nullable<bool> gender { get; set; }
+        public Nullable<int> identityCard { get; set; }
         public string address { get; set; }
         public string email { get; set; }
         public string URLAvatar { get; set; }

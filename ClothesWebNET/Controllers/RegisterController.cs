@@ -21,24 +21,66 @@ namespace ClothesWebNET.Controllers
         //POST:Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "idUser,idPermission,fullName,username,password,gender,identityCard,address,email,URLAvatar,phone")] Users user)
+        public ActionResult Index(string fullName, string username, string password,int phone, string address)
         {
 
             if (ModelState.IsValid)
             {
-                int count = db.Users.Count() + 1;
-                user.idPermission = "R02";
-                var id = 'U' + count.ToString();
-                user.idUser = id;
+               Guid guid= Guid.NewGuid();
 
-                db.Users.Add(user);
-                db.SaveChanges();
-                return Redirect("~/login");
+                Users user = db.Users.FirstOrDefault(u => u.username == username);
+                if (user != null)
+                {
+                    ViewBag.UsernameErr = "Tên đăng nhập đã tồn tại";
+                    return View();
+                }
+                else
+                {
+                    if (password.Length < 6||password.Length>10)
+                    {
+                        ViewBag.PasswordErr = "Mật khẩu phải từ 6 đến 10 kí tự";
+                        return View();
+                    }
+                    else
+                    {
+                     
+                        try
+                        {
+                            Users newUser = new Users();
+                            string emptyString = "Chưa cập nhật";
+                            newUser.idUser = guid.ToString();
+                            newUser.idPermission = "R02";
+                            newUser.fullName = fullName;
+                            newUser.username = username;
+                            newUser.password = password;
+                            newUser.gender = true;
+                            newUser.identityCard = 123456;
+                            newUser.address = address;
+                            newUser.email = emptyString;
+                            newUser.phone = phone;
+                            newUser.district = emptyString;
+                            newUser.province = emptyString;
+                            newUser.ward = emptyString;
+                            newUser.URLAvatar = emptyString;
+                            db.Users.Add(newUser);
+                            db.SaveChanges();
+                            return Redirect("~/login");
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.ErrorMessage = ex.Message;
+                            ViewBag.ErrDetail=ex.StackTrace;
+                            return View();
+                        }
+                    }
+                }
+             
+                
             }
             else
             {
-                ViewBag.idPermission = new SelectList(db.Permission, "idPermission", "namePermission", user.idPermission);
-                return View(user);
+ 
+                return View();
             }
 
         }

@@ -4,7 +4,31 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CLOTHESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CLOTHESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AttributeDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="attributesID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="value" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="stock" Type="int" />
+        </EntityType>
+        <EntityType Name="Attributes">
+          <Key>
+            <PropertyRef Name="attributesID" />
+          </Key>
+          <Property Name="attributesID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="attributesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idProduct" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Atrributes">
+          <Key>
+            <PropertyRef Name="attributesID" />
+          </Key>
+          <Property Name="attributesID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="attributesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Bills">
           <Key>
             <PropertyRef Name="idBill" />
@@ -32,7 +56,6 @@
         <EntityType Name="DetailBIll">
           <Key>
             <PropertyRef Name="idDetailBill" />
-            <PropertyRef Name="idBill" />
           </Key>
           <Property Name="idDetailBill" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="idProduct" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -72,17 +95,9 @@
           </Key>
           <Property Name="nameProduct" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="idProduct" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="sizeM" Type="int" Nullable="false" />
-          <Property Name="sizeL" Type="int" Nullable="false" />
-          <Property Name="sizeXL" Type="int" Nullable="false" />
           <Property Name="price" Type="float" Nullable="false" />
           <Property Name="description" Type="ntext" />
           <Property Name="idType" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="size38" Type="int" />
-          <Property Name="size39" Type="int" />
-          <Property Name="size40" Type="int" />
-          <Property Name="size41" Type="int" />
-          <Property Name="size42" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -110,8 +125,8 @@
           <Property Name="fullName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="username" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="gender" Type="bit" Nullable="false" />
-          <Property Name="identityCard" Type="int" Nullable="false" />
+          <Property Name="gender" Type="bit" />
+          <Property Name="identityCard" Type="int" />
           <Property Name="address" Type="ntext" Nullable="false" />
           <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="URLAvatar" Type="text" />
@@ -191,6 +206,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AttributeDetail_Attributes">
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="1" />
+          <End Role="AttributeDetail" Type="Self.AttributeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attributes">
+              <PropertyRef Name="attributesID" />
+            </Principal>
+            <Dependent Role="AttributeDetail">
+              <PropertyRef Name="attributesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attributes_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Attributes">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Bill_OrderStatus">
           <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
           <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
@@ -228,6 +267,9 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CLOTHESModelStoreContainer">
+          <EntitySet Name="AttributeDetail" EntityType="Self.AttributeDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attributes" EntityType="Self.Attributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Atrributes" EntityType="Self.Atrributes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailBIll" EntityType="Self.DetailBIll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImageProduct" EntityType="Self.ImageProduct" Schema="dbo" store:Type="Tables" />
@@ -258,6 +300,14 @@
             <End Role="Permission" EntitySet="Permission" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_AttributeDetail_Attributes" Association="Self.FK_AttributeDetail_Attributes">
+            <End Role="Attributes" EntitySet="Attributes" />
+            <End Role="AttributeDetail" EntitySet="AttributeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attributes_Products" Association="Self.FK_Attributes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Attributes" EntitySet="Attributes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Bill_OrderStatus" Association="Self.FK_Bill_OrderStatus">
             <End Role="OrderStatus" EntitySet="OrderStatus" />
             <End Role="Bills" EntitySet="Bills" />
@@ -271,8 +321,7 @@
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CLOTHESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -307,7 +356,6 @@
         <EntityType Name="DetailBIll">
           <Key>
             <PropertyRef Name="idDetailBill" />
-            <PropertyRef Name="idBill" />
           </Key>
           <Property Name="idDetailBill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
@@ -352,20 +400,13 @@
           </Key>
           <Property Name="nameProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="sizeM" Type="Int32" Nullable="false" />
-          <Property Name="sizeL" Type="Int32" Nullable="false" />
-          <Property Name="sizeXL" Type="Int32" Nullable="false" />
           <Property Name="price" Type="Double" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="idType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="size38" Type="Int32" />
-          <Property Name="size39" Type="Int32" />
-          <Property Name="size40" Type="Int32" />
-          <Property Name="size41" Type="Int32" />
-          <Property Name="size42" Type="Int32" />
           <NavigationProperty Name="DetailBIll" Relationship="Self.FK__DetailBIl__idPro__4F7CD00D" FromRole="Products" ToRole="DetailBIll" />
           <NavigationProperty Name="ImageProduct" Relationship="Self.FK__ImageProd__idPro__4E88ABD4" FromRole="Products" ToRole="ImageProduct" />
           <NavigationProperty Name="Types" Relationship="Self.FK_Product_Types" FromRole="Products" ToRole="Types" />
+          <NavigationProperty Name="Attributes" Relationship="CLOTHESModel.FK_Attributes_Products" FromRole="Product" ToRole="Attributes" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -394,8 +435,8 @@
           <Property Name="fullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="gender" Type="Boolean" Nullable="false" />
-          <Property Name="identityCard" Type="Int32" Nullable="false" />
+          <Property Name="gender" Type="Boolean" />
+          <Property Name="identityCard" Type="Int32" />
           <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="URLAvatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -557,7 +598,69 @@
             <End Role="Types" EntitySet="Types" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="AttributeDetail" EntityType="CLOTHESModel.AttributeDetail" />
+          <EntitySet Name="Attributes" EntityType="CLOTHESModel.Attributes" />
+          <EntitySet Name="Atrributes" EntityType="CLOTHESModel.Atrributes" />
+          <AssociationSet Name="FK_AttributeDetail_Attributes" Association="CLOTHESModel.FK_AttributeDetail_Attributes">
+            <End Role="Attributes" EntitySet="Attributes" />
+            <End Role="AttributeDetail" EntitySet="AttributeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attributes_Products" Association="CLOTHESModel.FK_Attributes_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Attributes" EntitySet="Attributes" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AttributeDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="stock" Type="Int32" />
+          <NavigationProperty Name="Attributes" Relationship="CLOTHESModel.FK_AttributeDetail_Attributes" FromRole="AttributeDetail" ToRole="Attributes" />
+        </EntityType>
+        <EntityType Name="Attributes">
+          <Key>
+            <PropertyRef Name="attributesID" />
+          </Key>
+          <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="attributesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idProduct" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AttributeDetail" Relationship="CLOTHESModel.FK_AttributeDetail_Attributes" FromRole="Attributes" ToRole="AttributeDetail" />
+          <NavigationProperty Name="Products" Relationship="CLOTHESModel.FK_Attributes_Products" FromRole="Attributes" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Atrributes">
+          <Key>
+            <PropertyRef Name="attributesID" />
+          </Key>
+          <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="attributesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_AttributeDetail_Attributes">
+          <End Type="CLOTHESModel.Attributes" Role="Attributes" Multiplicity="1" />
+          <End Type="CLOTHESModel.AttributeDetail" Role="AttributeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attributes">
+              <PropertyRef Name="attributesID" />
+            </Principal>
+            <Dependent Role="AttributeDetail">
+              <PropertyRef Name="attributesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attributes_Products">
+          <End Type="CLOTHESModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="CLOTHESModel.Attributes" Role="Attributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Attributes">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -634,18 +737,10 @@
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
-                <ScalarProperty Name="sizeM" ColumnName="sizeM" />
-                <ScalarProperty Name="sizeL" ColumnName="sizeL" />
-                <ScalarProperty Name="sizeXL" ColumnName="sizeXL" />
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="idType" ColumnName="idType" />
-                <ScalarProperty Name="size38" ColumnName="size38" />
-                <ScalarProperty Name="size39" ColumnName="size39" />
-                <ScalarProperty Name="size40" ColumnName="size40" />
-                <ScalarProperty Name="size41" ColumnName="size41" />
-                <ScalarProperty Name="size42" ColumnName="size42" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
@@ -696,6 +791,33 @@
                 <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="minAmount" ColumnName="minAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttributeDetail">
+            <EntityTypeMapping TypeName="CLOTHESModel.AttributeDetail">
+              <MappingFragment StoreEntitySet="AttributeDetail">
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attributes">
+            <EntityTypeMapping TypeName="CLOTHESModel.Attributes">
+              <MappingFragment StoreEntitySet="Attributes">
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="attributesName" ColumnName="attributesName" />
+                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Atrributes">
+            <EntityTypeMapping TypeName="CLOTHESModel.Atrributes">
+              <MappingFragment StoreEntitySet="Atrributes">
+                <ScalarProperty Name="attributesName" ColumnName="attributesName" />
+                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

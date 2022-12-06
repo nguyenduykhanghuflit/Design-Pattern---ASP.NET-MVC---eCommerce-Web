@@ -35,5 +35,8 @@ namespace ClothesWebNET.Models
         public virtual DbSet<Types> Types { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Voucher> Voucher { get; set; }
+        public virtual DbSet<AttributeDetail> AttributeDetail { get; set; }
+        public virtual DbSet<Attributes> Attributes { get; set; }
+        public virtual DbSet<Atrributes> Atrributes { get; set; }
     }
 }

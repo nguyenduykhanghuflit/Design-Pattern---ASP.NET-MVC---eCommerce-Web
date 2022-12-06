@@ -42,7 +42,7 @@ let btnViewCheckout = document.querySelector('.box-make-payment');
 btnViewCheckout.addEventListener('click', (e) => {
     const listCart = JSON.parse(window.localStorage.getItem('cart'));
     if (listCart.length >0) {
-        window.location = '/bill';
+        window.location = '/checkout';
     }
   
 });

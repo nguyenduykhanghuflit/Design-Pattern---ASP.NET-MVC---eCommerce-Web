@@ -19,26 +19,21 @@ namespace ClothesWebNET.Models
         {
             this.DetailBIll = new HashSet<DetailBIll>();
             this.ImageProduct = new HashSet<ImageProduct>();
+            this.Attributes = new HashSet<Attributes>();
         }
     
         public string nameProduct { get; set; }
         public string idProduct { get; set; }
-        public int sizeM { get; set; }
-        public int sizeL { get; set; }
-        public int sizeXL { get; set; }
         public double price { get; set; }
         public string description { get; set; }
         public string idType { get; set; }
-        public Nullable<int> size38 { get; set; }
-        public Nullable<int> size39 { get; set; }
-        public Nullable<int> size40 { get; set; }
-        public Nullable<int> size41 { get; set; }
-        public Nullable<int> size42 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailBIll> DetailBIll { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ImageProduct> ImageProduct { get; set; }
         public virtual Types Types { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Attributes> Attributes { get; set; }
     }
 }

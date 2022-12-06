@@ -23,6 +23,117 @@
     h5.text-right span{
         font-weight:normal;
     }
+
+    .card {
+        z-index: 0;
+        background-color: #eceff1;
+        padding-bottom: 20px;
+        margin-top: 90px;
+        margin-bottom: 90px;
+        border-radius: 10px;
+    }
+
+    .top {
+        padding-top: 40px;
+        padding-left: 13% !important;
+        padding-right: 13% !important;
+    }
+
+    #progressbar {
+        margin-bottom: 30px;
+        overflow: hidden;
+        color: #455a64;
+        padding-left: 0px;
+        margin-top: 30px;
+    }
+
+        #progressbar li {
+            list-style-type: none;
+            font-size: 13px;
+            width: 20%;
+            float: left;
+            position: relative;
+            font-weight: 400;
+        }
+
+        #progressbar .step0:before {
+            font-family: FontAwesome;
+            content: '\f10c';
+            color: #fff;
+        }
+
+        #progressbar li:before {
+            width: 40px;
+            height: 40px;
+            line-height: 45px;
+            display: block;
+            font-size: 20px;
+            background: #c5cae9;
+            border-radius: 50%;
+            margin: auto;
+            padding: 0px;
+        }
+
+        #progressbar li:after {
+            content: '';
+            width: 100%;
+            height: 12px;
+            background: #c5cae9;
+            position: absolute;
+            left: 0;
+            top: 16px;
+            z-index: -1;
+        }
+
+        #progressbar li:last-child:after {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position: absolute;
+            left: -50%;
+        }
+
+        #progressbar li:nth-child(2):after,
+        #progressbar li:nth-child(3):after,
+        #progressbar li:nth-child(4):after {
+            left: -50%;
+        }
+
+        #progressbar li:first-child:after {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            position: absolute;
+            left: 50%;
+        }
+
+        #progressbar li:last-child:after {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        #progressbar li:first-child:after {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        #progressbar li.active:before,
+        #progressbar li.active:after {
+            background: #651fff;
+        }
+
+        #progressbar li.active:before {
+            font-family: FontAwesome;
+            content: '\f00c';
+        }
+
+    .icon {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+    }
+
+    .icon-content {
+        padding-bottom: 20px;
+    }
 </style>
 <div id="content" class="">
     <div class="content-main p-4">
@@ -35,7 +146,41 @@
             </ol>
         </nav>
         <div class="table-responsive-sm">
+
+
             <h4 class="text-center title-detail">CHI TIẾT ĐƠN HÀNG</h4>
+            <div class="row d-flex justify-content-center">
+                <div class="col-12">
+                    <ul id="progressbar" class="text-center">
+                      
+                        <li key="1" id="s1" class=" step0">
+                            <div class="d-flex  flex-column">
+                                <p class="font-weight-bold">Đang chờ</p>
+                            </div>
+                        </li>
+                        <li  key="2" id="s2" class=" step0">
+                            <div class="d-flex  flex-column">
+                                <p class="font-weight-bold">Đã duyệt</p>
+                            </div>
+                        </li>
+                        <li  key="3" id="s3" class=" step0">
+                            <div class="d-flex  flex-column">
+                                <p class="font-weight-bold">Đóng gói</p>
+                            </div>
+                        </li>
+                        <li  key="4" id ="s4"class="step0">
+                            <div class="d-flex  flex-column">
+                                <p class="font-weight-bold">Đang giao</p>
+                            </div>
+                        </li>
+                        <li   key="5" id="s5"class="step0">
+                            <div class="d-flex  flex-column">
+                                <p class="font-weight-bold">Thành công</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <h5 class="text-sm">Họ tên người mua hàng: <span id="fullname"></span></h5>
             <h5 class="text-sm">Số điện thoại: <span id="phone"></span></h5>
             <h5 class="text-sm">Địa chỉ: <span id="address"></span></h5>
@@ -47,15 +192,18 @@
                         <th scope="col">Số lượng</th>
                         <th scope="col">Giá bán</th>
                         <th scope="col">Tổng tiền</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody id="renderItem">
-                    
                 </tbody>
             </table>
         </div>
-        <h5 class="text-right">Tổng cộng:<span class="fmt" id="Total"></span></h5>
+        <div class="float-right">
+            <h5 class="text-left">Tạm tính:<span class="fmt text-right" id="subTotal"></span></h5>
+            <h5 class="text-left">Phí vận chuyển:<span class="fmt" id="shippingfee"></span></h5>
+            <h5 class="text-left">Tổng cộng:<span class="fmt" id="Total"></span></h5>
+        </div>
     </div>
 </div>
 @Scripts.Render("~/bundles/admin/jquery")
@@ -91,6 +239,35 @@
             })
             $('#renderItem').html(html)
             $('#Total').html(res[0].Total + "000")
+            $('#subTotal').html(res[0].subTotal + "000")
+            $('#shippingfee').html(res[0].shipping + "000")
+            
+            console.log(res[0].statusId)
+            if (res[0].statusId == 'watting')
+                $('#s1').addClass('active')
+            if (res[0].statusId == 'accept') {
+                $('#s1').addClass('active')
+                $('#s2').addClass('active')
+            }
+            
+            if (res[0].statusId == 'package') {
+                $('#s1').addClass('active')
+                $('#s2').addClass('active')
+                $('#s3').addClass('active')
+            }
+              
+            if (res[0].statusId == 'shipping') {
+                $('#s1').addClass('active')
+                $('#s2').addClass('active')
+                $('#s3').addClass('active')
+                $('#s4').addClass('active')
+            }
+              
+
+            if (res[0].statusId == 'success') {
+                $('#s5').addClass('active')
+            }
+              
 
             let fmt = document.querySelectorAll('.fmt');
             fmt.forEach(item => {

@@ -11,6 +11,8 @@ namespace ClothesWebNET.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     public class ProductDTODetail
     {
         public string idProduct { get; set; }
@@ -43,7 +45,7 @@ namespace ClothesWebNET.Models
     {
         public string nameType { get; set; }
         public string idType { get; set; }
-      
+
     }
 
     public class ItemDetail
@@ -56,11 +58,14 @@ namespace ClothesWebNET.Models
         public int Total { get; set; }
 
         //thông tin trong b?ng DetailBill
-        public string nameProduct { get; set; }
+        public string nameProduct { get; set; }  
+        public int subTotal { get; set; }  
+        public int shipping { get; set; }
         public string idProduct { get; set; }
         public int qty { set; get; }
         public double price { get; set; }
         public int intoMoney { get; set; }
+        public string statusId { get; set; }
         public string idDetailBill { get; set; }
 
 
@@ -86,4 +91,56 @@ namespace ClothesWebNET.Models
     }
 
 
+    public class Order
+    {
+        [Required]
+        public string customerName { get; set; }
+        [Required]
+        public string email { get; set; }
+        [Required]
+        public string phone { get; set; }
+        [Required]
+        public string address { get; set; }
+        [Required]
+        public string province { get; set; }
+        public string idUserReal { get; set; }
+
+        [Required]
+        public string district { get; set; }
+        [Required]
+        public string ward { get; set; }
+        public string note { get; set; }
+        [Required]
+        public List<ProductOrder> listProduct { get; set; }
+    }
+
+    public class ProductOrder
+    {
+        [Required]
+        public string idProduct { get; set; }
+        [Required]
+        public int qty { get; set; }
+        [Required]
+        public int price { get; set; }
+        [Required]
+        public string nameProduct { get; set; }
+        public string attributeId { get; set; }
+        public string attributeValueId { get; set; }
+        public string attributes { get; set; }
+        [Required]
+        public string imageProduct { get; set; }
+    }
+
+    public enum ProductOrderStatus
+    {
+        accept,
+        cancel,
+        fail,
+        package,
+        refunded,
+        returns,
+        shipping,
+        success,
+        watting,
+    }
 }
