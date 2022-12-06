@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CLOTHESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="idBill" />
+    </Key>
+    <Property Name="idBill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idUser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Shipping" Type="Int32" Nullable="false" />
+    <Property Name="totalMoney" Type="Int32" Nullable="false" />
+    <Property Name="paymentMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="orderStatusID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="customerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="customerType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="note" Type="String" MaxLength="605" FixedLength="false" Unicode="true" />
+    <Property Name="voucherID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="subTotal" Type="Int32" Nullable="false" />
+    <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="district" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ward" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Bill__idUser__5070F446" FromRole="Bills" ToRole="Users" />
+    <NavigationProperty Name="DetailBIll" Relationship="Self.FK__DetailBIl__idBil__52593CB8" FromRole="Bills" ToRole="DetailBIll" />
+    <NavigationProperty Name="OrderStatus" Relationship="Self.FK_Bill_OrderStatus" FromRole="Bills" ToRole="OrderStatus" />
+    <NavigationProperty Name="Voucher" Relationship="Self.FK_Bill_Voucher" FromRole="Bills" ToRole="Voucher" />
+  </EntityType>
+  <EntityType Name="DetailBIll">
+    <Key>
+      <PropertyRef Name="idDetailBill" />
+    </Key>
+    <Property Name="idDetailBill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idBill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="qty" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Int32" Nullable="false" />
+    <Property Name="nameProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="attributes" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="imageProduct" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK__DetailBIl__idBil__52593CB8" FromRole="DetailBIll" ToRole="Bills" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__DetailBIl__idPro__4F7CD00D" FromRole="DetailBIll" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="ImageProduct">
+    <Key>
+      <PropertyRef Name="idImage" />
+    </Key>
+    <Property Name="idImage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="URLImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__ImageProd__idPro__4E88ABD4" FromRole="ImageProduct" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="OrderStatus">
+    <Key>
+      <PropertyRef Name="orderStatusID" />
+    </Key>
+    <Property Name="orderStatusID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="statusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_OrderStatus" FromRole="OrderStatus" ToRole="Bills" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="idPermission" />
+    </Key>
+    <Property Name="idPermission" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="namePermission" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="level" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__User__idPermissi__59063A47" FromRole="Permission" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="idProduct" />
+    </Key>
+    <Property Name="nameProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="idType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="DetailBIll" Relationship="Self.FK__DetailBIl__idPro__4F7CD00D" FromRole="Products" ToRole="DetailBIll" />
+    <NavigationProperty Name="ImageProduct" Relationship="Self.FK__ImageProd__idPro__4E88ABD4" FromRole="Products" ToRole="ImageProduct" />
+    <NavigationProperty Name="Types" Relationship="Self.FK_Product_Types" FromRole="Products" ToRole="Types" />
+    <NavigationProperty Name="Attributes" Relationship="CLOTHESModel.FK_Attributes_Products" FromRole="Product" ToRole="Attributes" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Types">
+    <Key>
+      <PropertyRef Name="idType" />
+    </Key>
+    <Property Name="idType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nameType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Types" FromRole="Types" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="idUser" />
+    </Key>
+    <Property Name="idUser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idPermission" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gender" Type="Boolean" />
+    <Property Name="identityCard" Type="Int32" />
+    <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="URLAvatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="Int32" Nullable="false" />
+    <Property Name="province" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="district" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ward" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__idUser__5070F446" FromRole="Users" ToRole="Bills" />
+    <NavigationProperty Name="Permission" Relationship="Self.FK__User__idPermissi__59063A47" FromRole="Users" ToRole="Permission" />
+  </EntityType>
+  <EntityType Name="Voucher">
+    <Key>
+      <PropertyRef Name="voucherID" />
+    </Key>
+    <Property Name="voucherID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="discount" Type="Double" Nullable="false" />
+    <Property Name="dateStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dateEnd" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="minAmount" Type="Int32" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Voucher" FromRole="Voucher" ToRole="Bills" />
+  </EntityType>
+  <Association Name="FK__Bill__idUser__5070F446">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Bills" Type="CLOTHESModel.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="idUser" />
+      </Principal>
+      <Dependent Role="Bills">
+        <PropertyRef Name="idUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetailBIl__idBil__52593CB8">
+    <End Role="Bills" Type="CLOTHESModel.Bill" Multiplicity="1" />
+    <End Role="DetailBIll" Type="Self.DetailBIll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bills">
+        <PropertyRef Name="idBill" />
+      </Principal>
+      <Dependent Role="DetailBIll">
+        <PropertyRef Name="idBill" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_OrderStatus">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="Bills" Type="CLOTHESModel.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="orderStatusID" />
+      </Principal>
+      <Dependent Role="Bills">
+        <PropertyRef Name="orderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_Voucher">
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1" />
+    <End Role="Bills" Type="CLOTHESModel.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Voucher">
+        <PropertyRef Name="voucherID" />
+      </Principal>
+      <Dependent Role="Bills">
+        <PropertyRef Name="voucherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetailBIl__idPro__4F7CD00D">
+    <End Role="Products" Type="CLOTHESModel.Product" Multiplicity="1" />
+    <End Role="DetailBIll" Type="Self.DetailBIll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="idProduct" />
+      </Principal>
+      <Dependent Role="DetailBIll">
+        <PropertyRef Name="idProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImageProd__idPro__4E88ABD4">
+    <End Role="Products" Type="CLOTHESModel.Product" Multiplicity="1" />
+    <End Role="ImageProduct" Type="Self.ImageProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="idProduct" />
+      </Principal>
+      <Dependent Role="ImageProduct">
+        <PropertyRef Name="idProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__idPermissi__59063A47">
+    <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="idPermission" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="idPermission" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Types">
+    <End Role="Types" Type="Self.Types" Multiplicity="1" />
+    <End Role="Products" Type="CLOTHESModel.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="idType" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="idType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CLOTHESEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bills" EntityType="CLOTHESModel.Bill" />
+    <EntitySet Name="DetailBIll" EntityType="Self.DetailBIll" />
+    <EntitySet Name="ImageProduct" EntityType="Self.ImageProduct" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" />
+    <EntitySet Name="Permission" EntityType="Self.Permission" />
+    <EntitySet Name="Products" EntityType="CLOTHESModel.Product" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Types" EntityType="Self.Types" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="Voucher" EntityType="Self.Voucher" />
+    <AssociationSet Name="FK__Bill__idUser__5070F446" Association="Self.FK__Bill__idUser__5070F446">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Bills" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetailBIl__idBil__52593CB8" Association="Self.FK__DetailBIl__idBil__52593CB8">
+      <End Role="Bills" EntitySet="Bills" />
+      <End Role="DetailBIll" EntitySet="DetailBIll" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_OrderStatus" Association="Self.FK_Bill_OrderStatus">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="Bills" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_Voucher" Association="Self.FK_Bill_Voucher">
+      <End Role="Voucher" EntitySet="Voucher" />
+      <End Role="Bills" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetailBIl__idPro__4F7CD00D" Association="Self.FK__DetailBIl__idPro__4F7CD00D">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="DetailBIll" EntitySet="DetailBIll" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImageProd__idPro__4E88ABD4" Association="Self.FK__ImageProd__idPro__4E88ABD4">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ImageProduct" EntitySet="ImageProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__idPermissi__59063A47" Association="Self.FK__User__idPermissi__59063A47">
+      <End Role="Permission" EntitySet="Permission" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Types" Association="Self.FK_Product_Types">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <EntitySet Name="AttributeDetail" EntityType="CLOTHESModel.AttributeDetail" />
+    <EntitySet Name="Attributes" EntityType="CLOTHESModel.Attributes" />
+    <EntitySet Name="Atrributes" EntityType="CLOTHESModel.Atrributes" />
+    <AssociationSet Name="FK_AttributeDetail_Attributes" Association="CLOTHESModel.FK_AttributeDetail_Attributes">
+      <End Role="Attributes" EntitySet="Attributes" />
+      <End Role="AttributeDetail" EntitySet="AttributeDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Attributes_Products" Association="CLOTHESModel.FK_Attributes_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Attributes" EntitySet="Attributes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AttributeDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="stock" Type="Int32" />
+    <NavigationProperty Name="Attributes" Relationship="CLOTHESModel.FK_AttributeDetail_Attributes" FromRole="AttributeDetail" ToRole="Attributes" />
+  </EntityType>
+  <EntityType Name="Attributes">
+    <Key>
+      <PropertyRef Name="attributesID" />
+    </Key>
+    <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="attributesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="idProduct" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AttributeDetail" Relationship="CLOTHESModel.FK_AttributeDetail_Attributes" FromRole="Attributes" ToRole="AttributeDetail" />
+    <NavigationProperty Name="Products" Relationship="CLOTHESModel.FK_Attributes_Products" FromRole="Attributes" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Atrributes">
+    <Key>
+      <PropertyRef Name="attributesID" />
+    </Key>
+    <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="attributesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_AttributeDetail_Attributes">
+    <End Type="CLOTHESModel.Attributes" Role="Attributes" Multiplicity="1" />
+    <End Type="CLOTHESModel.AttributeDetail" Role="AttributeDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attributes">
+        <PropertyRef Name="attributesID" />
+      </Principal>
+      <Dependent Role="AttributeDetail">
+        <PropertyRef Name="attributesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Attributes_Products">
+    <End Type="CLOTHESModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="CLOTHESModel.Attributes" Role="Attributes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="idProduct" />
+      </Principal>
+      <Dependent Role="Attributes">
+        <PropertyRef Name="idProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

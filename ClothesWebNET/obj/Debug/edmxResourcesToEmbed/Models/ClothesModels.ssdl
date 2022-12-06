@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CLOTHESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="idBill" />
+    </Key>
+    <Property Name="idBill" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="idUser" Type="nvarchar" MaxLength="255" />
+    <Property Name="Shipping" Type="int" Nullable="false" />
+    <Property Name="totalMoney" Type="int" Nullable="false" />
+    <Property Name="paymentMethod" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="orderStatusID" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="createdAt" Type="datetime" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="customerName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="phone" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="customerType" Type="nvarchar" MaxLength="255" />
+    <Property Name="note" Type="nvarchar" MaxLength="605" />
+    <Property Name="voucherID" Type="nvarchar" MaxLength="50" />
+    <Property Name="subTotal" Type="int" Nullable="false" />
+    <Property Name="province" Type="nvarchar" MaxLength="50" />
+    <Property Name="district" Type="nvarchar" MaxLength="50" />
+    <Property Name="ward" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DetailBIll">
+    <Key>
+      <PropertyRef Name="idDetailBill" />
+      <PropertyRef Name="idBill" />
+    </Key>
+    <Property Name="idDetailBill" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="idProduct" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="idBill" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="qty" Type="int" Nullable="false" />
+    <Property Name="price" Type="int" Nullable="false" />
+    <Property Name="nameProduct" Type="nvarchar" MaxLength="255" />
+    <Property Name="attributes" Type="nvarchar" MaxLength="255" />
+    <Property Name="imageProduct" Type="nvarchar" MaxLength="700" />
+  </EntityType>
+  <EntityType Name="ImageProduct">
+    <Key>
+      <PropertyRef Name="idImage" />
+    </Key>
+    <Property Name="idImage" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="idProduct" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="URLImage" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderStatus">
+    <Key>
+      <PropertyRef Name="orderStatusID" />
+    </Key>
+    <Property Name="orderStatusID" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="statusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="idPermission" />
+    </Key>
+    <Property Name="idPermission" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="namePermission" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="level" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="idProduct" />
+    </Key>
+    <Property Name="nameProduct" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="idProduct" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="sizeM" Type="int" Nullable="false" />
+    <Property Name="sizeL" Type="int" Nullable="false" />
+    <Property Name="sizeXL" Type="int" Nullable="false" />
+    <Property Name="price" Type="float" Nullable="false" />
+    <Property Name="description" Type="ntext" />
+    <Property Name="idType" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="size38" Type="int" />
+    <Property Name="size39" Type="int" />
+    <Property Name="size40" Type="int" />
+    <Property Name="size41" Type="int" />
+    <Property Name="size42" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Types">
+    <Key>
+      <PropertyRef Name="idType" />
+    </Key>
+    <Property Name="idType" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="nameType" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="idUser" />
+    </Key>
+    <Property Name="idUser" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="idPermission" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="fullName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="gender" Type="bit" Nullable="false" />
+    <Property Name="identityCard" Type="int" Nullable="false" />
+    <Property Name="address" Type="ntext" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="URLAvatar" Type="text" />
+    <Property Name="phone" Type="int" Nullable="false" />
+    <Property Name="province" Type="nvarchar" MaxLength="255" />
+    <Property Name="district" Type="nvarchar" MaxLength="50" />
+    <Property Name="ward" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Voucher">
+    <Key>
+      <PropertyRef Name="voucherID" />
+    </Key>
+    <Property Name="voucherID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="discount" Type="float" Nullable="false" />
+    <Property Name="dateStart" Type="datetime" Nullable="false" />
+    <Property Name="dateEnd" Type="datetime" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="minAmount" Type="int" />
+  </EntityType>
+  <Association Name="FK__Bill__idUser__5070F446">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="idUser" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="idUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetailBIl__idBil__52593CB8">
+    <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+    <End Role="DetailBIll" Type="Self.DetailBIll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="idBill" />
+      </Principal>
+      <Dependent Role="DetailBIll">
+        <PropertyRef Name="idBill" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetailBIl__idPro__4F7CD00D">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="DetailBIll" Type="Self.DetailBIll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="idProduct" />
+      </Principal>
+      <Dependent Role="DetailBIll">
+        <PropertyRef Name="idProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImageProd__idPro__4E88ABD4">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ImageProduct" Type="Self.ImageProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="idProduct" />
+      </Principal>
+      <Dependent Role="ImageProduct">
+        <PropertyRef Name="idProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__idPermissi__59063A47">
+    <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="idPermission" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="idPermission" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_OrderStatus">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="orderStatusID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="orderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_Voucher">
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Voucher">
+        <PropertyRef Name="voucherID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="voucherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Types">
+    <End Role="Types" Type="Self.Types" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="idType" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="idType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CLOTHESModelStoreContainer">
+    <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetailBIll" EntityType="Self.DetailBIll" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImageProduct" EntityType="Self.ImageProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Bill__idUser__5070F446" Association="Self.FK__Bill__idUser__5070F446">
+      <End Role="User" EntitySet="User" />
+      <End Role="Bill" EntitySet="Bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetailBIl__idBil__52593CB8" Association="Self.FK__DetailBIl__idBil__52593CB8">
+      <End Role="Bill" EntitySet="Bill" />
+      <End Role="DetailBIll" EntitySet="DetailBIll" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetailBIl__idPro__4F7CD00D" Association="Self.FK__DetailBIl__idPro__4F7CD00D">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="DetailBIll" EntitySet="DetailBIll" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImageProd__idPro__4E88ABD4" Association="Self.FK__ImageProd__idPro__4E88ABD4">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ImageProduct" EntitySet="ImageProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__idPermissi__59063A47" Association="Self.FK__User__idPermissi__59063A47">
+      <End Role="Permission" EntitySet="Permission" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_OrderStatus" Association="Self.FK_Bill_OrderStatus">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="Bill" EntitySet="Bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_Voucher" Association="Self.FK_Bill_Voucher">
+      <End Role="Voucher" EntitySet="Voucher" />
+      <End Role="Bill" EntitySet="Bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Types" Association="Self.FK_Product_Types">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="CLOTHESEntities-Web.config Connection String" description="CLOTHESEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.ClothesModels.csdl|res://*/Models.ClothesModels.ssdl|res://*/Models.ClothesModels.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=localhost;initial catalog=CLOTHES;user id=sa;password=admin;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="G:\\Desktop\\ASP\ Clothes\ Final\\CLOTHES-WEB-ASP-MVC\\ClothesWebNET\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CLOTHESEntities']/@connectionString" />
+  </parameter>
+</parameters>

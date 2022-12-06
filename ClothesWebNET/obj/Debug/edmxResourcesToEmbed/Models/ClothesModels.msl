@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CLOTHESModelStoreContainer" CdmEntityContainer="CLOTHESEntities">
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="CLOTHESModel.Bill">
+        <MappingFragment StoreEntitySet="Bill">
+          <ScalarProperty Name="ward" ColumnName="ward" />
+          <ScalarProperty Name="district" ColumnName="district" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="subTotal" ColumnName="subTotal" />
+          <ScalarProperty Name="voucherID" ColumnName="voucherID" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="customerType" ColumnName="customerType" />
+          <ScalarProperty Name="customerName" ColumnName="customerName" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="orderStatusID" ColumnName="orderStatusID" />
+          <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
+          <ScalarProperty Name="totalMoney" ColumnName="totalMoney" />
+          <ScalarProperty Name="idBill" ColumnName="idBill" />
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="Shipping" ColumnName="Shipping" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetailBIlls">
+      <EntityTypeMapping TypeName="CLOTHESModel.DetailBIll">
+        <MappingFragment StoreEntitySet="DetailBIll">
+          <ScalarProperty Name="imageProduct" ColumnName="imageProduct" />
+          <ScalarProperty Name="attributes" ColumnName="attributes" />
+          <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="idDetailBill" ColumnName="idDetailBill" />
+          <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+          <ScalarProperty Name="idBill" ColumnName="idBill" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageProducts">
+      <EntityTypeMapping TypeName="CLOTHESModel.ImageProduct">
+        <MappingFragment StoreEntitySet="ImageProduct">
+          <ScalarProperty Name="idImage" ColumnName="idImage" />
+          <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+          <ScalarProperty Name="URLImage" ColumnName="URLImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permissions">
+      <EntityTypeMapping TypeName="CLOTHESModel.Permission">
+        <MappingFragment StoreEntitySet="Permission">
+          <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+          <ScalarProperty Name="namePermission" ColumnName="namePermission" />
+          <ScalarProperty Name="level" ColumnName="level" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="CLOTHESModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="size42" ColumnName="size42" />
+          <ScalarProperty Name="size41" ColumnName="size41" />
+          <ScalarProperty Name="size40" ColumnName="size40" />
+          <ScalarProperty Name="size39" ColumnName="size39" />
+          <ScalarProperty Name="size38" ColumnName="size38" />
+          <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+          <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+          <ScalarProperty Name="sizeM" ColumnName="sizeM" />
+          <ScalarProperty Name="sizeL" ColumnName="sizeL" />
+          <ScalarProperty Name="sizeXL" ColumnName="sizeXL" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="idType" ColumnName="idType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="CLOTHESModel.Type">
+        <MappingFragment StoreEntitySet="Types">
+          <ScalarProperty Name="idType" ColumnName="idType" />
+          <ScalarProperty Name="nameType" ColumnName="nameType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="CLOTHESModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="ward" ColumnName="ward" />
+          <ScalarProperty Name="district" ColumnName="district" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+          <ScalarProperty Name="fullName" ColumnName="fullName" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="identityCard" ColumnName="identityCard" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="URLAvatar" ColumnName="URLAvatar" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vouchers">
+      <EntityTypeMapping TypeName="CLOTHESModel.Voucher">
+        <MappingFragment StoreEntitySet="Voucher">
+          <ScalarProperty Name="minAmount" ColumnName="minAmount" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="discount" ColumnName="discount" />
+          <ScalarProperty Name="voucherID" ColumnName="voucherID" />
+          <ScalarProperty Name="dateStart" ColumnName="dateStart" />
+          <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CLOTHESModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderStatus">
+      <EntityTypeMapping TypeName="CLOTHESModel.OrderStatus">
+        <MappingFragment StoreEntitySet="OrderStatus">
+          <ScalarProperty Name="statusName" ColumnName="statusName" />
+          <ScalarProperty Name="orderStatusID" ColumnName="orderStatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
