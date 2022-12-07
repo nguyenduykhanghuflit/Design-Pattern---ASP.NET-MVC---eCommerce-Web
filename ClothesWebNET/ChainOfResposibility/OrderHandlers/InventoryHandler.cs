@@ -27,7 +27,8 @@ namespace ClothesWebNET.ChainOfResposibility.OrderHandlers
                     {
                         return $"Lỗi Sản phẩm {product.nameProduct} chỉ còn {stockRes} sản phẩm";
                     }
-                   
+                    stockDB.stock = stockRes - stock;
+                    db.SaveChanges();
                 }
                 else
                 {
