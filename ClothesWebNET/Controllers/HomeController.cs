@@ -21,6 +21,8 @@ namespace ClothesWebNET.Controllers
                                join img in db.ImageProduct on s.idProduct equals img.idProduct
                                select s);
 
+            var data = db.spGetNewProduct();
+            ViewBag.newProduct=data.ToList();
            /* var query = productList.Include(p => p.ImageProduct);*//*
             ViewBag.list = query.ToList();*/
             return View(productList.ToList());
