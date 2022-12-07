@@ -157,8 +157,8 @@ namespace ClothesWebNET.Controllers
                             userId = s.idUser,  
                             fullName = s.fullName , 
                             email = s.email ,   
-                            phone = s.phone 
-                        });
+                            phone = (int)s.phone,
+                        });;
 
             return data.ToList();
 

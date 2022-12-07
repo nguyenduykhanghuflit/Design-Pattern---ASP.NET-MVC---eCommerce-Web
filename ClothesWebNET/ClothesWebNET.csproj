@@ -202,6 +202,30 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>ClothesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spGetNewProduct_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetProductByIdProduct_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetProductById_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetProductByKeyword_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetProductByType_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetProduct_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>ClothesModel.tt</DependentUpon>
     </Compile>
@@ -289,6 +313,9 @@
     <Content Include="Areas\Admin\Views\Post\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Post\Add.cshtml" />
     <Content Include="Areas\Admin\Views\Post\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Bill\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Bill\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Bill\Index.cshtml" />
     <EntityDeploy Include="Models\ClothesModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ClothesModel.Designer.cs</LastGenOutput>
@@ -296,9 +323,6 @@
     <Content Include="Models\ClothesModel.edmx.diagram">
       <DependentUpon>ClothesModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Bill\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Bill\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Bill\Index.cshtml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />

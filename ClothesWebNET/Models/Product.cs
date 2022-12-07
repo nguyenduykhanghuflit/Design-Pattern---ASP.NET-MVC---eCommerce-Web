@@ -17,9 +17,9 @@ namespace ClothesWebNET.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            this.Attributes = new HashSet<Attributes>();
             this.DetailBIll = new HashSet<DetailBIll>();
             this.ImageProduct = new HashSet<ImageProduct>();
-            this.Attributes = new HashSet<Attributes>();
         }
     
         public string nameProduct { get; set; }
@@ -27,13 +27,14 @@ namespace ClothesWebNET.Models
         public double price { get; set; }
         public string description { get; set; }
         public string idType { get; set; }
+        public Nullable<System.DateTime> createdAt { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Attributes> Attributes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailBIll> DetailBIll { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ImageProduct> ImageProduct { get; set; }
         public virtual Types Types { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Attributes> Attributes { get; set; }
     }
 }

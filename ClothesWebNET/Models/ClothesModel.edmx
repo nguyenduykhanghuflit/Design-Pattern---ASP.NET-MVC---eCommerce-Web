@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CLOTHESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CLOTHESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AttributeDetail">
           <Key>
             <PropertyRef Name="id" />
@@ -98,6 +98,7 @@
           <Property Name="price" Type="float" Nullable="false" />
           <Property Name="description" Type="ntext" />
           <Property Name="idType" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="createdAt" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -127,10 +128,10 @@
           <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="gender" Type="bit" />
           <Property Name="identityCard" Type="int" />
-          <Property Name="address" Type="ntext" Nullable="false" />
-          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="ntext" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
           <Property Name="URLAvatar" Type="text" />
-          <Property Name="phone" Type="int" Nullable="false" />
+          <Property Name="phone" Type="int" />
           <Property Name="province" Type="nvarchar" MaxLength="255" />
           <Property Name="district" Type="nvarchar" MaxLength="50" />
           <Property Name="ward" Type="nvarchar" MaxLength="50" />
@@ -266,6 +267,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetNewProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="page" Type="int" Mode="In" />
+          <Parameter Name="size" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetProductById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetProductByIdProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetProductByKeyword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Keyword" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetProductByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idType" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="CLOTHESModelStoreContainer">
           <EntitySet Name="AttributeDetail" EntityType="Self.AttributeDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attributes" EntityType="Self.Attributes" Schema="dbo" store:Type="Tables" />
@@ -321,10 +370,38 @@
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CLOTHESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AttributeDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="attributesID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="stock" Type="Int32" />
+          <NavigationProperty Name="Attributes" Relationship="Self.FK_AttributeDetail_Attributes" FromRole="AttributeDetail" ToRole="Attributes" />
+        </EntityType>
+        <EntityType Name="Attributes">
+          <Key>
+            <PropertyRef Name="attributesID" />
+          </Key>
+          <Property Name="attributesID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="attributesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AttributeDetail" Relationship="Self.FK_AttributeDetail_Attributes" FromRole="Attributes" ToRole="AttributeDetail" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Attributes_Products" FromRole="Attributes" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Atrributes">
+          <Key>
+            <PropertyRef Name="attributesID" />
+          </Key>
+          <Property Name="attributesID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="attributesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="idBill" />
@@ -403,10 +480,11 @@
           <Property Name="price" Type="Double" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="idType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Attributes" Relationship="Self.FK_Attributes_Products" FromRole="Products" ToRole="Attributes" />
           <NavigationProperty Name="DetailBIll" Relationship="Self.FK__DetailBIl__idPro__4F7CD00D" FromRole="Products" ToRole="DetailBIll" />
           <NavigationProperty Name="ImageProduct" Relationship="Self.FK__ImageProd__idPro__4E88ABD4" FromRole="Products" ToRole="ImageProduct" />
           <NavigationProperty Name="Types" Relationship="Self.FK_Product_Types" FromRole="Products" ToRole="Types" />
-          <NavigationProperty Name="Attributes" Relationship="CLOTHESModel.FK_Attributes_Products" FromRole="Product" ToRole="Attributes" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -437,10 +515,10 @@
           <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="gender" Type="Boolean" />
           <Property Name="identityCard" Type="Int32" />
-          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="URLAvatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="Int32" Nullable="false" />
+          <Property Name="phone" Type="Int32" />
           <Property Name="province" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="district" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ward" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -459,6 +537,30 @@
           <Property Name="minAmount" Type="Int32" />
           <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Voucher" FromRole="Voucher" ToRole="Bills" />
         </EntityType>
+        <Association Name="FK_AttributeDetail_Attributes">
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="1" />
+          <End Role="AttributeDetail" Type="Self.AttributeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attributes">
+              <PropertyRef Name="attributesID" />
+            </Principal>
+            <Dependent Role="AttributeDetail">
+              <PropertyRef Name="attributesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attributes_Products">
+          <End Role="Products" Type="CLOTHESModel.Product" Multiplicity="1" />
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Attributes">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Bill__idUser__5070F446">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Bills" Type="CLOTHESModel.Bill" Multiplicity="*" />
@@ -556,6 +658,9 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CLOTHESEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AttributeDetail" EntityType="Self.AttributeDetail" />
+          <EntitySet Name="Attributes" EntityType="Self.Attributes" />
+          <EntitySet Name="Atrributes" EntityType="Self.Atrributes" />
           <EntitySet Name="Bills" EntityType="CLOTHESModel.Bill" />
           <EntitySet Name="DetailBIll" EntityType="Self.DetailBIll" />
           <EntitySet Name="ImageProduct" EntityType="Self.ImageProduct" />
@@ -566,6 +671,14 @@
           <EntitySet Name="Types" EntityType="Self.Types" />
           <EntitySet Name="Users" EntityType="Self.Users" />
           <EntitySet Name="Voucher" EntityType="Self.Voucher" />
+          <AssociationSet Name="FK_AttributeDetail_Attributes" Association="Self.FK_AttributeDetail_Attributes">
+            <End Role="Attributes" EntitySet="Attributes" />
+            <End Role="AttributeDetail" EntitySet="AttributeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attributes_Products" Association="Self.FK_Attributes_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Attributes" EntitySet="Attributes" />
+          </AssociationSet>
           <AssociationSet Name="FK__Bill__idUser__5070F446" Association="Self.FK__Bill__idUser__5070F446">
             <End Role="Users" EntitySet="Users" />
             <End Role="Bills" EntitySet="Bills" />
@@ -598,75 +711,149 @@
             <End Role="Types" EntitySet="Types" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <EntitySet Name="AttributeDetail" EntityType="CLOTHESModel.AttributeDetail" />
-          <EntitySet Name="Attributes" EntityType="CLOTHESModel.Attributes" />
-          <EntitySet Name="Atrributes" EntityType="CLOTHESModel.Atrributes" />
-          <AssociationSet Name="FK_AttributeDetail_Attributes" Association="CLOTHESModel.FK_AttributeDetail_Attributes">
-            <End Role="Attributes" EntitySet="Attributes" />
-            <End Role="AttributeDetail" EntitySet="AttributeDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Attributes_Products" Association="CLOTHESModel.FK_Attributes_Products">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Attributes" EntitySet="Attributes" />
-          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CLOTHESModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CLOTHESModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="spGetNewProduct" ReturnType="Collection(CLOTHESModel.spGetNewProduct_Result)" />
+          <FunctionImport Name="spGetProduct" ReturnType="Collection(CLOTHESModel.spGetProduct_Result)">
+            <Parameter Name="page" Mode="In" Type="Int32" />
+            <Parameter Name="size" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetProductById" ReturnType="Collection(CLOTHESModel.spGetProductById_Result)">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetProductByIdProduct" ReturnType="Collection(CLOTHESModel.spGetProductByIdProduct_Result)">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetProductByKeyword" ReturnType="Collection(CLOTHESModel.spGetProductByKeyword_Result)">
+            <Parameter Name="Keyword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetProductByType" ReturnType="Collection(CLOTHESModel.spGetProductByType_Result)">
+            <Parameter Name="idType" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
-        <EntityType Name="AttributeDetail">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="stock" Type="Int32" />
-          <NavigationProperty Name="Attributes" Relationship="CLOTHESModel.FK_AttributeDetail_Attributes" FromRole="AttributeDetail" ToRole="Attributes" />
-        </EntityType>
-        <EntityType Name="Attributes">
-          <Key>
-            <PropertyRef Name="attributesID" />
-          </Key>
-          <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="attributesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="idProduct" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AttributeDetail" Relationship="CLOTHESModel.FK_AttributeDetail_Attributes" FromRole="Attributes" ToRole="AttributeDetail" />
-          <NavigationProperty Name="Products" Relationship="CLOTHESModel.FK_Attributes_Products" FromRole="Attributes" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="Atrributes">
-          <Key>
-            <PropertyRef Name="attributesID" />
-          </Key>
-          <Property Name="attributesID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="attributesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_AttributeDetail_Attributes">
-          <End Type="CLOTHESModel.Attributes" Role="Attributes" Multiplicity="1" />
-          <End Type="CLOTHESModel.AttributeDetail" Role="AttributeDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Attributes">
-              <PropertyRef Name="attributesID" />
-            </Principal>
-            <Dependent Role="AttributeDetail">
-              <PropertyRef Name="attributesID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Attributes_Products">
-          <End Type="CLOTHESModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="CLOTHESModel.Attributes" Role="Attributes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="idProduct" />
-            </Principal>
-            <Dependent Role="Attributes">
-              <PropertyRef Name="idProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetNewProduct_Result">
+          <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="idType" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetProduct_Result">
+          <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="idType" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetProductById_Result">
+          <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="idType" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" />
+          <Property Type="String" Name="idImage" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="idProduct1" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="URLImage" Nullable="false" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="spGetProductByIdProduct_Result">
+          <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="idType" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetProductByKeyword_Result">
+          <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="idType" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetProductByType_Result">
+          <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="idType" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CLOTHESModelStoreContainer" CdmEntityContainer="CLOTHESEntities">
+          <EntitySetMapping Name="AttributeDetail">
+            <EntityTypeMapping TypeName="CLOTHESModel.AttributeDetail">
+              <MappingFragment StoreEntitySet="AttributeDetail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attributes">
+            <EntityTypeMapping TypeName="CLOTHESModel.Attributes">
+              <MappingFragment StoreEntitySet="Attributes">
+                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
+                <ScalarProperty Name="attributesName" ColumnName="attributesName" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Atrributes">
+            <EntityTypeMapping TypeName="CLOTHESModel.Atrributes">
+              <MappingFragment StoreEntitySet="Atrributes">
+                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
+                <ScalarProperty Name="attributesName" ColumnName="attributesName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Bills">
             <EntityTypeMapping TypeName="CLOTHESModel.Bill">
               <MappingFragment StoreEntitySet="Bills">
@@ -740,7 +927,8 @@
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="idType" ColumnName="idType" />
-                </MappingFragment>
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
@@ -794,33 +982,105 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AttributeDetail">
-            <EntityTypeMapping TypeName="CLOTHESModel.AttributeDetail">
-              <MappingFragment StoreEntitySet="AttributeDetail">
-                <ScalarProperty Name="stock" ColumnName="stock" />
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Attributes">
-            <EntityTypeMapping TypeName="CLOTHESModel.Attributes">
-              <MappingFragment StoreEntitySet="Attributes">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CLOTHESModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CLOTHESModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CLOTHESModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CLOTHESModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CLOTHESModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CLOTHESModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CLOTHESModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="spGetNewProduct" FunctionName="CLOTHESModel.Store.spGetNewProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spGetNewProduct_Result">
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
-                <ScalarProperty Name="attributesName" ColumnName="attributesName" />
-                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Atrributes">
-            <EntityTypeMapping TypeName="CLOTHESModel.Atrributes">
-              <MappingFragment StoreEntitySet="Atrributes">
-                <ScalarProperty Name="attributesName" ColumnName="attributesName" />
-                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetProduct" FunctionName="CLOTHESModel.Store.spGetProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spGetProduct_Result">
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetProductById" FunctionName="CLOTHESModel.Store.spGetProductById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spGetProductById_Result">
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="idImage" ColumnName="idImage" />
+                <ScalarProperty Name="idProduct1" ColumnName="idProduct1" />
+                <ScalarProperty Name="URLImage" ColumnName="URLImage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetProductByIdProduct" FunctionName="CLOTHESModel.Store.spGetProductByIdProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spGetProductByIdProduct_Result">
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetProductByKeyword" FunctionName="CLOTHESModel.Store.spGetProductByKeyword">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spGetProductByKeyword_Result">
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetProductByType" FunctionName="CLOTHESModel.Store.spGetProductByType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spGetProductByType_Result">
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

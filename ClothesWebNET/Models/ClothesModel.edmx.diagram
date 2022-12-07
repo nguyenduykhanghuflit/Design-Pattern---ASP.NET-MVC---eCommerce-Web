@@ -4,17 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="283a05a6cc9e4b57ac3f3f2224d0c5de" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="CLOTHESModel.Bill" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.DetailBIll" Width="1.5" PointX="7.375" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.ImageProduct" Width="1.5" PointX="11.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.OrderStatus" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.Permission" Width="1.5" PointX="2.625" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.Product" Width="1.5" PointX="9.5" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.sysdiagrams" Width="1.5" PointX="8" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.Types" Width="1.5" PointX="11.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.Users" Width="1.5" PointX="2.625" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CLOTHESModel.Voucher" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+      <Diagram DiagramId="d20ddc488842446299e9de886e93c31b" Name="Diagram1">
+        <EntityTypeShape EntityType="CLOTHESModel.AttributeDetail" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.Attributes" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.Atrributes" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.Bill" Width="1.5" PointX="6" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.DetailBIll" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.ImageProduct" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.OrderStatus" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.Permission" Width="1.5" PointX="1.5" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.Product" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.Types" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.Users" Width="1.5" PointX="3.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLOTHESModel.Voucher" Width="1.5" PointX="3.75" PointY="19.75" IsExpanded="true" />
+        <AssociationConnector Association="CLOTHESModel.FK_AttributeDetail_Attributes" ManuallyRouted="false" />
+        <AssociationConnector Association="CLOTHESModel.FK_Attributes_Products" ManuallyRouted="false" />
         <AssociationConnector Association="CLOTHESModel.FK__Bill__idUser__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="CLOTHESModel.FK__DetailBIl__idBil__52593CB8" ManuallyRouted="false" />
         <AssociationConnector Association="CLOTHESModel.FK_Bill_OrderStatus" ManuallyRouted="false" />
@@ -23,11 +28,6 @@
         <AssociationConnector Association="CLOTHESModel.FK__ImageProd__idPro__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="CLOTHESModel.FK__User__idPermissi__59063A47" ManuallyRouted="false" />
         <AssociationConnector Association="CLOTHESModel.FK_Product_Types" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CLOTHESModel.AttributeDetail" Width="1.5" PointX="11.75" PointY="5.375" />
-        <EntityTypeShape EntityType="CLOTHESModel.Attributes" Width="1.5" PointX="9.625" PointY="5.375" />
-        <EntityTypeShape EntityType="CLOTHESModel.Atrributes" Width="1.5" PointX="15.625" PointY="14.125" />
-        <AssociationConnector Association="CLOTHESModel.FK_AttributeDetail_Attributes" />
-        <AssociationConnector Association="CLOTHESModel.FK_Attributes_Products" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

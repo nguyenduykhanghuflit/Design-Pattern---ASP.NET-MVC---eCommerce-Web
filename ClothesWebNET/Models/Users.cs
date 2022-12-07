@@ -30,7 +30,7 @@ namespace ClothesWebNET.Models
         public string address { get; set; }
         public string email { get; set; }
         public string URLAvatar { get; set; }
-        public int phone { get; set; }
+        public Nullable<int> phone { get; set; }
         public string province { get; set; }
         public string district { get; set; }
         public string ward { get; set; }
