@@ -57,6 +57,7 @@ namespace ClothesWebNET.ChainOfResposibility.OrderHandlers
                     detailBIll.idProduct = item.idProduct;
                     detailBIll.nameProduct = item.nameProduct;
                     detailBIll.imageProduct = item.imageProduct;
+                    detailBIll.attributeValueId = item.attributeValueId;
                     db.Entry(detailBIll).State = System.Data.Entity.EntityState.Modified;
                     db.DetailBIll.Add(detailBIll);
 

@@ -23,14 +23,22 @@ namespace ClothesWebNET.Controllers
 
             q = q.ToLower();
 
-            var productList = (from s in db.Products
-                               where s.nameProduct.ToLower().Contains(q)
-                               select s);
+            var productList=db.spGetProductByKeyword(q);
 
-            var query = productList.Include(p => p.ImageProduct);
-            ViewBag.list = query.ToList();
 
-            return View(query.ToList());
+            List<ProductDTO> result = (from product in productList
+                                       let listImage = db.ImageProduct.Where(img => img.idProduct == product.idProduct).ToList()
+                                       select new ProductDTO(product.price, product.nameProduct, product.idProduct, listImage)
+                                     ).ToList();
+
+            /*     var productList = (from s in db.Products
+                                    where s.nameProduct.ToLower().Contains(q)
+                                    select s);
+
+                 var query = productList.Include(p => p.ImageProduct);
+                */
+            ViewBag.result = result.ToList();
+            return View();
 
 
         }

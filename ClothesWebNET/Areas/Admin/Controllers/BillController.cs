@@ -98,12 +98,6 @@ namespace ClothesWebNET.Areas.Admin.Controllers
             }
             return Json("không đủ quyền");
 
-
-
-
-
-
-
         }
 
         [HttpPost]

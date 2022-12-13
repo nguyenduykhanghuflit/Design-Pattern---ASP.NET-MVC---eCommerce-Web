@@ -35,11 +35,7 @@ namespace ClothesWebNET.Controllers
 
                 return View();
             }
-          
-               
-         
-
-
+        
         }
 
         public void ghinhotaikhoan(string username, string password)

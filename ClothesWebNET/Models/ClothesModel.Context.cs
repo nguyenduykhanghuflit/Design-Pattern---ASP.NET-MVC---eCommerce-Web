@@ -197,5 +197,37 @@ namespace ClothesWebNET.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProductByType_Result>("spGetProductByType", idTypeParameter);
         }
+    
+        public virtual int spCapNhatSoLuongSanPham(Nullable<int> soLuongSp, string idDetail)
+        {
+            var soLuongSpParameter = soLuongSp.HasValue ?
+                new ObjectParameter("soLuongSp", soLuongSp) :
+                new ObjectParameter("soLuongSp", typeof(int));
+    
+            var idDetailParameter = idDetail != null ?
+                new ObjectParameter("idDetail", idDetail) :
+                new ObjectParameter("idDetail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCapNhatSoLuongSanPham", soLuongSpParameter, idDetailParameter);
+        }
+    
+        public virtual int spDeleteProduct(string idProduct)
+        {
+            var idProductParameter = idProduct != null ?
+                new ObjectParameter("idProduct", idProduct) :
+                new ObjectParameter("idProduct", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteProduct", idProductParameter);
+        }
+    
+        public virtual ObjectResult<spLaySanPhamBanChay_Result> spLaySanPhamBanChay()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spLaySanPhamBanChay_Result>("spLaySanPhamBanChay");
+        }
+    
+        public virtual ObjectResult<spGetHotProduct_Result> spGetHotProduct()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetHotProduct_Result>("spGetHotProduct");
+        }
     }
 }

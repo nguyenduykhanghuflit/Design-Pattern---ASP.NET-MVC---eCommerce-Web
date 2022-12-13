@@ -202,6 +202,9 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>ClothesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spGetHotProduct_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\spGetNewProduct_Result.cs">
       <DependentUpon>ClothesModel.tt</DependentUpon>
     </Compile>
@@ -218,6 +221,9 @@
       <DependentUpon>ClothesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spGetProduct_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spLaySanPhamBanChay_Result.cs">
       <DependentUpon>ClothesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">

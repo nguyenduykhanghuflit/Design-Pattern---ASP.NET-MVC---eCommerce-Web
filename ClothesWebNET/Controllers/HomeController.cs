@@ -15,17 +15,28 @@ namespace ClothesWebNET.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            string id = "T01";
-            var productList = (from s in db.Products
-                               where s.idType == id
-                               join img in db.ImageProduct on s.idProduct equals img.idProduct
-                               select s);
 
-            var data = db.spGetNewProduct();
-            ViewBag.newProduct=data.ToList();
-           /* var query = productList.Include(p => p.ImageProduct);*//*
-            ViewBag.list = query.ToList();*/
-            return View(productList.ToList());
+            #region Get New Product
+            var newProductList = db.spGetNewProduct();
+            List<ProductDTO> productDTOs = (from product in newProductList
+                                            let listImage = db.ImageProduct.Where(p => p.idProduct == product.idProduct).ToList()
+                                            let productDTO = new ProductDTO(product.price, product.nameProduct, product.idProduct, listImage)
+                                            select productDTO).ToList();
+            #endregion
+
+            #region Get Hot Product
+            var listIdProductHot = db.spGetHotProduct();
+            List<ProductDTO> productHots = (from product in listIdProductHot
+                                           let listImage=db.ImageProduct.Where(img=>img.idProduct==product.idProduct).ToList()
+                                           select new ProductDTO(product.price,product.nameProduct,product.idProduct, listImage)).ToList();
+            #endregion
+
+            #region Return Data
+            ViewBag.newProduct = productDTOs.ToList();
+            ViewBag.productHotList = productHots.ToList();
+            #endregion
+
+            return View();
 
         }
         public ActionResult Address()

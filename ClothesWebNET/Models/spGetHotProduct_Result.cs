@@ -10,21 +10,12 @@
 namespace ClothesWebNET.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class DetailBIll
+    public partial class spGetHotProduct_Result
     {
-        public string idDetailBill { get; set; }
         public string idProduct { get; set; }
-        public string idBill { get; set; }
-        public int qty { get; set; }
-        public int price { get; set; }
         public string nameProduct { get; set; }
-        public string attributes { get; set; }
-        public string imageProduct { get; set; }
-        public string attributeValueId { get; set; }
-    
-        public virtual Bill Bills { get; set; }
-        public virtual Product Products { get; set; }
+        public double price { get; set; }
+        public Nullable<int> SoLuongBanDuoc { get; set; }
     }
 }

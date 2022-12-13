@@ -116,10 +116,6 @@
 
 <!-- ----------Banner---------- -->
 
-@{
-    int ctop = 0;
-    int cbot = 0;
-}
 <!-- Product -->
 <div class="products">
     <div class="product-headingg">SẢN PHẨM MỚI - NEW PRODUCTS</div>
@@ -128,18 +124,16 @@
 
 
 
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.newProduct)
             {
-                cbot++;
-                if (cbot > 7)
-                {
                     <div class="grid__col-3">
                         <div class="product">
                             <h1 style="display:none" id="idProduct">@item.idProduct</h1>
-                            <img src="@item.ImageProduct.FirstOrDefault().URLImage"
+
+                            <img src="@item.listImage[0].URLImage"
                                  alt=""
                                  class="product-img product-show" />
-                            <img src="@item.ImageProduct.LastOrDefault().URLImage"
+                            <img src="@item.listImage[1].URLImage"
                                  alt=""
                                  class="product-img product-img-hover" />
                         </div>
@@ -150,13 +144,8 @@
                             <div class="product-price">@item.price,000₫</div>
                         </div>
                     </div>
-                }
+             }
 
-
-                if (cbot == 15)
-                { break; }
-
-            }
 
         </div>
 
@@ -183,39 +172,32 @@
 
 
 <div class="products">
-    <div style="text-transform:uppercase" class="product-headingg">sản phẩm tiêu biểu - typical products 2022</div>
+    <div style="text-transform:uppercase" class="product-headingg">sản phẩm bán chạy - typical products 2022</div>
     <div class="grid">
         <div class="grid__row">
 
 
-            @if (Model.Count() > 0)
-            {
-                foreach (var item in Model)
-                {
-                    ctop++;
-                    <div class="grid__col-3">
-                        <div class="product">
-                            <h1 style="display:none" id="idProduct">@item.idProduct</h1>
-                            <img src="@item.ImageProduct.FirstOrDefault().URLImage"
-                                 alt=""
-                                 class="product-img product-show" />
-                            <img src="@item.ImageProduct.LastOrDefault().URLImage"
-                                 alt=""
-                                 class="product-img product-img-hover" />
-                        </div>
-                        <div class="product-info">
-                            <div class="product-title">
-                                @item.nameProduct
-                            </div>
-                            <div class="product-price">@item.price,000₫</div>
-                        </div>
-                    </div>
 
-                    if (ctop == 8)
-                    {
-                        break;
-                    }
-                }
+            @foreach (var item in ViewBag.productHotList)
+            {
+                <div class="grid__col-3">
+                    <div class="product">
+                        <h1 style="display:none" id="idProduct">@item.idProduct</h1>
+                     
+                        <img src="@item.listImage[0].URLImage"
+                             alt=""
+                             class="product-img product-show" />
+                        <img src="@item.listImage[1].URLImage"
+                             alt=""
+                             class="product-img product-img-hover" />
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">
+                            @item.nameProduct
+                        </div>
+                        <div class="product-price">@item.price,000₫</div>
+                    </div>
+                </div>
             }
 
 

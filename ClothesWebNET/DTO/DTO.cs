@@ -25,6 +25,24 @@ namespace ClothesWebNET.Models
         public int sizeXL { get; set; }
 
     }
+    public class ProductDTO
+    {
+        public List<ImageProduct> listImage;
+        public string idProduct { get; set; }
+        public string nameProduct { get; set; }
+        public double price { get; set; }
+
+
+        public ProductDTO(double price, string nameProduct, string idProduct, List<ImageProduct> listImage)
+        {
+            this.price = price;
+            this.nameProduct = nameProduct;
+            this.idProduct = idProduct;
+            this.listImage = listImage;
+        }
+
+    
+    }
     public class BillData
     {
         public string idBill { get; set; }

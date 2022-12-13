@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CLOTHESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CLOTHESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AttributeDetail">
           <Key>
             <PropertyRef Name="id" />
@@ -65,6 +65,7 @@
           <Property Name="nameProduct" Type="nvarchar" MaxLength="255" />
           <Property Name="attributes" Type="nvarchar" MaxLength="255" />
           <Property Name="imageProduct" Type="nvarchar" MaxLength="700" />
+          <Property Name="attributeValueId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ImageProduct">
           <Key>
@@ -243,18 +244,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Bill_Voucher">
-          <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Voucher">
-              <PropertyRef Name="voucherID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="voucherID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_Types">
           <End Role="Types" Type="Self.Types" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
@@ -268,6 +257,20 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="fnDemSoDonHangTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ngaybatdau" Type="datetime" Mode="In" />
+          <Parameter Name="ngaykethuc" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoLuongDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoTienDaMua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDoanhThuTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ngaybatdau" Type="datetime" Mode="In" />
+          <Parameter Name="ngaykethuc" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -298,6 +301,14 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spCapNhatSoLuongSanPham" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="soLuongSp" Type="int" Mode="In" />
+          <Parameter Name="idDetail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProduct" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetHotProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spGetNewProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spGetProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="page" Type="int" Mode="In" />
@@ -315,6 +326,7 @@
         <Function Name="spGetProductByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idType" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="spLaySanPhamBanChay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CLOTHESModelStoreContainer">
           <EntitySet Name="AttributeDetail" EntityType="Self.AttributeDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attributes" EntityType="Self.Attributes" Schema="dbo" store:Type="Tables" />
@@ -361,17 +373,12 @@
             <End Role="OrderStatus" EntitySet="OrderStatus" />
             <End Role="Bills" EntitySet="Bills" />
           </AssociationSet>
-          <AssociationSet Name="FK_Bill_Voucher" Association="Self.FK_Bill_Voucher">
-            <End Role="Voucher" EntitySet="Voucher" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
           <AssociationSet Name="FK_Product_Types" Association="Self.FK_Product_Types">
             <End Role="Types" EntitySet="Types" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CLOTHESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -444,6 +451,7 @@
           <Property Name="imageProduct" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Bills" Relationship="Self.FK__DetailBIl__idBil__52593CB8" FromRole="DetailBIll" ToRole="Bills" />
           <NavigationProperty Name="Products" Relationship="Self.FK__DetailBIl__idPro__4F7CD00D" FromRole="DetailBIll" ToRole="Products" />
+          <Property Name="attributeValueId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ImageProduct">
           <Key>
@@ -747,17 +755,26 @@
             <Parameter Name="size" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetProductById" ReturnType="Collection(CLOTHESModel.spGetProductById_Result)">
-            <Parameter Name="id" Mode="In" Type="String" />
+          <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spGetProductByIdProduct" ReturnType="Collection(CLOTHESModel.spGetProductByIdProduct_Result)">
-            <Parameter Name="id" Mode="In" Type="String" />
+          <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spGetProductByKeyword" ReturnType="Collection(CLOTHESModel.spGetProductByKeyword_Result)">
-            <Parameter Name="Keyword" Mode="In" Type="String" />
+          <Parameter Name="Keyword" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spGetProductByType" ReturnType="Collection(CLOTHESModel.spGetProductByType_Result)">
-            <Parameter Name="idType" Mode="In" Type="String" />
+          <Parameter Name="idType" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="spCapNhatSoLuongSanPham">
+            <Parameter Name="soLuongSp" Mode="In" Type="Int32" />
+            <Parameter Name="idDetail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDeleteProduct">
+          <Parameter Name="idProduct" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spLaySanPhamBanChay" ReturnType="Collection(CLOTHESModel.spLaySanPhamBanChay_Result)" />
+          <FunctionImport Name="spGetHotProduct" ReturnType="Collection(CLOTHESModel.spGetHotProduct_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -821,6 +838,16 @@
           <Property Type="String" Name="idType" Nullable="false" MaxLength="255" />
           <Property Type="DateTime" Name="createdAt" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="spLaySanPhamBanChay_Result">
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="SoLuongBanDuoc" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetHotProduct_Result">
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="Int32" Name="SoLuongBanDuoc" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -882,6 +909,7 @@
           <EntitySetMapping Name="DetailBIll">
             <EntityTypeMapping TypeName="CLOTHESModel.DetailBIll">
               <MappingFragment StoreEntitySet="DetailBIll">
+                <ScalarProperty Name="attributeValueId" ColumnName="attributeValueId" />
                 <ScalarProperty Name="idDetailBill" ColumnName="idDetailBill" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
                 <ScalarProperty Name="idBill" ColumnName="idBill" />
@@ -1078,6 +1106,26 @@
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="idType" ColumnName="idType" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spCapNhatSoLuongSanPham" FunctionName="CLOTHESModel.Store.spCapNhatSoLuongSanPham" />
+          <FunctionImportMapping FunctionImportName="spDeleteProduct" FunctionName="CLOTHESModel.Store.spDeleteProduct" />
+          <FunctionImportMapping FunctionImportName="spLaySanPhamBanChay" FunctionName="CLOTHESModel.Store.spLaySanPhamBanChay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spLaySanPhamBanChay_Result">
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="SoLuongBanDuoc" ColumnName="SoLuongBanDuoc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetHotProduct" FunctionName="CLOTHESModel.Store.spGetHotProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spGetHotProduct_Result">
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="SoLuongBanDuoc" ColumnName="SoLuongBanDuoc" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
