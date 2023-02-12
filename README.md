@@ -10,6 +10,6 @@
 * <img width="175" alt="image" src="https://user-images.githubusercontent.com/87811387/174740553-7a1f2e2a-a625-4e9d-9396-3a5f891d8ed7.png">
  
 ## DATABASE 
-![image](https://user-images.githubusercontent.com/76279360/218333998-ab7abf70-e3d8-47ba-895a-b9c7d8c7ed06.png)
+<img width="660" alt="image" src="https://user-images.githubusercontent.com/76279360/218334053-6dca9b80-bf56-40c1-8b18-f4a66918d52e.png">
 
 
