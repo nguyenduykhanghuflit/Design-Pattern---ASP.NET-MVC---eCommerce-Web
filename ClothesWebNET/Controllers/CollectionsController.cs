@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ClothesWebNET.Models;
-
+using ClothesWebNET.Pattern.ModelsView;
 using static ClothesWebNET.Models.Product;
 
 namespace ClothesWebNET.Controllers
@@ -32,24 +32,33 @@ namespace ClothesWebNET.Controllers
 
         // GET: Collections
 
-        public ActionResult Index(string id)
+        public ActionResult Index(string id,int? page)
         {
+            ProductVM productVM = new ProductVM();
+
             if (id == null)
             {
-                var query = db.Products.Include(p => p.ImageProduct).Take(10);
-                ViewBag.list = query.ToList();
-                return View(query.ToList());
+                int count = db.Products.Count();
+                var data = productVM.GetAllProduct(page).ToList();
+
+                ViewBag.list = data;
+                ViewBag.MaxPage = (count / 12) - (count % 12 == 0 ? 1 : 0);
+                ViewBag.Page = page==null? 1 : page;
+
+                return View(data);
+
             }
             else
             {
-             
-                var productList = (from s in db.Products
-                                   where s.idType == id
-                                   select s);
+                int count = db.Products.Where(p=>p.idType==id).Count();
+                var data = productVM.GetProductByType(page,id).ToList();
 
-                var query = productList.Include(p => p.ImageProduct);
-                ViewBag.list = query.ToList();
-                return View(query.ToList());
+                ViewBag.list = data;
+                ViewBag.MaxPage = (count / 12) - (count % 12 == 0 ? 1 : 0);
+                ViewBag.Page = page == null ? 1 : page;
+
+                return View(data);
+
             }
 
         }
@@ -58,7 +67,7 @@ namespace ClothesWebNET.Controllers
   
         public ActionResult Details(string id)
         {
-            ProductDTODetail productDTO = new ProductDTODetail();
+    
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -77,7 +86,8 @@ namespace ClothesWebNET.Controllers
                 var data = from p in product
                            select p;
 
-                data.Include("ImageProducts").Include("Type");
+                data.Include("ImageProducts")
+                    .Include("Type");
                 var datarelateto = (from p in db.Products
                                     join t in data on p.idType equals t.idType
                                     select p);
@@ -89,8 +99,6 @@ namespace ClothesWebNET.Controllers
             };
         }
 
-
-     
 
     }
 }

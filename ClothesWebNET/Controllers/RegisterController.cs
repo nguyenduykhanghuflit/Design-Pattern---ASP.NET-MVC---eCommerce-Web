@@ -36,9 +36,9 @@ namespace ClothesWebNET.Controllers
                 }
                 else
                 {
-                    if (password.Length < 6||password.Length>10)
+                    if (username.Length < 5 || username.Length > 12)
                     {
-                        ViewBag.PasswordErr = "Mật khẩu phải từ 6 đến 10 kí tự";
+                        ViewBag.PasswordErr = "Mật khẩu phải từ 5 đến 12 kí tự";
                         return View();
                     }
                     else

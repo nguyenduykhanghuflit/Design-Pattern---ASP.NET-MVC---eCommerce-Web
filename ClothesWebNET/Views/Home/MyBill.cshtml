@@ -18,16 +18,21 @@
         font-size:22px;
         font-weight:bolder;
     }
+    .bill-statistical {
+        text-align: center;
+        font-size: 14px;
+        margin-top:5px;
+    }
     .bill-item {
         width: 900px;
-        border-radius:10px;
+        border-radius: 10px;
         margin: 20px auto;
         padding: 20px;
         border: 1px #808080 solid;
     }
     .item{
-
-        height:120px;
+           
+        padding:10px 0; 
         display:flex;
         justify-content:space-between;
     }
@@ -57,33 +62,94 @@
     .total-money span{
         font-weight:bolder;
     }
+    .btn-cancel {
+      text-align:center;
+        width:80px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background: #e23d3d;
+        height: 35px;
+        outline:none;
+        overflow:hidden;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+        color:white;
+        font-size:14px;
+        font-weight:400;
+    }
+    .btn-cancel:hover{
+        background:#e24c4c;
+    }
+    .filter-status{
+        width:900px;
+        margin:20px auto;
+        color:blue;
+        font-size:14px;
+        font-weight:500;
+    }
+    .filter-status a{
+        margin-left:7px;
+    }
 </style>
 <div class="container">
     <div class="my-bill">
         <h1 class="bill-title">DANH SÁCH ĐƠN HÀNG</h1>
+         <h3 class="bill-statistical"><a href="/home/statistical">Xem thống kê đơn mua</a> </h3>
+         <div class="filter-status">
+             <a href="?status=watting">Đang chờ</a> |
+             <a href="?status=accept">Đã duyệt</a> |
+             <a href="?status=package">Đóng gói</a> |
+             <a href="?status=shipping">Đóng giao</a> |
+             <a href="?status=success">Thành công</a> |
+             <a href="?status=cancel">Đã hủy</a> |
+             <a href="?status=fail">Thất bại</a>
 
+         </div>
         <div class="list-bill">
 
             @foreach (var item in Model)
             {
-                <div class="bill-item">
-                    @foreach (var i in item.DetailBIll)
-                    {
-                        <div class="item">
-                            <div class="img-product">
-                                <img src="@i.Products.ImageProduct.FirstOrDefault().URLImage" alt="" />
-                            </div>
-                            <div class="info">
-                                <div class="info-name"><span>Tên sản phẩm:  </span>@i.Products.nameProduct</div>
-                                <div class="info-price"><span>Giá: </span>@i.Products.price,000đ</div>
-                                <div class="info-qty"><span>Số lượng: </span> @i.qty</div>
-                                <div class="info-total"><span>Tổng: </span> @i.qty,000đ</div>
-                            </div>
+                
+            <div class="bill-item">
+                <span style="font-size:15px; font-weight:bolder">#@item.idBill</span>
+                <p style="font-size:15px; margin-top:10px; font-weight:bolder">Ngày đặt: @item.createdAt</p>
+                @foreach (var i in item.DetailBIll)
+                {
+                    <div style="margin-top:20px; border-bottom:1px solid #edbdbd" class="item">
+                        <div class="img-product">
+                            <img style="margin-top:20px;" src="@i.imageProduct" alt="" />
                         </div>
+                        <div class="info">
 
-                    }
-                    <div class="total-money"><span>Tổng cộng:</span> @item.totalMoney.,000đ</div>
-                </div>
+                            <div class="info-name"><span>Tên sản phẩm:  </span>@i.nameProduct</div>
+                            <div class="info-price"><span>Giá: </span>@i.price,000đ</div>
+                            <div class="info-price"><span>@i.attributes </span></div>
+                            <div class="info-qty"><span>Số lượng: </span> @i.qty</div>
+                            <div class="info-total"><span>Tổng: </span> @item.subTotal,000đ</div>
+                            <div class="info-total"><span>Phí vận chuyển: </span> 50,000đ</div>
+                        </div>
+                    </div>
+
+                }
+                @if (item.orderStatusID == "watting")
+                {
+                    <div style="display:flex; align-items:center;">
+                        <div class="total-money">
+                            <span>Trạng thái:</span>
+                            @item.OrderStatus.statusName
+                        </div>
+                        <a href="CancelOrder?idBill=@item.idBill" class="btn-cancel">HỦY</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="total-money"><span>Trạng thái:</span> @item.OrderStatus.statusName</div>
+                }
+                <div class="total-money"><span>Tổng cộng:</span> @item.totalMoney,000đ</div>
+
+            </div>
             }
         </div>
     </div>

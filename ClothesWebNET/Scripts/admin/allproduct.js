@@ -5,14 +5,11 @@
 
 
 
-
-
-
         //   jquey database
 
         var table = $('#table-product').DataTable();
 
-        /*Nút update*/
+     /*   *//*Nút update*//*
         $('#table-product tbody').on('click', 'tr .btn-update', function () {
             let td = $(this).parent();
             let tr = td.parent();
@@ -30,7 +27,7 @@
             $('.modal-update').css('display', 'flex');
         });
 
-        /*Nút xóa*/
+        *//*Nút xóa*//*
         $('#table-product tbody').on('click', 'tr .btn-delete', function () {
             let td = $(this).parent();
             let tr = td.parent();
@@ -56,9 +53,9 @@
 
 
 
-        /*ẩn khi click ra ngoài*/
+        *//*ẩn khi click ra ngoài*//*
         $('.modal__overplay').click(function () {
-            $('.modal-cus').toggle();
-        });
+         *//*  *//* $('.modal-cus').toggle();*/
+ /*       });*/
     })(jQuery);
 

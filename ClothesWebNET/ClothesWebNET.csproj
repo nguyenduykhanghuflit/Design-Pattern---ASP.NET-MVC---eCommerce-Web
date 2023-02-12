@@ -56,6 +56,12 @@
       <HintPath>..\packages\FluentValidation.10.4.0\lib\netstandard2.0\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -143,10 +149,25 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="ChainOfResposibility\OrderHandlers\CreateBillHandler.cs" />
-    <Compile Include="ChainOfResposibility\OrderHandlers\InventoryHandler.cs" />
-    <Compile Include="ChainOfResposibility\OrderHandlers\ProductValidHandler.cs" />
-    <Compile Include="ChainOfResposibility\OrderHandlers\Handler.cs" />
+    <Compile Include="Models\spGetProductByTypeId_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spTaoDonHang_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spThongKeDonHangHomNay_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spThongKeDonHangVaSoTienUser_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThongKeDonHangTheoThoiGian_Result.cs">
+      <DependentUpon>ClothesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pattern\ChainOfResposibility\OrderHandlers\CreateBillHandler.cs" />
+    <Compile Include="Pattern\ChainOfResposibility\OrderHandlers\InventoryHandler.cs" />
+    <Compile Include="Pattern\ChainOfResposibility\OrderHandlers\ProductValidHandler.cs" />
+    <Compile Include="Pattern\ChainOfResposibility\OrderHandlers\Handler.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CollectionsController.cs" />
@@ -244,6 +265,19 @@
     <Compile Include="Models\Voucher.cs">
       <DependentUpon>ClothesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pattern\AccountFacade\AuthenticationAdmin.cs" />
+    <Compile Include="Pattern\AccountFacade\AuthenticationUser.cs" />
+    <Compile Include="Pattern\AccountFacade\LoginFacade.cs" />
+    <Compile Include="Pattern\AccountFacade\ValidationService.cs" />
+    <Compile Include="Pattern\CatalogSingleton.cs" />
+    <Compile Include="Pattern\ModelsView\ProductVM.cs" />
+    <Compile Include="Pattern\OrderProcessStrategy\AcceptOrder.cs" />
+    <Compile Include="Pattern\OrderProcessStrategy\CancelOrder.cs" />
+    <Compile Include="Pattern\OrderProcessStrategy\FailedOrder.cs" />
+    <Compile Include="Pattern\OrderProcessStrategy\IOrderProcess.cs" />
+    <Compile Include="Pattern\OrderProcessStrategy\PackageOrder.cs" />
+    <Compile Include="Pattern\OrderProcessStrategy\ShippingOrder.cs" />
+    <Compile Include="Pattern\OrderProcessStrategy\SuccessOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +298,7 @@
     <Content Include="Content\header.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\payment.css" />
     <Content Include="Content\product.css" />
     <Content Include="Content\register.css" />
@@ -370,6 +405,7 @@
     <Content Include="Views\Home\Address.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Home\Statistical.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

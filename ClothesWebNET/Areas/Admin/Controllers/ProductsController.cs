@@ -139,6 +139,13 @@ namespace ClothesWebNET.Areas.Admin.Controllers
                     return HttpNotFound();
                 }
                 ViewBag.idType = new SelectList(db.Types, "idType", "nameType", product.idType);
+                ViewBag.typeCurrent = product.Types;
+                ViewBag.listType=db.Types.Where(t => t.idType!=product.Types.idType).ToList();
+                ViewBag.product = product;
+                ViewBag.img1 = product.ImageProduct.FirstOrDefault().URLImage;
+                ViewBag.img2 = product.ImageProduct.LastOrDefault().URLImage;
+                ViewBag.attributesName = product.Attributes.FirstOrDefault().attributesName;
+                ViewBag.attributesDetail = product.Attributes.FirstOrDefault().AttributeDetail.ToList();
                 return View(product);
             }
             return Redirect("~/login");
@@ -149,7 +156,7 @@ namespace ClothesWebNET.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "nameProduct,idProduct,sizeM,sizeL,sizeXL,size38,size39,size40,size41,size42,price,description,idType")] Product product ,HttpPostedFileBase img1, HttpPostedFileBase img2)
+        public ActionResult Edit([Bind(Include = "nameProduct,idProduct,price,description,idType")] Product product, HttpPostedFileBase img1, HttpPostedFileBase img2)
         {
             if (Session["SESSION_GROUP_ADMIN"] != null)
             {

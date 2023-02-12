@@ -134,6 +134,16 @@
     .icon-content {
         padding-bottom: 20px;
     }
+    .mess-success{
+        color:blue;
+        font-size:15px;
+        font-weight:bold;
+    }
+    .mess-err {
+        color: red;
+        font-size: 15px;
+        font-weight: bold;
+    }
 </style>
 <div id="content" class="">
     <div class="content-main p-4">
@@ -152,28 +162,28 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-12">
                     <ul id="progressbar" class="text-center">
-                      
+
                         <li key="1" id="s1" class=" step0">
                             <div class="d-flex  flex-column">
                                 <p class="font-weight-bold">Đang chờ</p>
                             </div>
                         </li>
-                        <li  key="2" id="s2" class=" step0">
+                        <li key="2" id="s2" class=" step0">
                             <div class="d-flex  flex-column">
                                 <p class="font-weight-bold">Đã duyệt</p>
                             </div>
                         </li>
-                        <li  key="3" id="s3" class=" step0">
+                        <li key="3" id="s3" class=" step0">
                             <div class="d-flex  flex-column">
                                 <p class="font-weight-bold">Đóng gói</p>
                             </div>
                         </li>
-                        <li  key="4" id ="s4"class="step0">
+                        <li key="4" id="s4" class="step0">
                             <div class="d-flex  flex-column">
                                 <p class="font-weight-bold">Đang giao</p>
                             </div>
                         </li>
-                        <li   key="5" id="s5"class="step0">
+                        <li key="5" id="s5" class="step0">
                             <div class="d-flex  flex-column">
                                 <p class="font-weight-bold">Thành công</p>
                             </div>
@@ -185,6 +195,40 @@
             <h5 class="text-sm">Số điện thoại: <span id="phone"></span></h5>
             <h5 class="text-sm">Địa chỉ: <span id="address"></span></h5>
             <h5 class="text-sm">Mã hóa đơn: <span id="idBill"></span></h5>
+            <h5 class="text-sm">
+                Trạng thái đơn hàng:
+
+                <span id="statusName"></span>
+
+            </h5>
+
+            @{
+                string stt = @ViewBag.currentStatus.statusName;
+            }
+            @if (stt != "Thất bại" && stt != "Thành công" && stt != "Đã hủy")
+            {
+            <div class="d-flex mt-2 mb-2">
+
+                <select class="form-select col-3" id="orderStatus">
+                    <option selected value="@ViewBag.currentStatus.orderStatusID">@ViewBag.currentStatus.statusName</option>
+
+                    @foreach (var item in ViewBag.orderStatus)
+                    {
+                        <option value="@item.orderStatusID">@item.statusName</option>
+                    }
+
+                </select>
+                <button type="button" id="btnOrderStatus" class="btn btn-primary col-3 ml-2">Cập nhật</button>
+            </div>
+            }
+
+
+
+
+
+
+
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -199,12 +243,25 @@
                 </tbody>
             </table>
         </div>
+
         <div class="float-right">
+           
             <h5 class="text-left">Tạm tính:<span class="fmt text-right" id="subTotal"></span></h5>
             <h5 class="text-left">Phí vận chuyển:<span class="fmt" id="shippingfee"></span></h5>
             <h5 class="text-left">Tổng cộng:<span class="fmt" id="Total"></span></h5>
         </div>
     </div>
+</div>
+<div class="modal-cus modal-update">
+    <div class="modal__overplay mdu"></div>
+    <div class="modal__body">
+        <div class="modal__inner">
+            <div class="cus-form">
+
+            </div>
+            
+            </div>
+        </div>
 </div>
 @Scripts.Render("~/bundles/admin/jquery")
 
@@ -215,6 +272,29 @@
     let lastS = pathname.lastIndexOf('/');
     let id = pathname.slice(lastS + 1).trim();
 
+    function activeProcces(statusId) {
+
+        const step = $('.step0');
+        const process = {
+            watting: 0,
+            accept: 1,
+            package: 2,
+            shipping: 3,
+            success:4,
+
+        }
+        for (let i = 0; i <= process[statusId]; i++) {
+         
+           step[i].classList.add('active')
+        }
+      
+    }
+    $('.modal-cus').click(() => {
+        if ($('.modal-cus').hasClass('d-flex')) {
+            $('.modal-cus').removeClass('d-flex')
+            location.reload();
+        }
+    })
     $.ajax('/Admin/Bill/GetDetailBill', {
         data: {
             idBill: id,
@@ -222,11 +302,23 @@
         dataType: 'json',
         method: 'Post',
         success: function (res) {
-            console.log(res)
+
+            const statusColor = {
+                "Thành công": `<span class="badge bg-success">Thành công</span>`,
+                "Đã duyệt": '<span class="badge bg-info">Đã duyệt</span>',
+                "Đã hủy": '<span class="badge bg-dark">Đã hủy</span>',
+                "Thất bại": '<span class="badge bg-secondary">Thất bại</span>',
+                "Đang đóng gói": '<span class="badge bg-dark">Đang đóng gói</span>',
+                "Đang giao": '<span class="badge bg-danger">Đang giao</span>',
+                "Đang chờ": '<span class="badge bg-secondary">Đang chờ</span>',
+            }
+
+
             $('#fullname').html(res[0].nameBook)
             $('#phone').html("0"+res[0].phone)
             $('#address').html(res[0].address)
             $('#idBill').html(res[0].idBill)
+            $('#statusName').html(statusColor[res[0].statusName])
 
             let html = '';
             res.forEach(item => {
@@ -242,31 +334,8 @@
             $('#subTotal').html(res[0].subTotal + "000")
             $('#shippingfee').html(res[0].shipping + "000")
             
-            console.log(res[0].statusId)
-            if (res[0].statusId == 'watting')
-                $('#s1').addClass('active')
-            if (res[0].statusId == 'accept') {
-                $('#s1').addClass('active')
-                $('#s2').addClass('active')
-            }
-            
-            if (res[0].statusId == 'package') {
-                $('#s1').addClass('active')
-                $('#s2').addClass('active')
-                $('#s3').addClass('active')
-            }
-              
-            if (res[0].statusId == 'shipping') {
-                $('#s1').addClass('active')
-                $('#s2').addClass('active')
-                $('#s3').addClass('active')
-                $('#s4').addClass('active')
-            }
-              
-
-            if (res[0].statusId == 'success') {
-                $('#s5').addClass('active')
-            }
+            activeProcces(res[0].statusId)
+        
               
 
             let fmt = document.querySelectorAll('.fmt');
@@ -290,10 +359,50 @@
         }
         return res.join('') + 'đ';
     };
-    
    
+    $('#btnOrderStatus').click(() => {
+        fetch('/Admin/Bill/OrderStatus', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idBill: $('#idBill').text(),
+                status: $('#orderStatus').val(),
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+           
+                if (data.status == true) {
+                    $('.modal-cus').addClass('d-flex')
+                    $('.cus-form').html(`<p class="mess-success">Cập nhật trạng thái thành công</p>`)
+                  
+                  
+                }
+                else {
+                  @*  alert("Lỗi: " + data.mess)*@
+                    $('.modal-cus').addClass('d-flex')
+                    $('.cus-form').html(`<p class="mess-err">Lỗi: ${data.mess}</p>`)
+                    
+                
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    })
+    
+
+  
 
 </script>
 
+<script>
+
+   
+
+</script>
 
 

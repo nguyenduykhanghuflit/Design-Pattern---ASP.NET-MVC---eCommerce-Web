@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ClothesWebNET.Models;
+using ClothesWebNET.Pattern.CatalogSingeton;
 using Type = ClothesWebNET.Models.Types;
 
 namespace ClothesWebNET.Areas.Admin.Controllers
@@ -14,6 +15,16 @@ namespace ClothesWebNET.Areas.Admin.Controllers
     public class TypesController : Controller
     {
         private CLOTHESEntities db = new CLOTHESEntities();
+     
+        public TypesController(CLOTHESEntities db)
+        {
+            this.db = db;
+            CatalogSingleton.Instance.Init(db);
+        }
+
+        public TypesController()
+        {
+        }
 
         // GET: Admin/Types
         public ActionResult Index()
@@ -22,7 +33,9 @@ namespace ClothesWebNET.Areas.Admin.Controllers
             if (Session["SESSION_GROUP_ADMIN"] != null)
             {
 
-                return View(db.Types.ToList());
+             CatalogSingleton.Instance.Init(db);
+            
+                return View(CatalogSingleton.Instance.listType.ToList());
             }
             return Redirect("~/login");
            
@@ -71,7 +84,10 @@ namespace ClothesWebNET.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Type type = db.Types.Find(id);
+   
+            CatalogSingleton.Instance.Init(db);
+
+            var type = CatalogSingleton.Instance.listType.ToList().Find(x => x.idType == id);
             if (type == null)
             {
                 return HttpNotFound();
@@ -88,8 +104,10 @@ namespace ClothesWebNET.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                CatalogSingleton.Instance.Init(db);
+                CatalogSingleton.Instance.listType.Clear();
                 db.Entry(type).State = EntityState.Modified;
-                db.SaveChanges();
+                _ = db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(type);

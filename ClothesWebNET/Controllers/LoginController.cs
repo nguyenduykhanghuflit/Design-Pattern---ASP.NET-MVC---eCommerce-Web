@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using static ClothesWebNET.Models.Users;
 using System.Data.Entity;
-
+using ClothesWebNET.Pattern.AccountFacade;
 
 namespace ClothesWebNET.Controllers
 {
@@ -19,39 +19,14 @@ namespace ClothesWebNET.Controllers
             ViewBag.ErrLogin = null;
             if (Session["USER_SESSION"] != null)
             {
-                
-                    return Redirect("~/Home");
-                
+                    return Redirect("~/Home"); 
                   
             }
-            else
-            {
-                if (Request.Cookies["username"] != null && Request.Cookies["password"] != null)
-                {
-
-                    ViewBag.username = Request.Cookies["username"].Value;
-                    ViewBag.password = Request.Cookies["password"].Value;
-                }
-
-                return View();
-            }
-        
-        }
-
-        public void ghinhotaikhoan(string username, string password)
-        {
-            HttpCookie us = new HttpCookie("username");
-            HttpCookie pas = new HttpCookie("password");
-
-            us.Value = username;
-            pas.Value = password;
-
-            us.Expires = DateTime.Now.AddDays(1);
-            pas.Expires = DateTime.Now.AddDays(1);
-            Response.Cookies.Add(us);
-            Response.Cookies.Add(pas);
+            return View();
 
         }
+
+       
         //thêm hàm lưu hết thông tin trong cookies
         public void SaveInfoInCookies(string idUser,string username)
         {
@@ -71,17 +46,13 @@ namespace ClothesWebNET.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string username, string password, string ghinho)
+        public ActionResult Index(string username, string password)
         {
             var idUser = "";
 
-            if (Request.Cookies["username"] != null && Request.Cookies["password"] != null)
-            {
-                username = Request.Cookies["username"].Value;
-                password = Request.Cookies["password"].Value;
-            }
-
-            if (checkpassword(username, password))
+            LoginFacade loginFacade = new LoginFacade();
+           Dictionary<string,object>checkLogin=  loginFacade.Login(username, password);
+            if ((bool)checkLogin["valid"])
             {
 
                 var infoUser = getInfoUser(username);
@@ -105,10 +76,9 @@ namespace ClothesWebNET.Controllers
                 userSession.email = email;
                 userSession.idUser = idUser;
                 var group = "";
-                var listGroups = GetListGroupID(username);//Có thể viết dòng lệnh lấy các GroupID từ CSDL, ví dụ gán ="ADMIN", dùng List<string>
-
-                if (ghinho == "on")//Ghi nhớ
-                    ghinhotaikhoan(username, password);
+                //Có thể viết dòng lệnh lấy các GroupID từ CSDL, ví dụ gán ="ADMIN", dùng List<string>
+                var listGroups = GetListGroupID(username);
+           
 
                 for (var i = 0; i < listGroups.Count; i++)
                 {
@@ -135,8 +105,7 @@ namespace ClothesWebNET.Controllers
             }
 
             else {
-
-                ViewBag.ErrLogin = "Sai tên đăng nhập hoặc mật khẩu";
+                ViewBag.ErrLogin = checkLogin["mess"];
                 return View();
             }
             
@@ -176,6 +145,7 @@ namespace ClothesWebNET.Controllers
             return data.Select(x => x.UserGroupName).ToList();
 
         }
+    
         public bool checkpassword(string username, string password)
         {
             if (db.Users.Where(x => x.username == username && x.password == password).Count() > 0)

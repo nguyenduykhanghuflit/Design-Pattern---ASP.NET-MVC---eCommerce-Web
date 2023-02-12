@@ -189,13 +189,21 @@ namespace ClothesWebNET.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProductByKeyword_Result>("spGetProductByKeyword", keywordParameter);
         }
     
-        public virtual ObjectResult<spGetProductByType_Result> spGetProductByType(string idType)
+        public virtual ObjectResult<spGetProductByType_Result> spGetProductByType(string idType, Nullable<int> page, Nullable<int> size)
         {
             var idTypeParameter = idType != null ?
                 new ObjectParameter("idType", idType) :
                 new ObjectParameter("idType", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProductByType_Result>("spGetProductByType", idTypeParameter);
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("page", page) :
+                new ObjectParameter("page", typeof(int));
+    
+            var sizeParameter = size.HasValue ?
+                new ObjectParameter("size", size) :
+                new ObjectParameter("size", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProductByType_Result>("spGetProductByType", idTypeParameter, pageParameter, sizeParameter);
         }
     
         public virtual int spCapNhatSoLuongSanPham(Nullable<int> soLuongSp, string idDetail)
@@ -228,6 +236,122 @@ namespace ClothesWebNET.Models
         public virtual ObjectResult<spGetHotProduct_Result> spGetHotProduct()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetHotProduct_Result>("spGetHotProduct");
+        }
+    
+        public virtual int spCapNhatTrangThaiDonHang(string idBill, string idStatus)
+        {
+            var idBillParameter = idBill != null ?
+                new ObjectParameter("idBill", idBill) :
+                new ObjectParameter("idBill", typeof(string));
+    
+            var idStatusParameter = idStatus != null ?
+                new ObjectParameter("idStatus", idStatus) :
+                new ObjectParameter("idStatus", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCapNhatTrangThaiDonHang", idBillParameter, idStatusParameter);
+        }
+    
+        public virtual ObjectResult<spGetProductByTypeId_Result> spGetProductByTypeId(string idType, Nullable<int> page, Nullable<int> size)
+        {
+            var idTypeParameter = idType != null ?
+                new ObjectParameter("idType", idType) :
+                new ObjectParameter("idType", typeof(string));
+    
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("page", page) :
+                new ObjectParameter("page", typeof(int));
+    
+            var sizeParameter = size.HasValue ?
+                new ObjectParameter("size", size) :
+                new ObjectParameter("size", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProductByTypeId_Result>("spGetProductByTypeId", idTypeParameter, pageParameter, sizeParameter);
+        }
+    
+        public virtual ObjectResult<spTaoDonHang_Result> spTaoDonHang()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spTaoDonHang_Result>("spTaoDonHang");
+        }
+    
+        public virtual int ThemMotLoai(string maLoai, string tenLoai)
+        {
+            var maLoaiParameter = maLoai != null ?
+                new ObjectParameter("maLoai", maLoai) :
+                new ObjectParameter("maLoai", typeof(string));
+    
+            var tenLoaiParameter = tenLoai != null ?
+                new ObjectParameter("tenLoai", tenLoai) :
+                new ObjectParameter("tenLoai", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ThemMotLoai", maLoaiParameter, tenLoaiParameter);
+        }
+    
+        public virtual int spTestIns(string idBill, string idUser, string customerName, string email, string phone, string address, string province, string district, string ward)
+        {
+            var idBillParameter = idBill != null ?
+                new ObjectParameter("idBill", idBill) :
+                new ObjectParameter("idBill", typeof(string));
+    
+            var idUserParameter = idUser != null ?
+                new ObjectParameter("idUser", idUser) :
+                new ObjectParameter("idUser", typeof(string));
+    
+            var customerNameParameter = customerName != null ?
+                new ObjectParameter("customerName", customerName) :
+                new ObjectParameter("customerName", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("address", address) :
+                new ObjectParameter("address", typeof(string));
+    
+            var provinceParameter = province != null ?
+                new ObjectParameter("province", province) :
+                new ObjectParameter("province", typeof(string));
+    
+            var districtParameter = district != null ?
+                new ObjectParameter("district", district) :
+                new ObjectParameter("district", typeof(string));
+    
+            var wardParameter = ward != null ?
+                new ObjectParameter("ward", ward) :
+                new ObjectParameter("ward", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTestIns", idBillParameter, idUserParameter, customerNameParameter, emailParameter, phoneParameter, addressParameter, provinceParameter, districtParameter, wardParameter);
+        }
+    
+        public virtual ObjectResult<spThongKeDonHangHomNay_Result> spThongKeDonHangHomNay()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spThongKeDonHangHomNay_Result>("spThongKeDonHangHomNay");
+        }
+    
+        public virtual ObjectResult<spThongKeDonHangVaSoTienUser_Result> spThongKeDonHangVaSoTienUser(string userID)
+        {
+            var userIDParameter = userID != null ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spThongKeDonHangVaSoTienUser_Result>("spThongKeDonHangVaSoTienUser", userIDParameter);
+        }
+    
+        public virtual ObjectResult<ThongKeDonHangTheoThoiGian_Result> ThongKeDonHangTheoThoiGian(Nullable<System.DateTime> tuNgay, Nullable<System.DateTime> denNgay)
+        {
+            var tuNgayParameter = tuNgay.HasValue ?
+                new ObjectParameter("tuNgay", tuNgay) :
+                new ObjectParameter("tuNgay", typeof(System.DateTime));
+    
+            var denNgayParameter = denNgay.HasValue ?
+                new ObjectParameter("denNgay", denNgay) :
+                new ObjectParameter("denNgay", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKeDonHangTheoThoiGian_Result>("ThongKeDonHangTheoThoiGian", tuNgayParameter, denNgayParameter);
         }
     }
 }

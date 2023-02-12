@@ -6,7 +6,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+    .text-danger {
+        display: block;
+        padding-bottom: 10px;
+        color: red;
+        font-size: 13px;
+        font-weight: bold;
+    }
+</style>
 @Styles.Render("~/Content/login")
 <div class="container">
     <form action="~/Login/index" method="post" class="form-login form-login-cus">
@@ -17,7 +25,7 @@
             <div class="header-box login-box">
                 @if (ViewBag.ErrLogin != null)
                 {
-                    <span class="text-danger">@ViewBag.ErrLogin</span>
+                    <span  class="text-danger">@ViewBag.ErrLogin</span>
 
                 }
                 <div class="form-control err">
@@ -47,7 +55,7 @@
                     <a class="recapcha-link" href="">Privacy Policy</a> and
                     <a class="recapcha-link" href="">Terms of Service</a> apply.
                 </div>
-                @*  <input type="checkbox" name="ghinho" /> Ghi nhớ tài khoản <br />*@
+          
                 <button type="submit" class="button-login  button-hover">
                     ĐĂNG NHẬP
                 </button>
@@ -59,14 +67,7 @@
                         Tạo tài khoản
                     </div>
                 </div>
-                <div class="modal-help">
-                    Quên mật khẩu?
-                    <div style="display: inline; cursor: pointer"
-                         id="modal-reset-password"
-                         class="modal-link">
-                        Khôi phục mật khẩu
-                    </div>
-                </div>
+               
             </div>
         </div>
     </form>

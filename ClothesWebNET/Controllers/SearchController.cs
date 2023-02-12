@@ -17,7 +17,7 @@ namespace ClothesWebNET.Controllers
         // GET:  http://localhost:46418/search/indexq?=tin
         public ActionResult Index(string q)
         {
-            // queryparamater = "glasses";
+         
             ProductDTODetail productDTO = new ProductDTODetail();
 
 
@@ -30,13 +30,6 @@ namespace ClothesWebNET.Controllers
                                        let listImage = db.ImageProduct.Where(img => img.idProduct == product.idProduct).ToList()
                                        select new ProductDTO(product.price, product.nameProduct, product.idProduct, listImage)
                                      ).ToList();
-
-            /*     var productList = (from s in db.Products
-                                    where s.nameProduct.ToLower().Contains(q)
-                                    select s);
-
-                 var query = productList.Include(p => p.ImageProduct);
-                */
             ViewBag.result = result.ToList();
             return View();
 

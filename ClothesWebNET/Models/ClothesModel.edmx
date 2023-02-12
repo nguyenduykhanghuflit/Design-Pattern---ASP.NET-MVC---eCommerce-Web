@@ -257,15 +257,62 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="fnDemSoDonHangHomNay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="fnDemSoDonHangTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="ngaybatdau" Type="datetime" Mode="In" />
           <Parameter Name="ngaykethuc" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="fnDemSoDonHangTheoTrangThaiVaNgayHomNay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="orderStatusId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoDonHangTheoTrangThaiVaThoiGian" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ngaybatdau" Type="datetime" Mode="In" />
+          <Parameter Name="ngaykethuc" Type="datetime" Mode="In" />
+          <Parameter Name="orderStatusId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="fnDemSoLuongDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoLuongDonHangCuaUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoLuongDonHangCuaUserTrongNam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoLuongDonHangCuaUserTrongThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoLuongDonHangCuaUserTrongTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoLuongDonHangThanhCongCuaUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoLuongDonHangThanhCongCuaUserTrongNam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoLuongDonHangThanhCongCuaUserTrongThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="userID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="fnDemSoTienDaMua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoTienDaMuaCuaUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoTienDaMuaCuaUserTrongNam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoTienDaMuaCuaUserTrongThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDemSoTienDaMuaCuaUserTrongTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDoanhThuHomNay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="fnDoanhThuTheoKhoangThoiGian" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ngaybatdau" Type="datetime" Mode="In" />
+          <Parameter Name="ngaykethuc" Type="datetime" Mode="In" />
         </Function>
         <Function Name="fnDoanhThuTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="ngaybatdau" Type="datetime" Mode="In" />
@@ -305,6 +352,10 @@
           <Parameter Name="soLuongSp" Type="int" Mode="In" />
           <Parameter Name="idDetail" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="spCapNhatTrangThaiDonHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idBill" Type="nvarchar" Mode="In" />
+          <Parameter Name="idStatus" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="spDeleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idProduct" Type="nvarchar" Mode="In" />
         </Function>
@@ -325,8 +376,39 @@
         </Function>
         <Function Name="spGetProductByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idType" Type="nvarchar" Mode="In" />
+          <Parameter Name="page" Type="int" Mode="In" />
+          <Parameter Name="size" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetProductByTypeId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idType" Type="nvarchar" Mode="In" />
+          <Parameter Name="page" Type="int" Mode="In" />
+          <Parameter Name="size" Type="int" Mode="In" />
         </Function>
         <Function Name="spLaySanPhamBanChay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spTaoDonHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spTestIns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idBill" Type="nvarchar" Mode="In" />
+          <Parameter Name="idUser" Type="nvarchar" Mode="In" />
+          <Parameter Name="customerName" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="address" Type="nvarchar" Mode="In" />
+          <Parameter Name="province" Type="nvarchar" Mode="In" />
+          <Parameter Name="district" Type="nvarchar" Mode="In" />
+          <Parameter Name="ward" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spThongKeDonHangHomNay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spThongKeDonHangVaSoTienUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ThemMotLoai" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maLoai" Type="nvarchar" Mode="In" />
+          <Parameter Name="tenLoai" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ThongKeDonHangTheoThoiGian" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tuNgay" Type="datetime" Mode="In" />
+          <Parameter Name="denNgay" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="CLOTHESModelStoreContainer">
           <EntitySet Name="AttributeDetail" EntityType="Self.AttributeDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attributes" EntityType="Self.Attributes" Schema="dbo" store:Type="Tables" />
@@ -764,7 +846,9 @@
           <Parameter Name="Keyword" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spGetProductByType" ReturnType="Collection(CLOTHESModel.spGetProductByType_Result)">
-          <Parameter Name="idType" Mode="In" Type="String" />
+            <Parameter Name="idType" Mode="In" Type="String" />
+            <Parameter Name="page" Mode="In" Type="Int32" />
+            <Parameter Name="size" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spCapNhatSoLuongSanPham">
             <Parameter Name="soLuongSp" Mode="In" Type="Int32" />
@@ -775,6 +859,39 @@
           </FunctionImport>
           <FunctionImport Name="spLaySanPhamBanChay" ReturnType="Collection(CLOTHESModel.spLaySanPhamBanChay_Result)" />
           <FunctionImport Name="spGetHotProduct" ReturnType="Collection(CLOTHESModel.spGetHotProduct_Result)" />
+          <FunctionImport Name="spCapNhatTrangThaiDonHang">
+            <Parameter Name="idBill" Mode="In" Type="String" />
+            <Parameter Name="idStatus" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetProductByTypeId" ReturnType="Collection(CLOTHESModel.spGetProductByTypeId_Result)">
+            <Parameter Name="idType" Mode="In" Type="String" />
+            <Parameter Name="page" Mode="In" Type="Int32" />
+            <Parameter Name="size" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTaoDonHang" ReturnType="Collection(CLOTHESModel.spTaoDonHang_Result)" />
+          <FunctionImport Name="ThemMotLoai">
+            <Parameter Name="maLoai" Mode="In" Type="String" />
+            <Parameter Name="tenLoai" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spTestIns">
+            <Parameter Name="idBill" Mode="In" Type="String" />
+            <Parameter Name="idUser" Mode="In" Type="String" />
+            <Parameter Name="customerName" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="province" Mode="In" Type="String" />
+            <Parameter Name="district" Mode="In" Type="String" />
+            <Parameter Name="ward" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spThongKeDonHangHomNay" ReturnType="Collection(CLOTHESModel.spThongKeDonHangHomNay_Result)" />
+          <FunctionImport Name="spThongKeDonHangVaSoTienUser" ReturnType="Collection(CLOTHESModel.spThongKeDonHangVaSoTienUser_Result)">
+            <Parameter Name="userID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ThongKeDonHangTheoThoiGian" ReturnType="Collection(CLOTHESModel.ThongKeDonHangTheoThoiGian_Result)">
+            <Parameter Name="tuNgay" Mode="In" Type="DateTime" />
+            <Parameter Name="denNgay" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -847,6 +964,52 @@
           <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
           <Property Type="Double" Name="price" Nullable="false" />
           <Property Type="Int32" Name="SoLuongBanDuoc" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetProductByTypeId_Result">
+          <Property Type="String" Name="nameProduct" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="idProduct" Nullable="false" MaxLength="255" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="idType" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spTaoDonHang_Result">
+          <Property Type="String" Name="id" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="attributesID" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="value" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="stock" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spThongKeDonHangHomNay_Result">
+          <Property Type="Int32" Name="SoDonHomNay" Nullable="true" />
+          <Property Type="Int32" Name="SoDonThanhCong" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDangCho" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaDuyet" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaDongGoi" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDangGiao" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaHuy" Nullable="true" />
+          <Property Type="Int32" Name="SoDonThatBai" Nullable="true" />
+          <Property Type="Int32" Name="DoanhThuHomNay" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spThongKeDonHangVaSoTienUser_Result">
+          <Property Type="Int32" Name="SoDonDaMua" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaMuaTongTien" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaMuaTrongTuan" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaMuaTrongTuanTongTien" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaMuaTrongThang" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaMuaTrongThangTongTien" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaMuaTrongNam" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaMuaTrongNamTongTien" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ThongKeDonHangTheoThoiGian_Result">
+          <Property Type="Int32" Name="SoDon" Nullable="true" />
+          <Property Type="Int32" Name="SoDonThanhCong" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDangCho" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaDuyet" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaDongGoi" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDangGiao" Nullable="true" />
+          <Property Type="Int32" Name="SoDonDaHuy" Nullable="true" />
+          <Property Type="Int32" Name="SoDonThatBai" Nullable="true" />
+          <Property Type="Int32" Name="DoanhThu" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1126,6 +1289,75 @@
                 <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="SoLuongBanDuoc" ColumnName="SoLuongBanDuoc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spCapNhatTrangThaiDonHang" FunctionName="CLOTHESModel.Store.spCapNhatTrangThaiDonHang" />
+          <FunctionImportMapping FunctionImportName="spGetProductByTypeId" FunctionName="CLOTHESModel.Store.spGetProductByTypeId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spGetProductByTypeId_Result">
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spTaoDonHang" FunctionName="CLOTHESModel.Store.spTaoDonHang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spTaoDonHang_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="attributesID" ColumnName="attributesID" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ThemMotLoai" FunctionName="CLOTHESModel.Store.ThemMotLoai" />
+          <FunctionImportMapping FunctionImportName="spTestIns" FunctionName="CLOTHESModel.Store.spTestIns" />
+          <FunctionImportMapping FunctionImportName="spThongKeDonHangHomNay" FunctionName="CLOTHESModel.Store.spThongKeDonHangHomNay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spThongKeDonHangHomNay_Result">
+                <ScalarProperty Name="SoDonHomNay" ColumnName="SoDonHomNay" />
+                <ScalarProperty Name="SoDonThanhCong" ColumnName="SoDonThanhCong" />
+                <ScalarProperty Name="SoDonDangCho" ColumnName="SoDonDangCho" />
+                <ScalarProperty Name="SoDonDaDuyet" ColumnName="SoDonDaDuyet" />
+                <ScalarProperty Name="SoDonDaDongGoi" ColumnName="SoDonDaDongGoi" />
+                <ScalarProperty Name="SoDonDangGiao" ColumnName="SoDonDangGiao" />
+                <ScalarProperty Name="SoDonDaHuy" ColumnName="SoDonDaHuy" />
+                <ScalarProperty Name="SoDonThatBai" ColumnName="SoDonThatBai" />
+                <ScalarProperty Name="DoanhThuHomNay" ColumnName="DoanhThuHomNay" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spThongKeDonHangVaSoTienUser" FunctionName="CLOTHESModel.Store.spThongKeDonHangVaSoTienUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.spThongKeDonHangVaSoTienUser_Result">
+                <ScalarProperty Name="SoDonDaMua" ColumnName="SoDonDaMua" />
+                <ScalarProperty Name="SoDonDaMuaTongTien" ColumnName="SoDonDaMuaTongTien" />
+                <ScalarProperty Name="SoDonDaMuaTrongTuan" ColumnName="SoDonDaMuaTrongTuan" />
+                <ScalarProperty Name="SoDonDaMuaTrongTuanTongTien" ColumnName="SoDonDaMuaTrongTuanTongTien" />
+                <ScalarProperty Name="SoDonDaMuaTrongThang" ColumnName="SoDonDaMuaTrongThang" />
+                <ScalarProperty Name="SoDonDaMuaTrongThangTongTien" ColumnName="SoDonDaMuaTrongThangTongTien" />
+                <ScalarProperty Name="SoDonDaMuaTrongNam" ColumnName="SoDonDaMuaTrongNam" />
+                <ScalarProperty Name="SoDonDaMuaTrongNamTongTien" ColumnName="SoDonDaMuaTrongNamTongTien" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ThongKeDonHangTheoThoiGian" FunctionName="CLOTHESModel.Store.ThongKeDonHangTheoThoiGian">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLOTHESModel.ThongKeDonHangTheoThoiGian_Result">
+                <ScalarProperty Name="SoDon" ColumnName="SoDon" />
+                <ScalarProperty Name="SoDonThanhCong" ColumnName="SoDonThanhCong" />
+                <ScalarProperty Name="SoDonDangCho" ColumnName="SoDonDangCho" />
+                <ScalarProperty Name="SoDonDaDuyet" ColumnName="SoDonDaDuyet" />
+                <ScalarProperty Name="SoDonDaDongGoi" ColumnName="SoDonDaDongGoi" />
+                <ScalarProperty Name="SoDonDangGiao" ColumnName="SoDonDangGiao" />
+                <ScalarProperty Name="SoDonDaHuy" ColumnName="SoDonDaHuy" />
+                <ScalarProperty Name="SoDonThatBai" ColumnName="SoDonThatBai" />
+                <ScalarProperty Name="DoanhThu" ColumnName="DoanhThu" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

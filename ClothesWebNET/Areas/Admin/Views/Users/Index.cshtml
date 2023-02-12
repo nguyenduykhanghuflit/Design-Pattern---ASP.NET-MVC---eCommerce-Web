@@ -34,8 +34,8 @@
             </div>
             <table id="table-user" class="table" style="width: 100%">
                 <thead>
-                    <tr>
-                        <th>ID</th>
+                    <tr class="text-center">
+                   
                         <th>Quyền</th>
                         <th>Họ tên</th>
                         <th>Giới tính</th>
@@ -56,7 +56,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.idUser</td>
+                        
                             <td>@item.Permission.namePermission</td>
                             <td>@item.fullName</td>
                             @if (item.gender == true)
@@ -235,11 +235,11 @@
         //set data
         $('.uid').val(data[0])
 
-        $('.uun').val(data[4])
+        $('.uun').val(data[3])
       
    
 
-        if (data[1] == "Admin") {
+        if (data[0] == "Admin") {
             $('.uup').html(` <option selected value="R01">Admin</option>
                             <option value="R02">User</option>`)
         }
@@ -247,7 +247,7 @@
             $('.uup').html(` <option selected value="R02">User</option>
                             <option value="R01">Admin</option>`)
         }
-        if (data[3] == "Nam") {
+        if (data[2] == "Nam") {
             $('.ugd').html(` <option selected value="true">Nam</option>
                             <option value="false">Nữ</option>`)
         }
@@ -257,11 +257,11 @@
         }
 
         
-        $('.ufn').val(data[2])
+        $('.ufn').val(data[1])
 
-        $('.upass').val(data[5])
-        $('.uad').val(data[6])
-        $('.uphone').val(data[7])
+        $('.upass').val(data[4])
+        $('.uad').val(data[5])
+        $('.uphone').val(data[6])
         $('.ucmnd').val(data[8]) //cmdn
         $('.umail').val(data[9]) //mail
         $('.uavt').val("chưa cập nhật")

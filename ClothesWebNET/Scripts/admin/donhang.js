@@ -26,7 +26,7 @@
       
 
     // Hiện modal cập nhật
-    $('.modal-update').css('display', 'flex');
+    
   });
 
   $('.mdu').click(function () {

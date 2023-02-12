@@ -123,8 +123,8 @@ $('#save_btn').click(() => {
                 if (res.success) {
                     modal.style.display = "block";
                     $('#showDataModal').html("Ðặt hàng thành công, đơn hàng của bạn sẽ sớm được giao")
-                /*    window.localStorage.removeItem('cart');
-                    window.location.replace('/home') */
+                    window.localStorage.removeItem('cart');
+                    window.location.replace('/home') 
                 }
                 else {
                     console.log(res.err);

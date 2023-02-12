@@ -22,13 +22,13 @@
             <table id="table-product" class="table" style="width: 100%;font-size:13px;">
                 <thead>
                     <tr>
-                        <th style="width:100px;">ID</th>
+                        <th style="width:120px;">Mã đơn hàng</th>
                         <th>Khách hàng</th>
                         <th>SĐT</th>
                         <th style="display:none">Địa chỉ</th>
                         <th>Tổng tiền</th>
                         <th>Ngày tạo</th>
-                        <th>Ngày tạo</th>
+                        <th>Trạng thái</th>
                         <th>Hành động</th>
 
                     </tr>
@@ -37,11 +37,11 @@
                     @foreach (var item in Model)
                     {
                     <tr>
-                        <td>@item.idBill</td>
+                        <td><a href="bill/details/@item.idBill">@item.idBill</a></td>
                         <td>@item.customerName</td>
                         <td><span>0</span>@item.phone</td>
                         <td style="display:none">@item.address</td>
-                        <td>@item.totalMoney</td>
+                        <td> @item.totalMoney.ToString("#,##0").Replace(',', '.').000đ</td>
                         <td>@item.createdAt</td>
                         <td>@item.OrderStatus.statusName</td>
                         <td><a role="button" class="btn btn-secondary" href="bill/details/@item.idBill">Xem chi tiết</a></td>

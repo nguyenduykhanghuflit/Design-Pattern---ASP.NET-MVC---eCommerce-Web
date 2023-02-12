@@ -24,23 +24,15 @@
                 <thead>
                     <tr>
 
-                        <th>STT</th>
-                        <th style="display:none">ID</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Hình ảnh</th>
-                        <th>Danh mục</th>
-                        <th>Giá</th>
-                        <th>Size38</th>
-                        <th>Size39</th>
-                        <th>Size40</th>
-                        <th>Size41</th>
-                        <th>Size42</th>
-                      
-
-                        <th style="overflow: hidden; font-size: 0"></th>
-                        <th style="overflow: hidden; font-size: 0"></th>
-                        <th style="display: none; font-size: 0"></th>
-                        <th style="display: none; font-size: 0"></th>
+                        <th style="width:30px;">STT</th>
+                        <th style="">ID</th>
+                        <th style="width:120px;">Tên sản phẩm</th>
+                        <th style="width:70px;">Hình ảnh</th>
+                        <th style="width:100px;">Danh mục</th>
+                        <th style="width:100px;">Giá</th>
+                        <th style="width:100px;">Tồn kho</th>
+                        <th style="overflow: hidden; font-size: 0; width: 100px"></th>
+                        <th style="overflow: hidden; font-size: 0; width: 160px"></th>
 
                     </tr>
                 </thead>
@@ -48,52 +40,44 @@
                     @{int stt = 1; }
                         @foreach (var item in Model)
                         {
-                    <tr>
+                       <tr>
                         <td>@stt</td>
-                        <td style="display:none">@item.idProduct</td>
-                        <td>@item.nameProduct</td>
+                        <td style="">  <a href="details/@item.idProduct">@item.idProduct</a></td>
+                        <td class="text-left">@item.nameProduct</td>
                         <td>
                             <img src="@item.ImageProduct.First().URLImage" width="70"
                                  height="70" />
                         </td>
                         <td>@item.Types.nameType</td>
                         <td>
-                            @item.price
-                        </td>
-                        <td>
-                            @item.size38
-                        </td>
-                        <td>
-                            @item.size39
-                        </td>
-                        <td>
-                            @item.size40
-                        </td>
-                        <td>
-                            @item.size41
-                        </td>
-                        <td>
-                            @item.size42
+                            @item.price.ToString("#,##0").Replace(',', '.').000đ
                         </td>
 
                         <td>
-                            <button type="button" class="btn btn-update btn-w-100 btn-outline-primary">
-                                Cập nhật
+                            @{
+                                int stock = 0;
+                            }
+                           @foreach(var x in item.Attributes.First().AttributeDetail)
+                           {
+                               stock = stock + (int)x.stock;
+
+
+                           }
+                            @stock
+                        </td>
+
+                        <td>
+                            <button class="btn btn-outline-secondary" type="button">
+                                <a  href="edit/@item.idProduct">Cập nhật</a>
                             </button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-delete btn-w-80 btn-outline-danger">
-                                Xóa
+                            <button type="button" class="btn btn-outline-info">
+                                <a href="details/@item.idProduct">Chi tiết sản phẩm</a>
                             </button>
                         </td>
-                        <td style="display:none">
-                            <img src="@item.ImageProduct.First().URLImage" width="70"
-                                 height="70" />
-                        </td>
-                        <td style="display:none">
-                            <img src="@item.ImageProduct.Last().URLImage" width="70"
-                                 height="70" />
-                        </td>
+
+
 
                     </tr>
                         stt++;
@@ -104,166 +88,7 @@
     </div>
 </div>
 
-@*Modal cập nhật*@
-<div class="modal-cus modal-update">
-    <div class="modal__overplay"></div>
-    <div  class="modal__body">
-        <div class="modal__inner">
-            <div  class="cus-form">
-                <h2>Cập nhật sản phẩm </h2>
-                <form method="post" action="/Admin/Products/edit" enctype="multipart/form-data" class="row g-3">
-                    @Html.AntiForgeryToken()
-                    <!-- ID -->
-                    <div style="display:none" class="col-md-12">
-                        <label for="validationDefault01" class="form-label">ID</label>
-                        <input type="text"
-                               name="idProduct"
-                               readonly
-                               class="form-control pid"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <!-- nameProduct -->
-                    <div class="col-md-12">
-                        <label for="validationDefault01" class="form-label">Tên sản phẩm</label>
-                        <input type="text"
-                               name="nameProduct"
-                               class="form-control pname"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <!-- type -->
-                    <div class="col-md-12">
-                        <label for="validationDefault04" class="form-label">Danh mục</label>
-                        <select class="form-select ptype" name="idType" id="renderSelect" required>
-                        </select>
-                    </div>
-                    <div class="col-md-2 ">
-                        <label for="validationDefault01" class="form-label">Size38</label>
-                        <input type="number"
-                               name="size38"
-                               min="1"
-                               class="form-control pm"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <div class="col-md-2 ">
-                        <label for="validationDefault01" class="form-label">Size39</label>
-                        <input type="number"
-                               name="size39"
-                               min="1"
-                               class="form-control pm"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <div class="col-md-2 ">
-                        <label for="validationDefault01" class="form-label">Size40</label>
-                        <input type="number"
-                               name="size40"
-                               min="1"
-                               class="form-control pm"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <div class="col-md-2 ">
-                        <label for="validationDefault01" class="form-label">Size41</label>
-                        <input type="number"
-                               name="size41"
-                               min="1"
-                               class="form-control pm"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <div class="col-md-2 ">
-                        <label for="validationDefault01" class="form-label">Size42</label>
-                        <input type="number"
-                               name="size42"
-                               min="1"
-                               class="form-control pm"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <!-- sizeM -->
-                    <div class="col-md-4 d-none">
-                        <label for="validationDefault01" class="form-label">SizeM</label>
-                        <input type="number"
-                               name="sizeM"
-                               min="1"
-                               value="10"
-                               class="form-control pm"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <!-- sizeL -->
-                    <div class="col-md-4 d-none">
-                        <label for="validationDefault01" class="form-label">SizeL</label>
-                        <input type="number"
-                               name="sizeL"
-                               value="10"
-                               min="1"
-                               class="form-control pl"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <!-- sizeXl -->
-                    <div class="col-md-4 d-none">
-                        <label for="validationDefault01" class="form-label">SizeXL</label>
-                        <input type="number"
-                               name="sizeXL"
-                               value="10"
-                               min="1"
-                               class="form-control pxl"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <!-- price -->
-                    <div class="col-md-12">
-                        <label for="validationDefault01" class="form-label">Giá bán</label>
-                        <input type="number"
-                               name="price"
-                               min="150"
-                               max="900"
-                               class="form-control pprice"
-                               id="validationDefault01"
-                               required />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="validationDefault01" class="form-label">Hình ảnh 1</label>
-                        <input type="file"
-                               name="img1"
-                               class="form-control URLimg1"
-                               id="validationDefault01"
-                               accept="image/png, image/gif, image/jpeg"
-                               required />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="validationDefault01" class="form-label">Hình ảnh 2</label>
-                        <input type="file"
-                               name="img2"
-                               class="form-control URLimg2"
-                               id="validationDefault01"
-                               accept="image/png, image/gif, image/jpeg"
-                               required />
-                    </div>
 
-                    <!-- description -->
-                    <div class="col-md-12">
-                        <label for="validationDefault01" class="form-label">Mô tả</label>
-                        <input type="text"
-                               name="description"
-                               class="form-control pdes"
-                               id="validationDefault01"
-                               required />
-                    </div>
-
-                    <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Cập nhật</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -290,7 +115,7 @@
 @Scripts.Render("~/bundles/admin/allproduct")
 <script>
 
-    fetch('/collections/GetCategory')
+    @*fetch('/collections/GetCategory')
         .then((response) => response.json())
         .then((data) => {
 
@@ -305,6 +130,6 @@
 
             category.html(cate);
 
-        });
+        });*@
 
 </script>

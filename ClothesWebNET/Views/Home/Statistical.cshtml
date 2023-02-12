@@ -1,0 +1,227 @@
+﻿@model IEnumerable<ClothesWebNET.Models.spThongKeDonHangVaSoTienUser_Result>
+@{
+    ViewBag.Title = "Statistical";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .container {
+        margin-top: 200px;
+        width: 100%;
+    }
+
+    .my-bill {
+        width: 90%;
+        height:500px;
+        margin: 0 auto;
+    }
+
+    .bill-title {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bolder;
+    }
+
+    .bill-statistical {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .bill-item {
+        width: 900px;
+        border-radius: 10px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px #808080 solid;
+    }
+
+    .item {
+        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .img-product {
+        width: 100px;
+        height: 100px;
+    }
+
+        .img-product img {
+            width: 100%;
+            height: 100%;
+        }
+
+    .info {
+        width:950px;
+        margin:20px auto;
+     display:flex;
+     justify-content:center;
+        font-size: 15px;
+    }
+
+        .info span {
+            font-weight: bolder;
+        }
+
+        .info div + div {
+            margin: 6px 0;
+        }
+
+    .total-money {
+        font-size: 22px;
+        padding: 20px;
+    }
+
+        .total-money span {
+            font-weight: bolder;
+        }
+
+    .btn-cancel {
+        text-align: center;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e23d3d;
+        height: 35px;
+        outline: none;
+        overflow: hidden;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+        .btn-cancel:hover {
+            background: #e24c4c;
+        }
+        able {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+
+
+  table caption {
+    font-size: 1.3em;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    padding:0 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+</style>
+<div class="container">
+    <div class="my-bill">
+        <h1 class="bill-title">Thống kê đơn hàng</h1>
+        <h3 class="bill-statistical"><a href="/home/mybill">Xem đơn hàng của bạn</a> </h3>
+        <div class="list-bill">
+
+            @foreach (var item in Model)
+            {
+            <div class="info">
+                <table>
+                  
+                    <thead>
+                        <tr>
+                            <th scope="col">Tổng số đơn đã mua (thành công)</th>
+                            <th scope="col">Tổng số đơn đã mua trong tuần</th>
+                            <th scope="col">Tổng số đơn đã mua trong tháng  (thành công)</th>
+                            <th scope="col">Tổng số đơn đã mua trong năm  (thành công)</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row" data-label="Đơn thành công"> @item.SoDonDaMua ( @item.SoDonDaMuaTongTien.000đ)</td>
+                          
+                        </tr>
+                        <tr>
+                            <td scope="row" data-label="Số đơn đã mua trong tuần">@item.SoDonDaMuaTrongTuan (@item.SoDonDaMuaTrongTuanTongTien.000đ)</td>
+                            
+                        </tr>
+                        <tr>
+                            <td scope="row" data-label="Đơn thành công trong tháng">@item.SoDonDaMuaTrongThang (@item.SoDonDaMuaTrongThangTongTien.000đ) </td>
+                          
+                        </tr>
+                        <tr>
+                            <td scope="row" data-label="Đơn thành công trong năm ">@item.SoDonDaMuaTrongNam (@item.SoDonDaMuaTrongNamTongTien.000đ)</td>
+                           
+                        </tr>
+                    </tbody>
+                </table>
+
+           
+            </div>
+            }
+        </div>
+      </div>
+</div>
+
+<script>
+
+   
+
+</script>

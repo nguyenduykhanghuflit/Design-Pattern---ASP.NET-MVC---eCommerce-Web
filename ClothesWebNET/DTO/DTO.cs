@@ -20,9 +20,6 @@ namespace ClothesWebNET.Models
         public string nameProduct { get; set; }
         public double price { get; set; }
         public string URLImage { get; set; }
-        public int sizeM { get; set; }
-        public int sizeL { get; set; }
-        public int sizeXL { get; set; }
 
     }
     public class ProductDTO
@@ -84,6 +81,7 @@ namespace ClothesWebNET.Models
         public double price { get; set; }
         public int intoMoney { get; set; }
         public string statusId { get; set; }
+        public string statusName { get; set; }
         public string idDetailBill { get; set; }
 
 

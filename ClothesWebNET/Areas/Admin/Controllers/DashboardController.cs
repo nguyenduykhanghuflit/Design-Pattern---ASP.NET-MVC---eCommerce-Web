@@ -12,7 +12,7 @@ namespace ClothesWebNET.Areas.Admin.Controllers
         private CLOTHESEntities db = new CLOTHESEntities();
 
         // GET: Admin/Dashboard
-        public ActionResult Index()
+        public ActionResult Index(DateTime? tuNgay, DateTime? denNgay)
         {
 
 
@@ -21,10 +21,17 @@ namespace ClothesWebNET.Areas.Admin.Controllers
                 int countUser = db.Users.Count();
                 int countBill = db.Bills.Count();
                 int countProduct = db.Products.Count();
-                ViewBag.countUser = countUser.ToString(); ;
-                ViewBag.countBill = countBill.ToString(); ;
-                ViewBag.product = countProduct.ToString(); ;
-                return View();
+                ViewBag.countUser = countUser.ToString(); 
+                ViewBag.countBill = countBill.ToString(); 
+                ViewBag.product = countProduct.ToString();
+              
+                if(tuNgay.HasValue && denNgay.HasValue)
+                {
+                    ViewBag.thongkeTheoThoiGian = db.ThongKeDonHangTheoThoiGian(tuNgay,denNgay);
+                }
+                ViewBag.thongke = db.spThongKeDonHangHomNay();
+
+                return View(db.spThongKeDonHangHomNay().ToList().First());
             }
             return Redirect("~/login");
 

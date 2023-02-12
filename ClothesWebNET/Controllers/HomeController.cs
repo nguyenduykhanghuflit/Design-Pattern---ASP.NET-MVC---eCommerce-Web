@@ -1,4 +1,5 @@
 ﻿using ClothesWebNET.Models;
+using ClothesWebNET.Pattern.ModelsView;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,25 +17,11 @@ namespace ClothesWebNET.Controllers
         public ActionResult Index()
         {
 
-            #region Get New Product
-            var newProductList = db.spGetNewProduct();
-            List<ProductDTO> productDTOs = (from product in newProductList
-                                            let listImage = db.ImageProduct.Where(p => p.idProduct == product.idProduct).ToList()
-                                            let productDTO = new ProductDTO(product.price, product.nameProduct, product.idProduct, listImage)
-                                            select productDTO).ToList();
-            #endregion
+            ProductVM productVM = new ProductVM();
 
-            #region Get Hot Product
-            var listIdProductHot = db.spGetHotProduct();
-            List<ProductDTO> productHots = (from product in listIdProductHot
-                                           let listImage=db.ImageProduct.Where(img=>img.idProduct==product.idProduct).ToList()
-                                           select new ProductDTO(product.price,product.nameProduct,product.idProduct, listImage)).ToList();
-            #endregion
-
-            #region Return Data
-            ViewBag.newProduct = productDTOs.ToList();
-            ViewBag.productHotList = productHots.ToList();
-            #endregion
+            ViewBag.newProduct = productVM.GetProductNew();
+            ViewBag.productHotList = productVM.GetProductHot();
+       
 
             return View();
 
@@ -198,7 +185,7 @@ namespace ClothesWebNET.Controllers
         }
 
 
-        public ActionResult MyBill()
+        public ActionResult MyBill(string status)
         {
 
             if (Session["USER_SESSION"] != null)
@@ -210,7 +197,19 @@ namespace ClothesWebNET.Controllers
                     var data = (from bill in db.Bills orderby bill.createdAt descending
                                 where bill.idUser == user
                                 select bill);
-                    data.Include("DetailBill").Include("Product").Include("ImageProduct");
+
+                    if(!string.IsNullOrEmpty(status))
+                    {
+                        data = (from bill in db.Bills
+                                orderby bill.createdAt descending
+                                where bill.idUser == user && bill.orderStatusID == status
+                                select bill);
+
+                        if(data!=null)
+                            return View(data.ToList());
+
+                    }   
+                    /*  data.Include("DetailBill").Include("Product").Include("ImageProduct");*/
 
 
 
@@ -224,6 +223,75 @@ namespace ClothesWebNET.Controllers
                 }
             }
             else return Redirect("/login");
+
+        }
+        public ActionResult Statistical()
+        {
+
+            if (Session["USER_SESSION"] != null)
+            {
+                if (Request.Cookies["username"] != null && Request.Cookies["user"] != null)
+                {
+
+                    string user = Request.Cookies["user"].Value;
+                
+
+                    var data=db.spThongKeDonHangVaSoTienUser(user);
+
+
+                    return View(data.ToList());
+                }
+                else
+                {
+                    DeleteCookies();
+                    return Redirect("/login");
+                }
+            }
+            else return Redirect("/login");
+
+        }
+
+        public RedirectToRouteResult CancelOrder(string idBill)
+        {
+
+            if (Session["USER_SESSION"] != null)
+            {
+                if (Request.Cookies["username"] != null && Request.Cookies["user"] != null)
+                {
+                    string user = Request.Cookies["user"].Value;
+                    var data=db.Bills.Find(idBill);
+
+                    if (data != null && user.Equals(data.idUser) && data.orderStatusID == ProductOrderStatus.watting.ToString())
+                    {
+                        data.orderStatusID = ProductOrderStatus.cancel.ToString();
+                        foreach(var item in data.DetailBIll)
+                        {
+                            var idAtt = item.attributeValueId;
+                            var qty = item.qty;
+                            var dataStock = db.AttributeDetail.Find(idAtt);
+                            dataStock.stock-=qty;
+                        }
+                        _ = db.SaveChanges();
+
+
+
+                        return RedirectToAction("MyBill", "Home");
+                    }
+                    else
+                    {
+                        DeleteCookies();
+                        return RedirectToAction("Index", "Login");
+                    }
+
+
+                }
+                else
+                {
+                    DeleteCookies();
+                    return RedirectToAction("Index", "Login");
+                }
+            }
+            return RedirectToAction("Index", "Login");
 
         }
 

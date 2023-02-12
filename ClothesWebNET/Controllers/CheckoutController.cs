@@ -22,20 +22,10 @@ namespace ClothesWebNET.Controllers
         public JsonResult HandleOrder(Order order)
         {
 
-            //List Product
-            //check xem list product này có trong database hay không -> next
-            //check xem có product nào hết số lượng hay không --> next
-            //create bill -> next
-            //create detail bill -> end
-
-
-            //create bill
-
-
-            //create detailBill
+     
             if (ModelState.IsValid)
             {
-                var idUserReal = "";
+                string idUserReal = "";
                 if (Request.Cookies["user"] != null)
                 {
                     idUserReal = Request.Cookies["user"].Value;
@@ -45,9 +35,9 @@ namespace ClothesWebNET.Controllers
 
                 handler.SetNext(new InventoryHandler())
                     .SetNext(new CreateBillHandler());
-                  
 
-            string mess=  handler.Handle(order);
+
+                string mess = handler.Handle(order);
                 if(mess== "oke")
                 return Json(new { success = true, mess }, JsonRequestBehavior.AllowGet);
                 else
