@@ -11,5 +11,18 @@
  
 ## DATABASE 
 <img width="660" alt="image" src="https://user-images.githubusercontent.com/76279360/218334053-6dca9b80-bf56-40c1-8b18-f4a66918d52e.png">
-
-
+## HOME
+![image](https://user-images.githubusercontent.com/87811387/174739179-ca53d5db-0dfa-4476-ac46-ec325300375c.png)
+![image](https://user-images.githubusercontent.com/87811387/174739251-c6166f25-a836-4446-b370-a3ed9fb7b7f3.png)
+## LIST PRODUCT 
+![image](https://user-images.githubusercontent.com/87811387/174739521-f23ab2ee-5430-463b-8cfc-eadb43923064.png)
+![image](https://user-images.githubusercontent.com/87811387/174739552-2a365965-6afe-4af5-b4bc-a21ae12f5241.png)
+##DETAIL PRODUCT 
+![image](https://user-images.githubusercontent.com/87811387/174739646-879a40c6-de17-4a8e-8a62-a9ec0fdb5391.png)
+![image](https://user-images.githubusercontent.com/87811387/174739703-a11fb272-074c-4248-a009-9eb6ebb2e83b.png)
+## CART,CART SMALL
+![image](https://user-images.githubusercontent.com/87811387/174739792-d2fdde3f-91cf-4d75-a699-a0bd4781f67a.png)
+## ADMIN
+![image](https://user-images.githubusercontent.com/87811387/174741379-2781d9ff-7551-4f5c-8cc2-b51be368d926.png)
+![image](https://user-images.githubusercontent.com/87811387/174741420-bbfc393a-a148-45f4-b2d7-429c674949c6.png)
+![image](https://user-images.githubusercontent.com/87811387/174741445-3dd6e3eb-3502-46ff-8a3d-72d096acfe96.png)
